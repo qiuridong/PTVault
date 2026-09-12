@@ -1,0 +1,2293 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-rc.5",
+  "sourceDigest": "a0d066cf7a3b7582bcdcaa80d5d5ea197fdddc3c9407db277ea9837d9a30fc93",
+  "scope": "REVIEWED_BUILD_SOURCE_NOT_PRIVATE_HISTORY",
+  "transformations": [
+    "public workspace commands",
+    "npm registry URL normalization; versions and integrity preserved",
+    "public Vite and root TypeScript configuration"
+  ],
+  "files": [
+    {
+      "path": ".github/workflows/release.yml",
+      "bytes": 3206,
+      "sha256": "7937f204bc224a6576773931a597f6718ce629ec28176c75053a810232515f2a"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 63,
+      "sha256": "bdf25ec16d45042e90809617a00ac6a52da7df691e52045ebd2479e3a9472311"
+    },
+    {
+      "path": "apps/api/package.json",
+      "bytes": 838,
+      "sha256": "42a387d65c3d1ca783d218a0f1fb4053ff4361dfd577d9d00a73f7918f23bdee"
+    },
+    {
+      "path": "apps/api/src/app.ts",
+      "bytes": 21063,
+      "sha256": "6366228177dde31ddb3cfad021294b076a5392f7066a88a7eb2ffe680e6c8f8a"
+    },
+    {
+      "path": "apps/api/src/audit/repository.ts",
+      "bytes": 4561,
+      "sha256": "c9bc82876489125ae35adb3927380e84df173d29b555f7a132d7f95bdb458413"
+    },
+    {
+      "path": "apps/api/src/audit/routes.ts",
+      "bytes": 1310,
+      "sha256": "9c0e7bcfd518aaacd2d636cee3419ed4b6750c7d521bb3d190538d97ddbd6493"
+    },
+    {
+      "path": "apps/api/src/auth/guards.ts",
+      "bytes": 2318,
+      "sha256": "cc7209f7ed0100c4a416ba8ad86532f285046360fa216ec07a8f088cc8b6e10a"
+    },
+    {
+      "path": "apps/api/src/auth/repository.ts",
+      "bytes": 5898,
+      "sha256": "50db954f6274cf8492b4098327e57192cf4276758a82e911ba18371457d6297f"
+    },
+    {
+      "path": "apps/api/src/auth/routes.ts",
+      "bytes": 9719,
+      "sha256": "ed6da4785665ee987eff7cf7884c417b4a4926933bab9c75cac73370146cee54"
+    },
+    {
+      "path": "apps/api/src/auth/service.ts",
+      "bytes": 9264,
+      "sha256": "5f35c39da536760f9fa0ac1cbd13f7756205cf3115247bb179cf9b61c1d4bf31"
+    },
+    {
+      "path": "apps/api/src/cli/create-admin.ts",
+      "bytes": 5867,
+      "sha256": "5de125f728599e2a888f9b8822cd984aed487336eb4ea9b7a145bfadb0a97452"
+    },
+    {
+      "path": "apps/api/src/cli/crypt-path-preflight.ts",
+      "bytes": 4636,
+      "sha256": "6b1410605ee4795496c33d2e7d90af9e735c912ecd5bdca2097091759ff488ac"
+    },
+    {
+      "path": "apps/api/src/cli/import-runtime-preflight.ts",
+      "bytes": 1421,
+      "sha256": "2b04cb6685318c81419d5ce4cbd749ef752b92df38563566474e85bc65c2bb82"
+    },
+    {
+      "path": "apps/api/src/cli/managed-rclone.ts",
+      "bytes": 4796,
+      "sha256": "9795c570058408e6527039df1a800d319c9c29fed8c292c03eb3b6337ef83890"
+    },
+    {
+      "path": "apps/api/src/cli/media-farm-dry-run.ts",
+      "bytes": 1923,
+      "sha256": "20ebf9d755f238ccd7a96f4f3c2b1f6015fee1ba178b9d6dfe0c5785427831c6"
+    },
+    {
+      "path": "apps/api/src/cli/pilot-offload.ts",
+      "bytes": 12885,
+      "sha256": "f3885d2352e00218e4244e7f3a5e1ba3fd0a8c47758f7270093abd9719783272"
+    },
+    {
+      "path": "apps/api/src/cli/public.ts",
+      "bytes": 3623,
+      "sha256": "65120ea0cb53902f9d4cf5b1cb9c38db1b0a45e057524196d6f3cc4c8784257d"
+    },
+    {
+      "path": "apps/api/src/cli/recovery-preparation-initialize.ts",
+      "bytes": 2491,
+      "sha256": "1ff94f19b328c8fd131b35cb0a78bc361cae568635fa75a3089eb958f5138a13"
+    },
+    {
+      "path": "apps/api/src/cli/register-account.ts",
+      "bytes": 6027,
+      "sha256": "5627a6bbb246e3be27b358b14feb7102b941d185b078ecfc83f2502a17b97640"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/baidu-browse.ts",
+      "bytes": 3257,
+      "sha256": "184fdad56fe7f16cfbd6de9b70f527289213772ce1819d7bd2751be3e6357ed4"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/baidu-client-runtime.ts",
+      "bytes": 2646,
+      "sha256": "21ef746ad99311656b6f5bdc6fb6f90b0d294ab1ad48da9f19a4b861bfa4f479"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/baidu-device-transport.ts",
+      "bytes": 5997,
+      "sha256": "2a3437c5c55db53bcf8358cf19b029144cae659c581736e240b08fef8447886f"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/baidu-device.ts",
+      "bytes": 11839,
+      "sha256": "423b0b6e5dba4a70d913f322269d1711896263cf8ac9e316afdb85675b4bb4dd"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/baidu-provider.ts",
+      "bytes": 13620,
+      "sha256": "d5cd50639314c1067f85dd87e6a68230777f0da937dfbd8a4978148654f24e2e"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/capabilities.ts",
+      "bytes": 2940,
+      "sha256": "39f8d305aaa1cc1011649d2d856270001179434eb4432c643fb858762d5f80d3"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/eligibility.ts",
+      "bytes": 8036,
+      "sha256": "4d47a854df3571683c4e4625368e0c32c360083b935b454b884921ba1937acb2"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/encryption-profiles.ts",
+      "bytes": 8674,
+      "sha256": "8c793a867c0dd0655801678dc3e67e87da061b4391a2bb9745635e960df81400"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/idempotency.ts",
+      "bytes": 11612,
+      "sha256": "90470aae049efa860040f2d5fc749c3271ffe34e9c2e5c127f5407faab7c7329"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/legacy-baidu.ts",
+      "bytes": 6183,
+      "sha256": "9de34359712ff27ad499da21d7d5770064db419d9906065d705b6f673e5bcb24"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/native-rclone-authority.ts",
+      "bytes": 13243,
+      "sha256": "d744c4a735d52bef9706cbff6b37c6ebdcb60e4d0ce3deb8b3a202c3d9dea143"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/oauth.ts",
+      "bytes": 27545,
+      "sha256": "e268a0a444b6a3298d0bfd3befc784dc25609167525d559cb1e0b626386b00a2"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/onedrive-credentials.ts",
+      "bytes": 7937,
+      "sha256": "9318cbdaa0b73624a83860362c3740c0ff706b4fd5b7dad57ba12995bdf22608"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/onedrive-provider.ts",
+      "bytes": 12602,
+      "sha256": "29c60275b6105fb29c1ba9254f64302402cfb198ae9852102e7247f4a2fde89c"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/onedrive-provision.ts",
+      "bytes": 27647,
+      "sha256": "4b8a6c83cd92b1706d277c86ce187ad557249a9f55bb034bceb365769306e119"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/profile-baidu.ts",
+      "bytes": 5168,
+      "sha256": "bbfb98e8faa5acdb3154a3e1087b1fa25ede10441ff89966fd85a9a6a62026a8"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/rate-limit.ts",
+      "bytes": 12507,
+      "sha256": "616ed319bacb576f050d7216c617a9df577d63c369e5655be970bbbdae604107"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/rclone-onedrive-provision.ts",
+      "bytes": 27230,
+      "sha256": "e11252fe597b4500b9749f7f47acb5d67ce79ba3318efb2953bb4107520d1a7a"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/refresh-coordinator.ts",
+      "bytes": 15734,
+      "sha256": "13dccb9c578d1233fa6dc84d1f5127513efc21387ae023b2dcee680969ea4a7b"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/repository.ts",
+      "bytes": 33896,
+      "sha256": "571f99c067d73912ca3ffee4bf832c31d84d550535f60521fdd48976eefad9da"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/routes.ts",
+      "bytes": 30632,
+      "sha256": "0dd75b9ab864815be86d646c4809d02c0dd52ad209c8da5f568873d0929e64fe"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/secrets.ts",
+      "bytes": 10496,
+      "sha256": "c9be8a6e2de39ee23a7121fdc5962cee8815e00a2a793510646bb89ff94724ca"
+    },
+    {
+      "path": "apps/api/src/cloud-connections/services.ts",
+      "bytes": 13056,
+      "sha256": "e6bba3234c293f3444f50048e9fd77da56c76cfb7166e4eea2bba6aea4097fe9"
+    },
+    {
+      "path": "apps/api/src/config/credentials.ts",
+      "bytes": 2033,
+      "sha256": "8cff310035ac4e6232f2b711acb23039c70a1f30c7d44168d807e85f4cb849c0"
+    },
+    {
+      "path": "apps/api/src/config/env.ts",
+      "bytes": 29328,
+      "sha256": "f49d19374204a3deeafded979a0868b4c1e76d6cf768dee8a1f89f9d9fe4ffaf"
+    },
+    {
+      "path": "apps/api/src/config/import-preflight.ts",
+      "bytes": 6169,
+      "sha256": "ecde4d18215c77ce9195b69af19b25058b39cf23a522a30cbf0ed685a806c9be"
+    },
+    {
+      "path": "apps/api/src/core/clock.ts",
+      "bytes": 33,
+      "sha256": "b18a61b5487fb8d8e29736d0dd34467797598aa41ce36e1f724e465a5d798577"
+    },
+    {
+      "path": "apps/api/src/core/crypto.ts",
+      "bytes": 1315,
+      "sha256": "bd53470a3a8ff578a8f4738811af740bb39d93db9c1ee362ef9f23bca2257733"
+    },
+    {
+      "path": "apps/api/src/core/paths.ts",
+      "bytes": 3160,
+      "sha256": "774cd103df99e5e2a5d15948b0e7b685473a6e88c2b4b4c271855fdc35c3b96d"
+    },
+    {
+      "path": "apps/api/src/db/archive-import-migration.ts",
+      "bytes": 4737,
+      "sha256": "d73b1fa72c3a294425417f3dd50362069abf8fd7e72d60f0cabe26d30aa354bb"
+    },
+    {
+      "path": "apps/api/src/db/database.ts",
+      "bytes": 2164,
+      "sha256": "6d9bbefea3d369ee5ac34e22fcdc5da7fd778ae7da2c7f264052c637cf3ff861"
+    },
+    {
+      "path": "apps/api/src/db/group-import-migration.ts",
+      "bytes": 3954,
+      "sha256": "4c0f70bbfd1b8893a8ca2e812df331a372ce011c14edc7a7ec73838366a33f63"
+    },
+    {
+      "path": "apps/api/src/db/migrations.ts",
+      "bytes": 115387,
+      "sha256": "c366a8c891ba173ba8fb5ecba5642feb35d6eff0b8eb5788c87d489a62cc11e3"
+    },
+    {
+      "path": "apps/api/src/db/recovery-preparation-migration.ts",
+      "bytes": 4217,
+      "sha256": "5b6cf9a31989f3b74aa5a7aa54968cc6868b8e0b03c30a99eac005a173eabe26"
+    },
+    {
+      "path": "apps/api/src/events/hub.ts",
+      "bytes": 4420,
+      "sha256": "0037d9a4f1a741ffe7d7416ca499bf61caa98e7bbfb8e1ad93c68a33fcbbd10c"
+    },
+    {
+      "path": "apps/api/src/events/routes.ts",
+      "bytes": 3374,
+      "sha256": "2417a91daa4cc467a7cca32969206c04e0db9986269154c71279ed1a340b70d3"
+    },
+    {
+      "path": "apps/api/src/imports/archive/engine.ts",
+      "bytes": 13571,
+      "sha256": "5de9efab7f88a79615995f2e0d992b409c8d5e1abf42098e2ccf684186c1a939"
+    },
+    {
+      "path": "apps/api/src/imports/archive/inspection.ts",
+      "bytes": 9863,
+      "sha256": "e674e868d694a0a863f2a236f9ac5954b438fde7cd4e21398a0228a2bced6eea"
+    },
+    {
+      "path": "apps/api/src/imports/archive/mapped-output.ts",
+      "bytes": 4610,
+      "sha256": "d3f70e9fc082fbe936e01daf2a0d54abce3d51bbdcfe32a827a79fa3e2480f5c"
+    },
+    {
+      "path": "apps/api/src/imports/archive/planning.ts",
+      "bytes": 2101,
+      "sha256": "38be20fe817dd5028a5e9809c60565fa3b3557b3480154313ef3a761792e37f8"
+    },
+    {
+      "path": "apps/api/src/imports/archive/processor.ts",
+      "bytes": 27445,
+      "sha256": "0a24fdcbd24b18b2ab857e15c88d8d54bf4bd7d6e8c9d899406a87c3b9c78e37"
+    },
+    {
+      "path": "apps/api/src/imports/archive/repository.ts",
+      "bytes": 31890,
+      "sha256": "02109437afd6e0e9395ef94deff2dababea7b8cf83c9916780e93e5d98445e89"
+    },
+    {
+      "path": "apps/api/src/imports/archive/retry-impact.ts",
+      "bytes": 5882,
+      "sha256": "e66721174825e35621e17d19d5cadc33b122f25bdeef61c41665d2bf40489641"
+    },
+    {
+      "path": "apps/api/src/imports/archive/runtime.ts",
+      "bytes": 1354,
+      "sha256": "e821083fff0076ba2aba701508f6f48285edc1a6903931d2087020ee2369533b"
+    },
+    {
+      "path": "apps/api/src/imports/archive/secrets.ts",
+      "bytes": 6216,
+      "sha256": "c068d1910013bf4e78c0b9169d0c596d6ebfc77c7fd93510422c218c009e0862"
+    },
+    {
+      "path": "apps/api/src/imports/archive/sevenzip.ts",
+      "bytes": 10291,
+      "sha256": "8cd8537a57e9e6b0a6107e97d38e0778f51677048c9d664aa9ca19d79b2cb2ac"
+    },
+    {
+      "path": "apps/api/src/imports/archive/video-probe.ts",
+      "bytes": 3980,
+      "sha256": "f4dfe13e12343b5143d290b5deb99c16fedce57fec7e66683c1b014b3daa488c"
+    },
+    {
+      "path": "apps/api/src/imports/baidu-client-profile.ts",
+      "bytes": 4250,
+      "sha256": "1d7b41958eb3e16b6016785f6409224bed8f20cb07ebafe3d5f64daabd79d243"
+    },
+    {
+      "path": "apps/api/src/imports/baidu-oauth.ts",
+      "bytes": 11770,
+      "sha256": "70d25696392d0cffdf47f26bbdd164977e189175104b6bcdd279b3d57b2551fb"
+    },
+    {
+      "path": "apps/api/src/imports/baidu-official-gateway.ts",
+      "bytes": 42265,
+      "sha256": "82c527240402799823d0948a9fe7cb50d3b24b9f78372d3437f1d574a42e3d73"
+    },
+    {
+      "path": "apps/api/src/imports/baidu-paths.ts",
+      "bytes": 699,
+      "sha256": "35f148e8f0f52f295bb3139ae9da1e5889eb8071c4d0e1f771dc54e8d9c14a0d"
+    },
+    {
+      "path": "apps/api/src/imports/baidu-planner.ts",
+      "bytes": 8585,
+      "sha256": "fa952de4f04a75f601d8923d473c81a742608c98dde8c85846134d363e60a79a"
+    },
+    {
+      "path": "apps/api/src/imports/connection-bound-baidu-gateway.ts",
+      "bytes": 7960,
+      "sha256": "04a4eb214815cd715baba101a5f4a65a27565c0a8e5806e2ead9e5d2dada2b81"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/backoff.ts",
+      "bytes": 2143,
+      "sha256": "88ead11957f98368ca52389b32c419ddf233c3c1d61de699f5c3f598249d4f4f"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/backup-writer.ts",
+      "bytes": 2401,
+      "sha256": "961a515c563baf95a937496de0cc7d3190e5db9ccfcb0437562567447e922240"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/baidu-source.ts",
+      "bytes": 17199,
+      "sha256": "38746d44cc8b628938eef57f1e8f33d5f344fd85d6f7ff070108e70ad899ee64"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/destination-capacity.ts",
+      "bytes": 4415,
+      "sha256": "3cf7c096e5863ecb1481468438ba8c0076bdce7fc590eed6fc68e67cbf11a254"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/destination.ts",
+      "bytes": 9601,
+      "sha256": "879aaa13d06b80eeb06556b6313b54ac5b6fc71e5edceffc2b16aa53b549c545"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/download-continuity.ts",
+      "bytes": 4110,
+      "sha256": "178405677fb4d4eacd3f90b3a4a8fc77edc1e7d4bf987ec5e91f39dec8c604b6"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/download-diagnostics.ts",
+      "bytes": 751,
+      "sha256": "49948d4fd9e4cfc3b4f121a6847c5d6d8a6e18f82856bb6ab851e06b1bd93179"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/errors.ts",
+      "bytes": 751,
+      "sha256": "850d13927ba7cc889e515e61642c63ed0356476915433a95faffafbea2986406"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/loop.ts",
+      "bytes": 8089,
+      "sha256": "43ceb6599e576f417581d3630f34182e46f23409289b89b9851061bcef14c29d"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/network-retry.ts",
+      "bytes": 2926,
+      "sha256": "c4f528bdb6b6f63a9886535d63a99e0bba3e991d92f067697c481588abdaa016"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/parallel-download.ts",
+      "bytes": 5890,
+      "sha256": "fd582c0f12709431de2691725cbea275255a9a69b515ff2e0718ef75ff79f6f6"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/processor.ts",
+      "bytes": 17168,
+      "sha256": "9cd44d5a762b930ad7d6d4c022a957e67c133d0f8443a1179eb63cfbb917ec7c"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/range-downloader.ts",
+      "bytes": 26278,
+      "sha256": "34f32920223957a562a9235040110db1a1700c812c29e3b2c32ef7160c018d1e"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/rate-pacer.ts",
+      "bytes": 1502,
+      "sha256": "64f6b28edb303ed8c7236f2af5d15866c15c893a5f410626b5df2622cdc125e2"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/rclone-destination.ts",
+      "bytes": 11457,
+      "sha256": "dfd64bbcefda09c1b53f5f0f5d87162accec74fbec24a5fb8c1fc882f978626f"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/repository-journal.ts",
+      "bytes": 7510,
+      "sha256": "74a1fa1d42a129ae133a67e68cc954efc1a2c21b146fe43f2ae60a96ad84d5de"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/resource-scheduler.ts",
+      "bytes": 4619,
+      "sha256": "0906ffceaa02c3459cac898e1c6039ebf74ea9cbeadff577bf6566799f0d9bfd"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/source-resolver.ts",
+      "bytes": 6432,
+      "sha256": "1d95cf80910c2e96e46848323257269fc1c03be10a03e0b61a344c3ec8030b09"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/spool-capacity.ts",
+      "bytes": 8920,
+      "sha256": "aad6f970c591662c32fe82f79f82f2a5c18b2a9687b170b3ff5d786b04462898"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/spool.ts",
+      "bytes": 9259,
+      "sha256": "606f826dda26d7fbd66aa69028237fdc191b0c174c7d370d087517fba61071c8"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/types.ts",
+      "bytes": 2601,
+      "sha256": "4fae149ecdfe9ebf691143eecc5c41cbac3e1bdfe01cb3b92f3fddaae6bd9797"
+    },
+    {
+      "path": "apps/api/src/imports/data-plane/worker.ts",
+      "bytes": 12997,
+      "sha256": "19a41e4259d26cca2bfc1365e614aa57219cbb1af51d670947e210fd33cfdb81"
+    },
+    {
+      "path": "apps/api/src/imports/destinations.ts",
+      "bytes": 7135,
+      "sha256": "d926ae52bc580a6820ae7134c2fbe296504ed400e918f1c36b1d0680bd249f16"
+    },
+    {
+      "path": "apps/api/src/imports/errors.ts",
+      "bytes": 467,
+      "sha256": "ba8034fa1934e3eb5bcda0b293eb6de21253c672af59535f998829fb85807432"
+    },
+    {
+      "path": "apps/api/src/imports/file-creation-mode.ts",
+      "bytes": 162,
+      "sha256": "53ad0a119381e86be56cfeca5fc892a36547866ce5f873ceb8d17d87fff9a89d"
+    },
+    {
+      "path": "apps/api/src/imports/groups/admission.ts",
+      "bytes": 15776,
+      "sha256": "53fecbec2ef1591278ee61080e497be7356686f9c3c5b4c6f59203e28881f9e2"
+    },
+    {
+      "path": "apps/api/src/imports/groups/identity.ts",
+      "bytes": 850,
+      "sha256": "b2ab3691bfa9e239e95da247feb0c3f4cf1fffd36fa9286aa8268b0f819f1f3e"
+    },
+    {
+      "path": "apps/api/src/imports/groups/planning.ts",
+      "bytes": 4290,
+      "sha256": "c8f0a9fcd608f19ce01264967a40c92491b2796aef8a9969ea9bcfa637c69f95"
+    },
+    {
+      "path": "apps/api/src/imports/groups/repository.ts",
+      "bytes": 25060,
+      "sha256": "55cf6149d6b70fdfb87f2d5838fac42bf2ca6a30187efeb3e97f7e93d5b6ab66"
+    },
+    {
+      "path": "apps/api/src/imports/groups/resources.ts",
+      "bytes": 4093,
+      "sha256": "74e8d312d6b0d2361dde62da4e9fcaca6205200837027e277c8ad7f6537da6b2"
+    },
+    {
+      "path": "apps/api/src/imports/groups/runtime.ts",
+      "bytes": 5307,
+      "sha256": "32f9908756bab4f5d55f172f76bbb2e34869393e1bac89a08aaae6b0d754cd4d"
+    },
+    {
+      "path": "apps/api/src/imports/groups/settings-routes.ts",
+      "bytes": 2972,
+      "sha256": "4f95cbaf8d29225567d943863a56eabc96da3148632988a3c7be9340d8486d64"
+    },
+    {
+      "path": "apps/api/src/imports/groups/settings.ts",
+      "bytes": 6148,
+      "sha256": "ce4beba0c4634c3eaa0ccd7ed9b3155e069b674f4f15537e7f3574a69229e9c4"
+    },
+    {
+      "path": "apps/api/src/imports/groups/spool.ts",
+      "bytes": 16521,
+      "sha256": "8be74fce846058ab1d2f83e2533d6287c8bb36a4a23d0a6dd5893078b6aacd62"
+    },
+    {
+      "path": "apps/api/src/imports/legacy-source-binding.ts",
+      "bytes": 13380,
+      "sha256": "3ea8aae5ab5f7af62c9049e0525525d5cd3f2197b75accc86334684bdd7febc5"
+    },
+    {
+      "path": "apps/api/src/imports/model.ts",
+      "bytes": 1560,
+      "sha256": "1554fa5b630020cb9ddfe5e897651b186bb3f052f1134b2f80f04f8df218ce3a"
+    },
+    {
+      "path": "apps/api/src/imports/publication-actions.ts",
+      "bytes": 8086,
+      "sha256": "15803d4f1ddca37d200e9fa490a7adde064db5f9c242c07f33ebf6f541bbe3e4"
+    },
+    {
+      "path": "apps/api/src/imports/publication.ts",
+      "bytes": 49364,
+      "sha256": "a282926875ea5ef101a05e26cf8e7b839d9a1217e23940b380d4e80113793eeb"
+    },
+    {
+      "path": "apps/api/src/imports/repository.ts",
+      "bytes": 50462,
+      "sha256": "052c977d33272fd5cc0e4286a0e2e3ae9bf3b6ce34b9e89d7e2b3440d15b1128"
+    },
+    {
+      "path": "apps/api/src/imports/request-timeout.ts",
+      "bytes": 1059,
+      "sha256": "cfbd100062a4bd59f0e8711addf58a14e5d97962844f2a4d3496c3b03eb64785"
+    },
+    {
+      "path": "apps/api/src/imports/revision-watcher.ts",
+      "bytes": 4460,
+      "sha256": "793566a86814fab85ff0aac3d333ee41d076285390c8273767260ee9a52b7459"
+    },
+    {
+      "path": "apps/api/src/imports/routes.ts",
+      "bytes": 27602,
+      "sha256": "6d99bc2fb0e4a7e802e7bcfe8402b55459a1075c38060124ae100e81e6c11c1b"
+    },
+    {
+      "path": "apps/api/src/imports/schemas.ts",
+      "bytes": 777,
+      "sha256": "5bed30a61691ac7661a998382c7555c5481ef6b6d4b088f4b07c5ab0691853d1"
+    },
+    {
+      "path": "apps/api/src/imports/secret-store.ts",
+      "bytes": 6369,
+      "sha256": "b3484a2dff45193fe1848573b2eae37f0fc07384fa040d46d5d1cce935244bcc"
+    },
+    {
+      "path": "apps/api/src/imports/security.ts",
+      "bytes": 2394,
+      "sha256": "5a6c06a296ef403f5e21cdded85659c24e9dc0b5f547e04b988468218b031958"
+    },
+    {
+      "path": "apps/api/src/imports/service.ts",
+      "bytes": 53418,
+      "sha256": "174381d3f36494b3c0968e3bd376486866304d5ea58efb3ebd29a80c0371bb13"
+    },
+    {
+      "path": "apps/api/src/imports/share-reference.ts",
+      "bytes": 2471,
+      "sha256": "6f544492996da189f17c789b5ca8130d106eb9a51c01bebf52596f1a9f456586"
+    },
+    {
+      "path": "apps/api/src/imports/source-cleanup.ts",
+      "bytes": 63649,
+      "sha256": "7d95a24bbda7b46e1452992943f46c1f27484e9bb30e7cd11c70aa6d6c321836"
+    },
+    {
+      "path": "apps/api/src/imports/source-connections.ts",
+      "bytes": 2692,
+      "sha256": "352531cb95067090e6038bc8fd3f3ff8094f9af91ca0fd17685b8e08207977ac"
+    },
+    {
+      "path": "apps/api/src/imports/source-delete-approvals.ts",
+      "bytes": 2484,
+      "sha256": "d6600752d030c0f7d6009da62babdaa57a5e1f62c8f478465e61bfb4341c45a3"
+    },
+    {
+      "path": "apps/api/src/imports/source-manifest.ts",
+      "bytes": 10030,
+      "sha256": "ca3ae4ff4ebf58b838ccfdf710085f6abe11f5b947e468dd636725b214a7446e"
+    },
+    {
+      "path": "apps/api/src/imports/worker-repository.ts",
+      "bytes": 82895,
+      "sha256": "69b4c5ecf1fdf48000a73e1f34bfd1c4e01295bcd5c45c4ddee5b2528f640825"
+    },
+    {
+      "path": "apps/api/src/jellyfin/import-libraries.ts",
+      "bytes": 7713,
+      "sha256": "b009512e8a80994f4d59bc7f7750e882594f7f99bae9c61da961628e94698656"
+    },
+    {
+      "path": "apps/api/src/jellyfin/import-publication.ts",
+      "bytes": 10048,
+      "sha256": "8fb0c8656f07fe8a6680f7fc92e63c04c2f80a65235bf1ef61b35366f0891ce3"
+    },
+    {
+      "path": "apps/api/src/jellyfin/library.ts",
+      "bytes": 5002,
+      "sha256": "616eec3bb4267cc410e5f107000d9adff88f2acda6ccf9c81effeaeb47094b05"
+    },
+    {
+      "path": "apps/api/src/jellyfin/playback.ts",
+      "bytes": 5079,
+      "sha256": "b579fb79acdf90414824c92f33fe4aa1f114033e72a9dcdac89d76fe021d74e8"
+    },
+    {
+      "path": "apps/api/src/jellyfin/routes.ts",
+      "bytes": 3873,
+      "sha256": "7b04cdc5f004eec36cc0cc9db64f3e7af93e302b63172676da8049ba4a9e208f"
+    },
+    {
+      "path": "apps/api/src/jellyfin/settings.ts",
+      "bytes": 10401,
+      "sha256": "36477c57a41af72e7831d90f79f7e76b07d33d22b45274a796b674bddd818ce7"
+    },
+    {
+      "path": "apps/api/src/jobs/repository.ts",
+      "bytes": 26318,
+      "sha256": "f78621514ab6854a057837214f18767ad463d51fa7c2c4a36fe60102f3814fb5"
+    },
+    {
+      "path": "apps/api/src/jobs/worker.ts",
+      "bytes": 16293,
+      "sha256": "06fdb62ecf64e35ee59517304960be93872ebb0ecab9e0081b587f93e155ac6e"
+    },
+    {
+      "path": "apps/api/src/media/blob-resolver.ts",
+      "bytes": 8610,
+      "sha256": "d106d001258d1ecb24890472792bbac0828eb914f984f44b1bb0687e95ecd4d8"
+    },
+    {
+      "path": "apps/api/src/media/cache.ts",
+      "bytes": 9810,
+      "sha256": "042acf23abe73ca38035530332a64be8186a17ce84ca936b0b7ba5a284d707f1"
+    },
+    {
+      "path": "apps/api/src/media/catalog-recorder.ts",
+      "bytes": 2319,
+      "sha256": "486e90fe84e7bfd07b83c4a1612406467f2989dcade6f1f2e33ec87754c24788"
+    },
+    {
+      "path": "apps/api/src/media/catalog.ts",
+      "bytes": 10874,
+      "sha256": "d5fb3ae1b745ee4b9d59ff37b71e03edf21d39c053b4ad03d50b080076cb97aa"
+    },
+    {
+      "path": "apps/api/src/media/disk.ts",
+      "bytes": 6956,
+      "sha256": "c2de9791923e1d904de61d75a66e87225b6d8b3ee58d790f2ca74d7ffe4891b2"
+    },
+    {
+      "path": "apps/api/src/media/mount-layout.ts",
+      "bytes": 5128,
+      "sha256": "c240a9765f1c12253009d844a0b354973ab9f5f12cec5e6782edc91f309bd2df"
+    },
+    {
+      "path": "apps/api/src/media/mount-supervisor.ts",
+      "bytes": 13016,
+      "sha256": "81c6e39466eb6f5fdeeb6fa975f4bb6cfc8fbd988c4776ffbd0d1de5928ea4f2"
+    },
+    {
+      "path": "apps/api/src/media/mount.ts",
+      "bytes": 7674,
+      "sha256": "00ebcd2d021cefe82d3d0ba2a282f0b89d11cfe09aa337dd8ab3c2f2d5b4c65e"
+    },
+    {
+      "path": "apps/api/src/media/plan.ts",
+      "bytes": 6983,
+      "sha256": "4b25e0f9c34a2c63155c89066f95acf093f9c1368172f901664abee22e313957"
+    },
+    {
+      "path": "apps/api/src/media/prefetch.ts",
+      "bytes": 5703,
+      "sha256": "442896a53a30d245ce3bf5deca2e4757792454abc9d2d742d89e081eace36cb5"
+    },
+    {
+      "path": "apps/api/src/media/probe.ts",
+      "bytes": 5330,
+      "sha256": "906dd1eb258231ce7faf7e51b661ef0b9fae21dcd9533920088174da76b9568b"
+    },
+    {
+      "path": "apps/api/src/media/publish.ts",
+      "bytes": 7463,
+      "sha256": "166e92a1a6dc3133857822e049c7b7957b1d63dc5cc60de57f6ee842a8e82e4c"
+    },
+    {
+      "path": "apps/api/src/media/rc-client.ts",
+      "bytes": 4759,
+      "sha256": "34f15ad43fea0d62ab5b81c14281ecd9a136230a20f519da3d735804a9a2564a"
+    },
+    {
+      "path": "apps/api/src/media/reconciler.ts",
+      "bytes": 5656,
+      "sha256": "caa29685068054e8119af3bf3bced48c7840ee5b3e5019374bd5046f96bcfcba"
+    },
+    {
+      "path": "apps/api/src/media/rehydrate-handler.ts",
+      "bytes": 27401,
+      "sha256": "9a5a46c7c06f5aa814e6fec95e9716df225dce68d36c39d5d0223d0c1551cd42"
+    },
+    {
+      "path": "apps/api/src/media/rehydrate-machine.ts",
+      "bytes": 15010,
+      "sha256": "4f29f139c690ebe4bc669811f817b3645ec55a0c99487789df0f9f57c22c5fec"
+    },
+    {
+      "path": "apps/api/src/media/routes.ts",
+      "bytes": 11697,
+      "sha256": "29630c21f1ed053e45d5c00d5653ad68859a4679be93c724d54246f62cda00ad"
+    },
+    {
+      "path": "apps/api/src/media/services.ts",
+      "bytes": 14810,
+      "sha256": "3921f96338cb21c714cd1f14ffb4a8131ba523c2f7c01528db8424ffb3a3f21a"
+    },
+    {
+      "path": "apps/api/src/media/symlink-farm.ts",
+      "bytes": 13707,
+      "sha256": "d445c9d5e56550fb42879ec1818adec6f1f5e77018f8de459d7885e4dc2bacca"
+    },
+    {
+      "path": "apps/api/src/onboarding/activation.ts",
+      "bytes": 4504,
+      "sha256": "51803d0659094919ce5bf380e75bd7a2d7a0b798834cfc82b51e97daaec651e9"
+    },
+    {
+      "path": "apps/api/src/onboarding/admission.ts",
+      "bytes": 2511,
+      "sha256": "80e3b9a6fef11480ebcbb643b84df52a7e976dc5dde469e12fe8321d4b8bce75"
+    },
+    {
+      "path": "apps/api/src/onboarding/bootstrap-routes.ts",
+      "bytes": 4482,
+      "sha256": "1e1c3e9494bd56e81def68273ea76c5e2d14cc2efd6adb796fa88de6e3eea785"
+    },
+    {
+      "path": "apps/api/src/onboarding/bootstrap.ts",
+      "bytes": 4193,
+      "sha256": "14eb999b3815cf0d5def252a7c0eecc1aabc767b54e33a273b77caed5bcdee16"
+    },
+    {
+      "path": "apps/api/src/onboarding/config-store.ts",
+      "bytes": 10539,
+      "sha256": "b397d3b0d904e80d1db1b7ec7dfd8b9558c1a828b6477bd0ae0e3c2b8e11be73"
+    },
+    {
+      "path": "apps/api/src/onboarding/control-socket.ts",
+      "bytes": 3904,
+      "sha256": "6ac2b1c842eceadc9a167c558d735f46020f21cda6a19107cb56607191bdd4f8"
+    },
+    {
+      "path": "apps/api/src/onboarding/idle-gate.ts",
+      "bytes": 3061,
+      "sha256": "95cd8314c1756d4d5d651d5ecf4da960484c49d9cfc5e54900f6c631ec3a4586"
+    },
+    {
+      "path": "apps/api/src/onboarding/maintenance.ts",
+      "bytes": 1248,
+      "sha256": "01f3d69e9e263d4d1ba2f9a1e03a14703a2eb0089e80a9b6055e946e4191d6ac"
+    },
+    {
+      "path": "apps/api/src/onboarding/managed-environment.ts",
+      "bytes": 5183,
+      "sha256": "b21762a0bbd8010f00ce79ff5d31f3af7c6995c6630cc6083af6e69bd17a3d6a"
+    },
+    {
+      "path": "apps/api/src/onboarding/managed-installation.ts",
+      "bytes": 3874,
+      "sha256": "48da4e6bd36cb01d5fa06dbdbc327f6239c480779efcab39353c366999d80512"
+    },
+    {
+      "path": "apps/api/src/onboarding/managed-server.ts",
+      "bytes": 4877,
+      "sha256": "4eef6f198eb78e4c872a855878abdb9b45476aba2f508e0bec22e749b8e7b89b"
+    },
+    {
+      "path": "apps/api/src/onboarding/mount-registry.ts",
+      "bytes": 3000,
+      "sha256": "86b9ea63fccda1fdbe68b82a639ecdbc28eee0e184faa2fbf9737568cf1500bf"
+    },
+    {
+      "path": "apps/api/src/onboarding/overview.ts",
+      "bytes": 7114,
+      "sha256": "1fe981fcd83aa8b6dcf19e96b02dab9b979298a59767ca5a6fea032b0bef48c8"
+    },
+    {
+      "path": "apps/api/src/onboarding/path-check.ts",
+      "bytes": 6423,
+      "sha256": "03fc020a0923ab6c557801df3ed5cedfc99a924d4ab20308ed48b18ced3cf8ed"
+    },
+    {
+      "path": "apps/api/src/onboarding/private-files.ts",
+      "bytes": 4362,
+      "sha256": "ed366b17edbaf3c874716459bf5614f9cb5b15f7f592ea1510ff14c74c58be2e"
+    },
+    {
+      "path": "apps/api/src/onboarding/public-control.ts",
+      "bytes": 14240,
+      "sha256": "3818087dff187f072f30576597e5cb533691889cf5653ced5f7e23ed6e42ef6d"
+    },
+    {
+      "path": "apps/api/src/onboarding/public-lock.ts",
+      "bytes": 1536,
+      "sha256": "cab2e5cd9abe57b615ef9e5a4061b838b15ac4e11e7275793d4b970bc8f1b8a1"
+    },
+    {
+      "path": "apps/api/src/onboarding/rclone-import-probe.ts",
+      "bytes": 1606,
+      "sha256": "aed2f6412122f4e0b9ce8c9dd52335b8c487d5505bb3d6f2d96b849cbe00b0ce"
+    },
+    {
+      "path": "apps/api/src/onboarding/rclone-import-source.ts",
+      "bytes": 6821,
+      "sha256": "dd70a82a252e09236907c512085bfdb345155a5bd39eaf1d54a19b591c900805"
+    },
+    {
+      "path": "apps/api/src/onboarding/rclone-import.ts",
+      "bytes": 14989,
+      "sha256": "4815b95bf3eaa840d32ab3f65273951db781d0693f8bff5a24c7bb0d9a9a6dbb"
+    },
+    {
+      "path": "apps/api/src/onboarding/routes.ts",
+      "bytes": 11689,
+      "sha256": "6ea95298a889df2a91f28a85aec3953172fd63bbe62261d85f171823e6d029c0"
+    },
+    {
+      "path": "apps/api/src/onboarding/static-app.ts",
+      "bytes": 2481,
+      "sha256": "f7ba70f2e8e1c6a3e36022d5a5ab8838f6b4849fc513f30dbfa07b24f0532625"
+    },
+    {
+      "path": "apps/api/src/operations/backup.ts",
+      "bytes": 4913,
+      "sha256": "339c3066cf7e1133608dd782c0cb2bf867fc061a2f01194c1addbc80507fe2e7"
+    },
+    {
+      "path": "apps/api/src/operations/health.ts",
+      "bytes": 7699,
+      "sha256": "cfba117bca58a3edcc435b260d362bb5f520e0e832ae64423fabb70e1307a9c5"
+    },
+    {
+      "path": "apps/api/src/qb/client.ts",
+      "bytes": 17565,
+      "sha256": "5150905853f827c1974cd2e295d131798801afd361f9aeb1056d24763dad87df"
+    },
+    {
+      "path": "apps/api/src/qb/credentials.ts",
+      "bytes": 3574,
+      "sha256": "b36fa1ef8511e7fc9aa177e20f75f87f706674a8e8738207c9beb15ecba7e526"
+    },
+    {
+      "path": "apps/api/src/qb/path-map.ts",
+      "bytes": 2177,
+      "sha256": "8080abb02d0a29716520b7d495db5ea40eb32cb794278fb4c1e3a192891e8d43"
+    },
+    {
+      "path": "apps/api/src/qb/preflight.ts",
+      "bytes": 18272,
+      "sha256": "d56288d9632e09e0f4cd225dc7bfecf1dfd437841b6e81db8c10d44b3fb76a17"
+    },
+    {
+      "path": "apps/api/src/qb/registry.ts",
+      "bytes": 2625,
+      "sha256": "775e243f95293a33d07daedc728c132dd5d9366977ad8d1a0b98ac53c89fc6c1"
+    },
+    {
+      "path": "apps/api/src/qb/repository.ts",
+      "bytes": 14839,
+      "sha256": "928e500fde74dd032b85c58c00916650ac462e3655b11ff4cc231a3edb5f5fd9"
+    },
+    {
+      "path": "apps/api/src/qb/routes.ts",
+      "bytes": 17579,
+      "sha256": "5ffd48bc59ea4e347996fb8338f25a487b50d77b109c0f8fcf60e4da29cb12d2"
+    },
+    {
+      "path": "apps/api/src/qb/scheduler.ts",
+      "bytes": 3447,
+      "sha256": "930e24ff3b4c86e9855f88b1def72684d84c64ca6737ab79f16489e05062c195"
+    },
+    {
+      "path": "apps/api/src/qb/services.ts",
+      "bytes": 2498,
+      "sha256": "4c940d5eb87f9f0e17d835591dcd9e065c8180646999cbbcd0fa3616ed46d4ca"
+    },
+    {
+      "path": "apps/api/src/qb/sync.ts",
+      "bytes": 9877,
+      "sha256": "6b2ef1f3f906f12f1f61258a2d963af490f79757a41733cdf13e31bcb84d5311"
+    },
+    {
+      "path": "apps/api/src/qb/types.ts",
+      "bytes": 848,
+      "sha256": "07bdd500acf9ba434a3992b40a346ab49668e5d9b582bf56930ab369afe7fd01"
+    },
+    {
+      "path": "apps/api/src/recovery/bundle.ts",
+      "bytes": 10728,
+      "sha256": "ccc6443308d7dbf94ffddd9ed43d1d0d8b8b509b4582caefa5d54876dcbac8e3"
+    },
+    {
+      "path": "apps/api/src/recovery/download-routes.ts",
+      "bytes": 2747,
+      "sha256": "758e32807c9889e2286a7540002b524af9e432aac2dbe118fe288572dbbee2ef"
+    },
+    {
+      "path": "apps/api/src/recovery/downloads.ts",
+      "bytes": 6717,
+      "sha256": "06709ebf2a8ee7097861534027d83456da4f34382adca90c634b724b9cda18f8"
+    },
+    {
+      "path": "apps/api/src/recovery/escrow.ts",
+      "bytes": 1559,
+      "sha256": "dcff23134725361af85b2fee424108168e34f60961e3c7f0ceaa07aebf4df43d"
+    },
+    {
+      "path": "apps/api/src/recovery/gate.ts",
+      "bytes": 895,
+      "sha256": "3dcc007fb9f1330a7b7690e0ac2b37ca1b9156e5ac9cdc8423160ad1706826dd"
+    },
+    {
+      "path": "apps/api/src/recovery/preparation-bootstrap.ts",
+      "bytes": 1806,
+      "sha256": "7b2361e9f18c792f2a727bb0535b9712417320367ca27115c6e5f38222308f5b"
+    },
+    {
+      "path": "apps/api/src/recovery/preparation-compatibility.ts",
+      "bytes": 701,
+      "sha256": "cfc8e27a7dc067b51fb730596c609207edcffe9b8888e556b6fdc1cf460a8502"
+    },
+    {
+      "path": "apps/api/src/recovery/preparation-context.ts",
+      "bytes": 1728,
+      "sha256": "039e8aec245c0d2a033dd9bc7dcdd7b0a7e7196a1d5679d0ed6103cfccec055a"
+    },
+    {
+      "path": "apps/api/src/recovery/preparation-coordinator.ts",
+      "bytes": 1099,
+      "sha256": "dacd3426c6b522396ab4b2f9a34038e0b3bb2e65116c349c76522202017a33a5"
+    },
+    {
+      "path": "apps/api/src/recovery/preparation-material.ts",
+      "bytes": 3703,
+      "sha256": "d6286e6b81244fefd38f1c530a1f8772c2ddd86d3d73c4036e737337a27a0984"
+    },
+    {
+      "path": "apps/api/src/recovery/preparation-readiness.ts",
+      "bytes": 5702,
+      "sha256": "02df79422b5c617c233ecadece064b8cfa3afae479881506b342eda3f9eabe9b"
+    },
+    {
+      "path": "apps/api/src/recovery/preparation-requests.ts",
+      "bytes": 6339,
+      "sha256": "dc3069a6507a5f454ef15c9c7a7c994b279ed733b987b6390f85c87717d6d0c9"
+    },
+    {
+      "path": "apps/api/src/recovery/preparation-routes.ts",
+      "bytes": 9147,
+      "sha256": "59e913ff0cfc104c8d2377c1e15e37b51d43508e963a505891a5b23b45987624"
+    },
+    {
+      "path": "apps/api/src/recovery/preparation-state.ts",
+      "bytes": 8914,
+      "sha256": "7328dc63d11c68489794d016204ba2d3438a9abaf151a6974374d381f4e9a032"
+    },
+    {
+      "path": "apps/api/src/recovery/preparation-writer.ts",
+      "bytes": 7884,
+      "sha256": "b7275bf72b6442bdcd1255b41a239883dd55018ed9dc39c6a5874f00dd6ed1d4"
+    },
+    {
+      "path": "apps/api/src/recovery/repository.ts",
+      "bytes": 12479,
+      "sha256": "ab69cf6c0c9679230341364ccec996bee099adf5398f367b985bc69cebecedb2"
+    },
+    {
+      "path": "apps/api/src/recovery/routes.ts",
+      "bytes": 6344,
+      "sha256": "a59a24223e27593b79e8872539e51ae353ce315e1a140c5ad1ce303e8e3871ef"
+    },
+    {
+      "path": "apps/api/src/recovery/workflow.ts",
+      "bytes": 9171,
+      "sha256": "415f7adb30bfc5c53aa834d8d48dedb8d613ac74c4a37cb5aac93dbb32d2e5cb"
+    },
+    {
+      "path": "apps/api/src/server.ts",
+      "bytes": 73880,
+      "sha256": "930a819d7dbd805c2b7aea3f675fbaa671dff8ffcda899e53289765e9f6e45fe"
+    },
+    {
+      "path": "apps/api/src/settings/netdisk-routes.ts",
+      "bytes": 5439,
+      "sha256": "7b4aa0f811df262336d1a6a7a2fbab73ff6e6eb89b36c19f8b162ea676dfec22"
+    },
+    {
+      "path": "apps/api/src/settings/netdisk-settings.ts",
+      "bytes": 19039,
+      "sha256": "dd5ea0a1a44a619e2acc3442ba2244dd63b3c1634a0a433ad717dd8bf1f8c872"
+    },
+    {
+      "path": "apps/api/src/settings/routes.ts",
+      "bytes": 6212,
+      "sha256": "7a245e782d8f172e5e4eee020472be3e5c10bbf0eaf28b6034a88a8b8d0fa146"
+    },
+    {
+      "path": "apps/api/src/settings/transfer-settings.ts",
+      "bytes": 17927,
+      "sha256": "55a307943a84242fa2141ab54e9772fd81ac109025a51b308a5a6673b9706586"
+    },
+    {
+      "path": "apps/api/src/storage/account-monitor.ts",
+      "bytes": 5093,
+      "sha256": "4f007cff6f0b304f3f933e59e21c4ea619f884e69e2e82ef55effb7cac11277b"
+    },
+    {
+      "path": "apps/api/src/storage/accounts.ts",
+      "bytes": 21634,
+      "sha256": "ab35a219fb52ac0fe627a31ff7f14446d0f1daf80c3d15ef9641f279bc23863e"
+    },
+    {
+      "path": "apps/api/src/storage/blob-path.ts",
+      "bytes": 3013,
+      "sha256": "36d3f4fd3fc38ceb5e68dd5cd9f0a1b71ffaadb21c367472aa4d24b8b5e1aa42"
+    },
+    {
+      "path": "apps/api/src/storage/cleanup.ts",
+      "bytes": 21563,
+      "sha256": "d42e4dcd014c502aa00bbca3ce728187347b833b55db0c7ec1b05900ee33b86b"
+    },
+    {
+      "path": "apps/api/src/storage/crypt-path-preflight.ts",
+      "bytes": 9156,
+      "sha256": "292013698a3cbe4836e9bd7ea989ebec026aadc10dcc96bbcfc4a5c744daa137"
+    },
+    {
+      "path": "apps/api/src/storage/health.ts",
+      "bytes": 525,
+      "sha256": "ceb029f27c1f137a20b9bae830a45f2e85e18d235933449abeef7cdad1e0dc54"
+    },
+    {
+      "path": "apps/api/src/storage/managed-rclone.ts",
+      "bytes": 4124,
+      "sha256": "0e950c45522d143c9bc1f0a7bd2b3f70b6dc793ecb6ba5509252fe2d1000768f"
+    },
+    {
+      "path": "apps/api/src/storage/manifest.ts",
+      "bytes": 3360,
+      "sha256": "13a0c021b05d72a7574d3c9fa0b25f8e606a1d90a586bfe279237747ada809e2"
+    },
+    {
+      "path": "apps/api/src/storage/offload-control-policy.ts",
+      "bytes": 756,
+      "sha256": "3e0652650aeb1a2e243bfd0ee61f350ca165e13853e3bd9bc0e1c6e4a18c6309"
+    },
+    {
+      "path": "apps/api/src/storage/offload-event-publisher.ts",
+      "bytes": 3424,
+      "sha256": "ed08967c10915d3205fec446a1fbcfcf27b500767edf4a0012049d92aae92b65"
+    },
+    {
+      "path": "apps/api/src/storage/offload-handler.ts",
+      "bytes": 48479,
+      "sha256": "09a1dfc9e1036c1317d4e2bb2ce821c8a243ce7c725e72bce8da2b583394b3cf"
+    },
+    {
+      "path": "apps/api/src/storage/offload-machine.ts",
+      "bytes": 58916,
+      "sha256": "6b0fa7065981f59d0deea980b16a24ca3f9ac6b093158edae7b3e3231b270f6d"
+    },
+    {
+      "path": "apps/api/src/storage/offload-routes.ts",
+      "bytes": 36033,
+      "sha256": "2a022625ed7b26cc3c7599dcb5cef417ae97da4072fed4fd174c2bd98380c173"
+    },
+    {
+      "path": "apps/api/src/storage/offload-telemetry.ts",
+      "bytes": 10369,
+      "sha256": "9544d54810d12b93baf5778f162940dadb1fa0f5713cd18c3ff61f9bb906cf70"
+    },
+    {
+      "path": "apps/api/src/storage/process-runner.ts",
+      "bytes": 10426,
+      "sha256": "9ecaa32d86b2b8b031d8b7f39bfb06ec3738cfbef8e92cdc4f3390061681f342"
+    },
+    {
+      "path": "apps/api/src/storage/rclone-config-files.ts",
+      "bytes": 6745,
+      "sha256": "b969143f3d70fc9802207f65d6041cd9ef49995867cad12cc0ebb8bafbc8ac8b"
+    },
+    {
+      "path": "apps/api/src/storage/rclone-native-config.ts",
+      "bytes": 29305,
+      "sha256": "311d2976c48ce384feb90015dac771419f6fafbf227a7b3651aa81e401447b8c"
+    },
+    {
+      "path": "apps/api/src/storage/rclone.ts",
+      "bytes": 9809,
+      "sha256": "03fdde2c7ff59ed3bfb0ed00aa188bcc4a03420168dec2b872b06684f9980be8"
+    },
+    {
+      "path": "apps/api/src/storage/reconcile.ts",
+      "bytes": 8003,
+      "sha256": "5d3aa3ca8f307fd50a6316fd573635bb26a4dc63e99d58299f5b7b27276f4652"
+    },
+    {
+      "path": "apps/api/src/storage/replica-guard.ts",
+      "bytes": 1980,
+      "sha256": "96d18a534378a8714eb84e0081ff0a7075ec2ad83a3d1c57c7a9fa6e31069cc3"
+    },
+    {
+      "path": "apps/api/src/storage/replica-promote-handler.ts",
+      "bytes": 3772,
+      "sha256": "1788ef7f16cce1e01d5176ae3b92b3ca4f7edb3adae36ae250b84409994a6a2d"
+    },
+    {
+      "path": "apps/api/src/storage/resource-scheduler.ts",
+      "bytes": 11848,
+      "sha256": "f616e0adae85740a4068f4df6f3c7a37c76009fdab5987457c32de0b33ef0d59"
+    },
+    {
+      "path": "apps/api/src/storage/routes.ts",
+      "bytes": 4936,
+      "sha256": "e92224774a862bfc8ba33f01dc6fa0ebde1ee18b57d73c8529d1fb4cff371ab3"
+    },
+    {
+      "path": "apps/api/src/storage/secondary-replica.ts",
+      "bytes": 13708,
+      "sha256": "7800ed4f922ed2f7e4fedcb1a0b7499481185a4f3ef627682b44a800c1e0c6f6"
+    },
+    {
+      "path": "apps/api/src/storage/selector.ts",
+      "bytes": 1987,
+      "sha256": "a6349153919f6951ff22302f780e41cb018ecf9b5e97e3fd2f48755d3ac9b2bc"
+    },
+    {
+      "path": "apps/api/src/storage/services.ts",
+      "bytes": 12466,
+      "sha256": "9c153d01ef6ffaae34740d4c60e0c492b1a3131c2098ea7e5a977536e3e84abe"
+    },
+    {
+      "path": "apps/api/src/storage/throughput.ts",
+      "bytes": 4811,
+      "sha256": "14cea3578153e786f9bfece881e95a67fb094b86e8631393d34b15821e18d671"
+    },
+    {
+      "path": "apps/api/src/storage/verify.ts",
+      "bytes": 7483,
+      "sha256": "b234304516f52b35f5e66d9eb7c461f4c4704c58f0139d74ff42d73d3d4921cc"
+    },
+    {
+      "path": "apps/api/src/system/host-metrics.ts",
+      "bytes": 13244,
+      "sha256": "7a1825c398d6d831723d4ee0c406d2528bb21d045a964e4444a0be679be78eea"
+    },
+    {
+      "path": "apps/api/src/system/pipeline-activity.ts",
+      "bytes": 5097,
+      "sha256": "8afc7464fc605fa8e30b3ff21dcaaceb0898e616b64c13c52d610c5278e4cba8"
+    },
+    {
+      "path": "apps/api/src/system/pipeline-observation-routes.ts",
+      "bytes": 1408,
+      "sha256": "c1b82667e5b1746b9db64ee46de0c4896b86f005b69ba3fb5cff266f657d2005"
+    },
+    {
+      "path": "apps/api/src/system/pipeline-observation-service.ts",
+      "bytes": 12143,
+      "sha256": "555c94ecccb1958605a798993d85347bf127358dcddad0e8d75416501ed08499"
+    },
+    {
+      "path": "apps/api/src/system/pipeline-observation-store.ts",
+      "bytes": 14460,
+      "sha256": "32460835c4b4b39987962a3629fd7f57159d08620de7edacde685f0daf703921"
+    },
+    {
+      "path": "apps/api/src/system/pipeline-pressure.ts",
+      "bytes": 4071,
+      "sha256": "ff4aa9861f74c1e595babab3ff1f17204e4b1513c80cf9e2bed73d0ad36868c8"
+    },
+    {
+      "path": "apps/api/src/system/proc.ts",
+      "bytes": 7981,
+      "sha256": "410d8d968597cd09ad58ccfb69d9f1e54bf04149ffd1809d90502ea919516f96"
+    },
+    {
+      "path": "apps/api/src/system/routes.ts",
+      "bytes": 3199,
+      "sha256": "8166bb98731edbb54e1a4d442c58dc98e0aa9adb17c7d70a538936b7413c8806"
+    },
+    {
+      "path": "apps/api/tsconfig.build.json",
+      "bytes": 203,
+      "sha256": "5eb63de7555071b8250a8579adbeb99f2af3b099b8993b5e4e2755f4d0741dda"
+    },
+    {
+      "path": "apps/api/tsconfig.json",
+      "bytes": 209,
+      "sha256": "6201d12592e5dcb7d1b11ebb58573e60624fabfda018915b5805800416c8de1d"
+    },
+    {
+      "path": "apps/web/index.html",
+      "bytes": 883,
+      "sha256": "b4657cbc1fecd6ccfc09b293f372f0a7bc1d017137e8c8259133ad4e88cf3716"
+    },
+    {
+      "path": "apps/web/package.json",
+      "bytes": 915,
+      "sha256": "fed2458f08d4ba8857ea3291af0999febc3075c9b3108b5bd8f202a94f34180a"
+    },
+    {
+      "path": "apps/web/public/fonts/bricolage-latin-ext.woff2",
+      "bytes": 53588,
+      "sha256": "e1a04c169c022f63ad24fc1b6fbd932dee1ded62ac08734eeb1d5d51afee38dd"
+    },
+    {
+      "path": "apps/web/public/fonts/bricolage-latin.woff2",
+      "bytes": 131548,
+      "sha256": "a756882d8a7802ebd4663b4544a62ebedafc7227c1c159ab95eea61393af3f8e"
+    },
+    {
+      "path": "apps/web/public/fonts/bricolage-OFL.txt",
+      "bytes": 4403,
+      "sha256": "4b5a7d8f37f5602621c8a8d7358a6a2e71317e6c231c661e15aef0275d3e07ba"
+    },
+    {
+      "path": "apps/web/public/fonts/inter-latin-ext.woff2",
+      "bytes": 85068,
+      "sha256": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956"
+    },
+    {
+      "path": "apps/web/public/fonts/inter-latin.woff2",
+      "bytes": 48256,
+      "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62"
+    },
+    {
+      "path": "apps/web/public/fonts/inter-OFL.txt",
+      "bytes": 4380,
+      "sha256": "262481e844521b326f5ecd053e59b98c8b2da78c8ee1bdbb6e8174305e54935a"
+    },
+    {
+      "path": "apps/web/public/fonts/jetbrains-latin-ext.woff2",
+      "bytes": 15196,
+      "sha256": "79bfdab9ba467e26eea4122e6f2567e188dd8a09a8c730d501fc487c4ab99c6e"
+    },
+    {
+      "path": "apps/web/public/fonts/jetbrains-latin.woff2",
+      "bytes": 40404,
+      "sha256": "18be452724bfdc236c074ca94a249a7f41a86752c7d04ab258ce9ed5651f6a7e"
+    },
+    {
+      "path": "apps/web/public/fonts/jetbrains-OFL.txt",
+      "bytes": 4399,
+      "sha256": "a76abf002c49097d146e86740a3105a5d00450b1592e820a1109a8c5680cd697"
+    },
+    {
+      "path": "apps/web/public/fonts/LICENSE.md",
+      "bytes": 1875,
+      "sha256": "41fceff8d911f131fe68862c616dcc3858a62ce963fcc50ce76d89614cd8455d"
+    },
+    {
+      "path": "apps/web/src/api/client.ts",
+      "bytes": 10224,
+      "sha256": "55db1f106327e0b44baade8b3f55cf98b2cf6bc594ca75af459255c36ba51378"
+    },
+    {
+      "path": "apps/web/src/api/probe.ts",
+      "bytes": 1563,
+      "sha256": "8801e1ddaa6ba7a0ddc8c3a86ca7255642785e52180598606b034dc6df65b82f"
+    },
+    {
+      "path": "apps/web/src/api/useServerEvents.ts",
+      "bytes": 7925,
+      "sha256": "d1a538078e7cbaec5eaad4d1926f5da62119ea21880d704c3bf5b280c5de5265"
+    },
+    {
+      "path": "apps/web/src/app/App.tsx",
+      "bytes": 5950,
+      "sha256": "3dd27c09ac568da11c7d35ebb78616d6224367d54c1e736aa7284def29cf6f02"
+    },
+    {
+      "path": "apps/web/src/app/CommandPalette.tsx",
+      "bytes": 4408,
+      "sha256": "f7e60f55d88cbb56c031ce478fc74e7e2d60bd86349ac6ebba02bd9f7d2196f4"
+    },
+    {
+      "path": "apps/web/src/app/navigation.ts",
+      "bytes": 1781,
+      "sha256": "0744009a9249b6d867e4af4cf3708f4b1629b680ec976244b2a44d809fb3f75f"
+    },
+    {
+      "path": "apps/web/src/app/ProtectedRoute.tsx",
+      "bytes": 4191,
+      "sha256": "fba30b6531b3ba4a0ab057236529d0fcd74ecb7ce59c7d0f3cde18508fbb2328"
+    },
+    {
+      "path": "apps/web/src/app/Providers.tsx",
+      "bytes": 1349,
+      "sha256": "df5668541f3ca1ddcf702a74cf649945fd448676be5d97ef100a06c4ac839e6b"
+    },
+    {
+      "path": "apps/web/src/app/Shell.tsx",
+      "bytes": 10839,
+      "sha256": "45255e50ab36634584a492359e257de7b43de89bff62835a98ee34d7e4bb7b5c"
+    },
+    {
+      "path": "apps/web/src/demo/demoApi.ts",
+      "bytes": 45631,
+      "sha256": "d6651a4d031945983313c2dfbfbd277069dcabe653cd549daf064960e8fc079a"
+    },
+    {
+      "path": "apps/web/src/demo/demoSession.ts",
+      "bytes": 5584,
+      "sha256": "51f169253911402d74d2947ddf333ac208acf1942cc88d03609882e58a18fd22"
+    },
+    {
+      "path": "apps/web/src/features/audit/auditApi.ts",
+      "bytes": 397,
+      "sha256": "f0e3da2974214595cedb12f91a1dc7e6b7f7c1287c13568087f33a0a77a72919"
+    },
+    {
+      "path": "apps/web/src/features/audit/auditFilters.ts",
+      "bytes": 3611,
+      "sha256": "95b739cdd347fdf76bc787d7ac05fdaf40e85d3daf7f8c4ffce89f2f13fd2aec"
+    },
+    {
+      "path": "apps/web/src/features/audit/AuditPage.tsx",
+      "bytes": 11300,
+      "sha256": "4affd92d854b3cb9fa54a187bff39ff894f11d195afb5d1ac4b1dd648470b423"
+    },
+    {
+      "path": "apps/web/src/features/auth/authApi.ts",
+      "bytes": 1681,
+      "sha256": "7420dc752db84ff67cd683588f8f97d7165b6766def612835425bdbb250e388f"
+    },
+    {
+      "path": "apps/web/src/features/auth/LoginPage.tsx",
+      "bytes": 6450,
+      "sha256": "86318ea16be339016e3615b13dbc323f8bcba96e5b5a953581d1863d883abce7"
+    },
+    {
+      "path": "apps/web/src/features/auth/MfaPage.tsx",
+      "bytes": 6392,
+      "sha256": "66054567368b2182bd8c11f71a23eb3cc85bf9fcd71a690f2a886defe6112638"
+    },
+    {
+      "path": "apps/web/src/features/auth/sessionLifecycle.ts",
+      "bytes": 1175,
+      "sha256": "a021e20796deac5d21fea298823fc8194b693df1bc1b2155e9f0eaf591806d2e"
+    },
+    {
+      "path": "apps/web/src/features/dashboard/dashboardAlerts.ts",
+      "bytes": 6050,
+      "sha256": "da8754442d300a29bb45f1d10bfa7e66e7d0dfca3f0c8e4e0e64a388dda48f8a"
+    },
+    {
+      "path": "apps/web/src/features/dashboard/DashboardPage.tsx",
+      "bytes": 32678,
+      "sha256": "fc0a8a6116ee327e2cd1ba2840a6228e64a878ee7d0454f872752662b2be14b4"
+    },
+    {
+      "path": "apps/web/src/features/dashboard/Sparkline.tsx",
+      "bytes": 3424,
+      "sha256": "d5cb1a758a1920462699d15f49ed16c66b13520485d79442aa18f2410c4c6d2a"
+    },
+    {
+      "path": "apps/web/src/features/dashboard/systemApi.ts",
+      "bytes": 326,
+      "sha256": "7114b45dd59e56981f852eada5d70f10bc2928c9349982f2f635f32f4e1935e2"
+    },
+    {
+      "path": "apps/web/src/features/dashboard/uploadAdvice.ts",
+      "bytes": 4409,
+      "sha256": "be0355ed2d4cf66e9345597bf4cb7a1909edbf58fd99910d535aab5dc297013c"
+    },
+    {
+      "path": "apps/web/src/features/imports/ArchiveCandidatesField.tsx",
+      "bytes": 3089,
+      "sha256": "f2d3d73ede48052e793e45a79e80f0a290c0affa28656925d541077413909e35"
+    },
+    {
+      "path": "apps/web/src/features/imports/archivePlanIdentity.ts",
+      "bytes": 897,
+      "sha256": "92d68a3c14e7fd478480f46c48dec29f0fb941c8230f409a1449958c600cefe8"
+    },
+    {
+      "path": "apps/web/src/features/imports/ArchiveProgressPanel.tsx",
+      "bytes": 3579,
+      "sha256": "941b34c2f6497ef8b2456931bd2daa327fc46f302d7a0a7c67e0aac3b1f28359"
+    },
+    {
+      "path": "apps/web/src/features/imports/BaiduNameSearch.tsx",
+      "bytes": 12713,
+      "sha256": "34c6545696748ce49c1e17e26e2bdd1cd8904552d09540915ca9e4a9f5a6b93a"
+    },
+    {
+      "path": "apps/web/src/features/imports/BaiduSourceBrowser.tsx",
+      "bytes": 21631,
+      "sha256": "04abb173222718c7a43a75dd718347a2380b4cf8aebadd9c536088cc8cc5b8fe"
+    },
+    {
+      "path": "apps/web/src/features/imports/directoryBatch.ts",
+      "bytes": 3148,
+      "sha256": "6ee0a130c85ec0a3a51b6df2fba6f36263ab9565edace61c8bb4c3dbf72f5b20"
+    },
+    {
+      "path": "apps/web/src/features/imports/DirectoryBatchPlans.tsx",
+      "bytes": 11905,
+      "sha256": "85d41491bc27fd2b845d94d007d9342f99db67d2c387e11df102b52f240a664e"
+    },
+    {
+      "path": "apps/web/src/features/imports/directoryPlanIdentity.ts",
+      "bytes": 586,
+      "sha256": "0be85bd8c7060593e10e9cbd1e446bb45705a65548528d689d4c0a555cce9a9f"
+    },
+    {
+      "path": "apps/web/src/features/imports/directorySubmissions.ts",
+      "bytes": 2145,
+      "sha256": "907ef191540777de0075463a7532979f67d8b5c7faf413811827e3ae2daa2f36"
+    },
+    {
+      "path": "apps/web/src/features/imports/downloadFailureViewModel.ts",
+      "bytes": 3658,
+      "sha256": "e3ee2271d15ce28e7204b9c3472ba477b1b52a6c3f92fb4ff32ed6242f62356f"
+    },
+    {
+      "path": "apps/web/src/features/imports/filePlanIdentity.ts",
+      "bytes": 834,
+      "sha256": "4071b2bb9022c886c5ac28ad164910ef916c5e0fa81112dd9e72fd35c7d472cf"
+    },
+    {
+      "path": "apps/web/src/features/imports/groupApi.ts",
+      "bytes": 4428,
+      "sha256": "e6ea6ffcf63345b74368f910726d9fe30aea5fbed6627f1857232b4a338754fa"
+    },
+    {
+      "path": "apps/web/src/features/imports/GroupObservationsPanel.tsx",
+      "bytes": 18377,
+      "sha256": "f44f70fc3f3c7cfd7ee0c9cf60f8093b47ac559f5f120996bd99c2b9bf9a4b40"
+    },
+    {
+      "path": "apps/web/src/features/imports/GroupPipelinePlanPanel.tsx",
+      "bytes": 3772,
+      "sha256": "4e903ab28e6a1a6519867cf7b3cbf32e56addab6263934d881850bfa9196006f"
+    },
+    {
+      "path": "apps/web/src/features/imports/GroupPipelinesPanel.tsx",
+      "bytes": 20092,
+      "sha256": "616773c3211f23b1ee661117475f3b1a1e617cdca0bcce981e4fc39a330f24de"
+    },
+    {
+      "path": "apps/web/src/features/imports/groupPlanIdentity.ts",
+      "bytes": 1652,
+      "sha256": "5918fa291d7e7974279d2305a39aa548629a236330997d65257ba300be67d3f4"
+    },
+    {
+      "path": "apps/web/src/features/imports/GroupSettingsPanel.tsx",
+      "bytes": 11547,
+      "sha256": "4c81a5a5a3e89a6372098d17e5cd194abf6474a83007ab55f1271344920ac0d4"
+    },
+    {
+      "path": "apps/web/src/features/imports/groupWaitViewModel.ts",
+      "bytes": 3230,
+      "sha256": "4ae8b2c53bc492ee3b45682fb9b0edc06ec7777e705c39a7c1c3b98f75766d3f"
+    },
+    {
+      "path": "apps/web/src/features/imports/ImportActions.tsx",
+      "bytes": 13192,
+      "sha256": "d89cc9b5a628f5e9adaf8f3987b717a444bb02319c0e80ed743f3023bac405c5"
+    },
+    {
+      "path": "apps/web/src/features/imports/importApi.ts",
+      "bytes": 18140,
+      "sha256": "48f106cdaad0170937557934b2cf3dc86da79b610f9b2eb4e98b47435d511101"
+    },
+    {
+      "path": "apps/web/src/features/imports/importConditionViewModel.ts",
+      "bytes": 2524,
+      "sha256": "52dd60d4509e6821896f8abd72bb1e2bab02fcb9a04aae7d627ea42bf290afcd"
+    },
+    {
+      "path": "apps/web/src/features/imports/ImportCreatePanel.tsx",
+      "bytes": 82472,
+      "sha256": "b681c0e2111724ac7a96fc513e7c94816a7acb88c2e4c2c5cc28ac6cff9b2c0e"
+    },
+    {
+      "path": "apps/web/src/features/imports/ImportEventTimeline.tsx",
+      "bytes": 4668,
+      "sha256": "ce571c0ea9271954fc192b8d081dd90ce456df44728e56e9ffee0362bb821aa3"
+    },
+    {
+      "path": "apps/web/src/features/imports/importFormatting.ts",
+      "bytes": 8370,
+      "sha256": "ccad6ef5d75f3da7866485725b15bcc66a5e4397d8f28b7e45abe347538a49c1"
+    },
+    {
+      "path": "apps/web/src/features/imports/ImportJobDetail.tsx",
+      "bytes": 17224,
+      "sha256": "dfd59402d5f73a9576d15149eb4b7a53ca6de230532a7e8ed4d55e41c0d2bbc7"
+    },
+    {
+      "path": "apps/web/src/features/imports/ImportJobsTable.tsx",
+      "bytes": 22229,
+      "sha256": "c64608aa8f6c57cc007806590a6f2e9b4ef1bed5659e3d5fa19a86f8a09511ce"
+    },
+    {
+      "path": "apps/web/src/features/imports/importLabels.ts",
+      "bytes": 11343,
+      "sha256": "cdec54df342a10ef5c6b05b9c0bcf8c4a4f88f1ed4510640bacd643f35a183c9"
+    },
+    {
+      "path": "apps/web/src/features/imports/ImportProgress.tsx",
+      "bytes": 7598,
+      "sha256": "81f32bc30949582cd69c852efa76a9229e2ef9e1acc7dab2dd804c20ff9ccd2b"
+    },
+    {
+      "path": "apps/web/src/features/imports/importResourceWait.ts",
+      "bytes": 2096,
+      "sha256": "1552401c4e02bf28a04dd35d196cd0adaa431e954233b409a3f83111680d223a"
+    },
+    {
+      "path": "apps/web/src/features/imports/importRetryWaitViewModel.ts",
+      "bytes": 1043,
+      "sha256": "8c09ec92b3d32065075a2727033154ff12ed5ae498132b205921e55034605f45"
+    },
+    {
+      "path": "apps/web/src/features/imports/ImportsPage.tsx",
+      "bytes": 22845,
+      "sha256": "127edfd5e11b99e9b37917121fc5e640159287221fa6b8915f628f8792258aae"
+    },
+    {
+      "path": "apps/web/src/features/imports/importTelemetry.ts",
+      "bytes": 1357,
+      "sha256": "d99a856426e91b499db12468d49ac4ea2a8767737d8118e4d7b399a24cb2dcff"
+    },
+    {
+      "path": "apps/web/src/features/imports/LegacyImportSourcePanel.tsx",
+      "bytes": 7503,
+      "sha256": "33ca5ec5e875a8b0d8646c4220615c081e398688279a871b602e054a321cc0b5"
+    },
+    {
+      "path": "apps/web/src/features/imports/legacyImportSourceViewModel.ts",
+      "bytes": 4782,
+      "sha256": "4f424e6a6339f34274280e5246f965dc3016d97d8d31a5ba6d1da29cc0dda243"
+    },
+    {
+      "path": "apps/web/src/features/imports/libraryChoices.ts",
+      "bytes": 1732,
+      "sha256": "8e908a490b0ba7158da5fc52232de8585dca66a021fc3af0bf84a519977b4909"
+    },
+    {
+      "path": "apps/web/src/features/imports/publicationPath.ts",
+      "bytes": 443,
+      "sha256": "b5f6f77e041b34cb6de312fbd38feb27724df5cfc3d93c6f3ad2cddd6c8214bf"
+    },
+    {
+      "path": "apps/web/src/features/imports/RetryImpactNote.tsx",
+      "bytes": 1512,
+      "sha256": "f5209bb5a1f5f43b0a79cdb32660c6e05e15c10f0a4f968b03e8fc831230e34d"
+    },
+    {
+      "path": "apps/web/src/features/imports/SourceCleanupPanel.tsx",
+      "bytes": 15877,
+      "sha256": "1652e04452bbf9c6cfc558601d748177ecbbd279ae94204f17721737eab4a254"
+    },
+    {
+      "path": "apps/web/src/features/imports/sourceCleanupViewModel.ts",
+      "bytes": 1291,
+      "sha256": "f59ab271be8981e142eb77809164dbf5c7614a0a7766b30702a26a3cb6e02cc2"
+    },
+    {
+      "path": "apps/web/src/features/imports/sourceSelection.ts",
+      "bytes": 3395,
+      "sha256": "7a8ab90ff2a1142caf69add8ad533fd9b8e0d35b53abc636aa2741ecf3b918b5"
+    },
+    {
+      "path": "apps/web/src/features/imports/useLegacyImportSource.ts",
+      "bytes": 6577,
+      "sha256": "7402ecfa204bd0c55182ebcbb6f2bcc141373ee0a2381ee71ec0eb2e4fce9261"
+    },
+    {
+      "path": "apps/web/src/features/jobs/jobApi.ts",
+      "bytes": 5225,
+      "sha256": "ca51835a8fa718e30dbd4a18457e5ebb452df625a3e388ba3104ee160d617c8a"
+    },
+    {
+      "path": "apps/web/src/features/jobs/JobsPage.tsx",
+      "bytes": 22677,
+      "sha256": "295ec90b5e4a015963fff86a5e328fedbfee363d05f67ecd81cd416dd22a09ff"
+    },
+    {
+      "path": "apps/web/src/features/jobs/JobTimeline.tsx",
+      "bytes": 6737,
+      "sha256": "c0bda4a8e53bfcf2b8f8ffa6f518473de2a1292f102f259a98640d57343ffcb5"
+    },
+    {
+      "path": "apps/web/src/features/jobs/offloadGroups.ts",
+      "bytes": 666,
+      "sha256": "999e7eb9a63e83c667ef08aeef59e25307a0df2e55015789ada11374a04dfe85"
+    },
+    {
+      "path": "apps/web/src/features/jobs/ResourceWait.tsx",
+      "bytes": 1937,
+      "sha256": "34dc225c04e51d25e73fd509011aeb054e5248ad604ad59657218a624bdea16a"
+    },
+    {
+      "path": "apps/web/src/features/jobs/TransferActions.tsx",
+      "bytes": 23273,
+      "sha256": "0384aba05f244eb03c5de1da820c5857156ef61d4abdf5a528a03b307c0c82fd"
+    },
+    {
+      "path": "apps/web/src/features/jobs/TransferProgress.tsx",
+      "bytes": 17548,
+      "sha256": "8758ad37fddb11851da6594456382c9c865750158e1aec1a466488869e8c035d"
+    },
+    {
+      "path": "apps/web/src/features/jobs/TransferSchedulerPanel.tsx",
+      "bytes": 14229,
+      "sha256": "c842362810fb9c8a0ad61dc27cd325be389ec479d8d55e29afc606a9214812f5"
+    },
+    {
+      "path": "apps/web/src/features/media/mediaApi.ts",
+      "bytes": 4001,
+      "sha256": "1e2b36e88602ac7b9b93833878993ef64d706bc35aa01d641a7783636bd1f277"
+    },
+    {
+      "path": "apps/web/src/features/media/MediaPage.tsx",
+      "bytes": 18091,
+      "sha256": "404dfdd4ffffb4baf93140290e17912f3269066fe0e3a512b4cedbba778a337f"
+    },
+    {
+      "path": "apps/web/src/features/media/PinDialog.tsx",
+      "bytes": 5225,
+      "sha256": "7f13586a6014ceb7e72e1c3c1c9028d340465647c8704cab7a83c93612df21e4"
+    },
+    {
+      "path": "apps/web/src/features/media/RehydrateDialog.tsx",
+      "bytes": 7417,
+      "sha256": "4f2d97b4535f373b50ca164c1fa9112bcb13714c7b36a98ad0813f8f27866eea"
+    },
+    {
+      "path": "apps/web/src/features/onboarding/bootstrapApi.ts",
+      "bytes": 882,
+      "sha256": "d56265c9df87522a7b7d7c58af9044560d2a9effe362750353ce2d33b8aa4e38"
+    },
+    {
+      "path": "apps/web/src/features/onboarding/BootstrapPage.tsx",
+      "bytes": 9124,
+      "sha256": "4b19bcff5d354b8afdeca167203ee118cb814ef1d1caea1c65daadbcd215ddd0"
+    },
+    {
+      "path": "apps/web/src/features/onboarding/setupApi.ts",
+      "bytes": 945,
+      "sha256": "25e00d7307e632999638282fec5b975a3420374892d5913940c6827860c5890c"
+    },
+    {
+      "path": "apps/web/src/features/onboarding/SetupPage.tsx",
+      "bytes": 32371,
+      "sha256": "a6ec7c9f78bf61664e92da2fd328e85310e0fd0ef584eb06f9ff36ad65b1fcd2"
+    },
+    {
+      "path": "apps/web/src/features/recovery/recoveryApi.ts",
+      "bytes": 8254,
+      "sha256": "923f957c505551a8bf264fe31c67a7accd9c83fa5430cd7eba69a30a5deee661"
+    },
+    {
+      "path": "apps/web/src/features/recovery/RecoveryDownloads.tsx",
+      "bytes": 7965,
+      "sha256": "2cfcce1c6ebbbb431efc410bff97658abbfbfb827d165d680db06f15ffa01e84"
+    },
+    {
+      "path": "apps/web/src/features/recovery/RecoveryPage.tsx",
+      "bytes": 8326,
+      "sha256": "8227940d6c671d8394b9de86877d75fe741d3d22bdfab18b243f59bba389e284"
+    },
+    {
+      "path": "apps/web/src/features/recovery/RecoveryPreparation.tsx",
+      "bytes": 6896,
+      "sha256": "46c69de5ac1b64e02987ad470ea39a295c8d177464eb07db602135220a1c92d3"
+    },
+    {
+      "path": "apps/web/src/features/recovery/RecoverySetup.tsx",
+      "bytes": 23009,
+      "sha256": "16d3413acbece11bdab52831b0060618ff15cf845abb6dbcedd5dc96b42209a6"
+    },
+    {
+      "path": "apps/web/src/features/settings/CapabilitySlot.tsx",
+      "bytes": 2769,
+      "sha256": "125177ef4b2c17bf7f5b3d0d164abd645ea5a7c37b96a0b0137afb263c1a6884"
+    },
+    {
+      "path": "apps/web/src/features/settings/InstanceEditor.tsx",
+      "bytes": 17938,
+      "sha256": "8343b0397f28b02fde7d1ffcee5517b839e83465b000846d4b28d985ea56b67f"
+    },
+    {
+      "path": "apps/web/src/features/settings/JellyfinSection.tsx",
+      "bytes": 10103,
+      "sha256": "8dfd043346e5d89153603b7a3e36dae3434e75ae62bef845e36ac8b4611f8bbf"
+    },
+    {
+      "path": "apps/web/src/features/settings/netdiskSettingsApi.ts",
+      "bytes": 1222,
+      "sha256": "0e3743b5b1b376885ab56735386e181862546146e842f9732e9e4b4033c22c29"
+    },
+    {
+      "path": "apps/web/src/features/settings/NetdiskSettingsPage.tsx",
+      "bytes": 35507,
+      "sha256": "edf6319f10856e9bf8e67f237d7f606a92381ea9f0cfea2e9cc16b1dcc60aa2f"
+    },
+    {
+      "path": "apps/web/src/features/settings/settingsApi.ts",
+      "bytes": 4407,
+      "sha256": "4b08cfea0dd15ccfd64b47323556798015ce7d8a462d7bf4178cd63db1c093a3"
+    },
+    {
+      "path": "apps/web/src/features/settings/SettingsPage.tsx",
+      "bytes": 29602,
+      "sha256": "3eb29fb14151aa1a8643bb046db492d80202bbd0c37a4a5b588d7dad47c2a539"
+    },
+    {
+      "path": "apps/web/src/features/settings/SettingsSection.tsx",
+      "bytes": 2728,
+      "sha256": "d392fa42b4b6681c4fd38ac368800d07e4c278d48b84b44269350120dfebd421"
+    },
+    {
+      "path": "apps/web/src/features/settings/TransferSettingsSection.tsx",
+      "bytes": 37825,
+      "sha256": "0f39c3d20a61f3b619bd37d427f94183fbdb0ebf5bfae0f3601183fa34245e51"
+    },
+    {
+      "path": "apps/web/src/features/settings/useNetdiskSettings.ts",
+      "bytes": 13397,
+      "sha256": "cefa3b94247d065e4b517ed8e2bd023df31770aa3c2e9d6eee39a0f02edab65b"
+    },
+    {
+      "path": "apps/web/src/features/settings/useSettingsScrollSpy.ts",
+      "bytes": 3145,
+      "sha256": "5aa0a373f5cd145cced39ed32656be87794b355353142312682fc0784b02983b"
+    },
+    {
+      "path": "apps/web/src/features/storage/accountApi.ts",
+      "bytes": 516,
+      "sha256": "5aa0f58da4e2202755da0ff39028f0bd443758e7d1dcdef0d45357b78686b2ae"
+    },
+    {
+      "path": "apps/web/src/features/storage/AccountsPage.tsx",
+      "bytes": 15939,
+      "sha256": "ba2d7d71a1f478a9fdc288647ae5aa628e785e0f54e211a2ec54721e34f90405"
+    },
+    {
+      "path": "apps/web/src/features/storage/baiduDeviceApi.ts",
+      "bytes": 840,
+      "sha256": "2ea1b022787805d8bb45a72927c3fc90ef051ddb5b24a9b719f8416bc5ce88f7"
+    },
+    {
+      "path": "apps/web/src/features/storage/BaiduDeviceDialog.tsx",
+      "bytes": 10566,
+      "sha256": "9906712885db3004ddcb6d3c3f70c1adb209eea5c452a7c80ad2a90a94dee99a"
+    },
+    {
+      "path": "apps/web/src/features/storage/cloudConnectionViewModel.ts",
+      "bytes": 12550,
+      "sha256": "aee8dda926fa1b2bcd6fc58ca3d3b42a15ea4687079def91ea5834a9a9a5697e"
+    },
+    {
+      "path": "apps/web/src/features/storage/ConnectionActionDialog.tsx",
+      "bytes": 6655,
+      "sha256": "af6a8f298c581a844d174a747db91b65f49bcc24bb74f2622b43be58e62652a1"
+    },
+    {
+      "path": "apps/web/src/features/storage/connectionApi.ts",
+      "bytes": 11577,
+      "sha256": "181c34b88fbff10b7b2181dc23aea0b4afbde6df5a0fd80f3685fc19c66bc371"
+    },
+    {
+      "path": "apps/web/src/features/storage/connectionLabels.ts",
+      "bytes": 5114,
+      "sha256": "d676b6fabfb4113a127ad9e03588ac8899bf32b2478da4cd9f69e7a675316127"
+    },
+    {
+      "path": "apps/web/src/features/storage/ConnectionProvisionDialog.tsx",
+      "bytes": 14075,
+      "sha256": "2cf1e6e5d30dbcd6e7105cb914470d9051db3196c22ecaa6b5f1d549462a3e87"
+    },
+    {
+      "path": "apps/web/src/features/storage/ConnectionsTable.tsx",
+      "bytes": 11170,
+      "sha256": "f291c6cc79b43797deff14c6855ddac4a747553250da0bc5585073b3099c55d7"
+    },
+    {
+      "path": "apps/web/src/features/storage/ConnectOAuthDialog.tsx",
+      "bytes": 8492,
+      "sha256": "014f9859eecc6bec632807e36a6f0a92636cdefc07dee231f5066c27dab22bcb"
+    },
+    {
+      "path": "apps/web/src/features/storage/DestinationsTable.tsx",
+      "bytes": 7645,
+      "sha256": "78a6d37301d9059ea2b2143ace8b54fd3da6347f527e89eb4eb467006aa7e13b"
+    },
+    {
+      "path": "apps/web/src/features/storage/rcloneImportApi.ts",
+      "bytes": 846,
+      "sha256": "a31fdf68f4c5db0a5904f014ea2b25f5f692d50cb2f075516ecd562c4e81595e"
+    },
+    {
+      "path": "apps/web/src/features/storage/RcloneImportDialog.tsx",
+      "bytes": 13433,
+      "sha256": "7662845a5dac4da6bf86369457e9b7ef96d514fda3c9cf19b54ca5cd32e9cd7a"
+    },
+    {
+      "path": "apps/web/src/features/storage/useConnectionAction.ts",
+      "bytes": 5606,
+      "sha256": "c8b0b2358004e7be3c3b6a00f71726347e4cdf20921d9bab7a2341ff29190bb7"
+    },
+    {
+      "path": "apps/web/src/features/storage/useOAuthFlow.ts",
+      "bytes": 10694,
+      "sha256": "5aad1cd02cd6e6d81f1be8bdd6a66638772fdd7a4895351be0cfcf045ff9a374"
+    },
+    {
+      "path": "apps/web/src/features/torrents/OffloadConfirmDialog.tsx",
+      "bytes": 14654,
+      "sha256": "72a279fc4ab24a5c93ef23d4d31e091949329aeeeb1295da6ddd51d474d1a531"
+    },
+    {
+      "path": "apps/web/src/features/torrents/PreflightInspector.tsx",
+      "bytes": 4175,
+      "sha256": "b0bab61d620c30a78dcd4a31aa4f3236480b2cb14509c72a8158d4989629909c"
+    },
+    {
+      "path": "apps/web/src/features/torrents/qbApi.ts",
+      "bytes": 10912,
+      "sha256": "e72bcea7f0737d63879e018b577bb2e70ccad641fcf5679d6d0cf3af252359f7"
+    },
+    {
+      "path": "apps/web/src/features/torrents/torrentFilters.ts",
+      "bytes": 2658,
+      "sha256": "65339c561a87b031c19bc0a6acdc0c185bbb57a32ea312aee6c50ace21ddfd51"
+    },
+    {
+      "path": "apps/web/src/features/torrents/TorrentsPage.tsx",
+      "bytes": 36111,
+      "sha256": "baee0458edb5fdad05a4068fe006689fae57fd93a061c31a20ec73f471f5e192"
+    },
+    {
+      "path": "apps/web/src/main.tsx",
+      "bytes": 616,
+      "sha256": "c398e6720910598abbf01f6093413cc22698bd595d4a67f49aedbe589c32fbc6"
+    },
+    {
+      "path": "apps/web/src/showcase/ShaderBackground.tsx",
+      "bytes": 10923,
+      "sha256": "4cee7dec3226eb0c287257bc845d9ceb7c0321cf347ff9de5fbc8cdf02706903"
+    },
+    {
+      "path": "apps/web/src/showcase/useReducedMotion.ts",
+      "bytes": 983,
+      "sha256": "9782bae1051dfac67cf680987cf42ef79c36241f0ea417b3233a44bd741060ca"
+    },
+    {
+      "path": "apps/web/src/showcase/useReveal.ts",
+      "bytes": 1220,
+      "sha256": "82171e87db1d77fbd0d42602db350decef6d7799bf60562ce2759aae642126b5"
+    },
+    {
+      "path": "apps/web/src/styles/base.css",
+      "bytes": 3729,
+      "sha256": "bc29bc849af9230c69cddb77b44ae2795e05141c5cca4605738229ccc87d6865"
+    },
+    {
+      "path": "apps/web/src/styles/components.css",
+      "bytes": 49877,
+      "sha256": "89be06b0b67c8ab8834a0abf4e81b08a8d41d032d4f6aa5458159ac61f3e787a"
+    },
+    {
+      "path": "apps/web/src/styles/fonts.css",
+      "bytes": 3283,
+      "sha256": "aa4c4fdf1d08c6c01e0f351ff13306417e569d82a121990ad69b91d3f14198df"
+    },
+    {
+      "path": "apps/web/src/styles/layout.css",
+      "bytes": 20139,
+      "sha256": "f9965404d29e8abe4b6ae9927b6c9c5eb62a0786316337b72daa6f830595e30d"
+    },
+    {
+      "path": "apps/web/src/styles/motion.css",
+      "bytes": 2984,
+      "sha256": "70be72a5f8d808ff3001151ce11c2bea67326e40b6041fc4166b9525e0e333fb"
+    },
+    {
+      "path": "apps/web/src/styles/onboarding.css",
+      "bytes": 5640,
+      "sha256": "089afd3c97c5e076be4f3b85b57857944f6026e6861fc52e2539d4b355ebc674"
+    },
+    {
+      "path": "apps/web/src/styles/pages.css",
+      "bytes": 98147,
+      "sha256": "06f055b86c48482ce3f78e986e83b3ea1a5838790123ebdc7ce2827833dbb3a1"
+    },
+    {
+      "path": "apps/web/src/styles/theme.css",
+      "bytes": 9617,
+      "sha256": "970f6b057d98900c9b7b22a3370562a03044fb799c3ff201a036e8f1103be536"
+    },
+    {
+      "path": "apps/web/src/theme/theme.ts",
+      "bytes": 1869,
+      "sha256": "9e3b0ae462a5b1134545f4a62eea26c579a6e0d1ff77b1a0a45701e48b3b5b67"
+    },
+    {
+      "path": "apps/web/src/ui/DiskMeter.tsx",
+      "bytes": 2053,
+      "sha256": "d6daf615fe20eb722e87c2918e0328267a2c17731b6db493085536c932263830"
+    },
+    {
+      "path": "apps/web/src/ui/FilterBar.tsx",
+      "bytes": 8246,
+      "sha256": "628472a15a99d5862cdfe83837fdf14211f59b77057f07e76709e7f573418197"
+    },
+    {
+      "path": "apps/web/src/ui/format.ts",
+      "bytes": 1728,
+      "sha256": "5b699da238d46ea0028786fe130f3d601f10c91848f00018cea7f1af98d262b0"
+    },
+    {
+      "path": "apps/web/tsconfig.json",
+      "bytes": 376,
+      "sha256": "a40a3b971014e8b6a23910d767ab33dd7e4d13de2c4e380c8ada57a914ef8b81"
+    },
+    {
+      "path": "apps/web/vite.config.ts",
+      "bytes": 331,
+      "sha256": "932c80b57d7a658b1e1c811253eaa0b144578ec319b04afdc4bd951b34b02ded"
+    },
+    {
+      "path": "deploy/archive-sandbox.py",
+      "bytes": 6903,
+      "sha256": "5ff938a96fff7b92722e6d179e47dd170bbdbc1871307d0a8a1c1aae2ea13762"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 1077,
+      "sha256": "6dddc1f35e5419afaa9af7faa51d4d436654861fb6928dc934178492d820c3c5"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 218946,
+      "sha256": "6176c7d96a510acbbfd345ef699885c8aeb68c8f1c3a0e41f31c3302179178c7"
+    },
+    {
+      "path": "package.json",
+      "bytes": 806,
+      "sha256": "dfd7686bf5ef5caf852a76c765be145bef146ca40238681d24de92601ab7dc7d"
+    },
+    {
+      "path": "packages/contracts/package.json",
+      "bytes": 405,
+      "sha256": "66a779ebd16b7b34dd221023a1137b58b24081d557b78598401f1c1936dbeb1c"
+    },
+    {
+      "path": "packages/contracts/src/archive-imports.ts",
+      "bytes": 3477,
+      "sha256": "8c461795119dcde4d0cbb10727e9797c020f7ac3776fe89c5f6f90fd45977c52"
+    },
+    {
+      "path": "packages/contracts/src/audit.ts",
+      "bytes": 1966,
+      "sha256": "e7ef02a66cfebbee8c00a61ca0c4bee084d1a3b1eed0a6a59eb028d2fb5dd46f"
+    },
+    {
+      "path": "packages/contracts/src/auth.ts",
+      "bytes": 1219,
+      "sha256": "b47de4362e86d8e2e2452a467da6473b5fca61139591b13eca051bb6350fbdac"
+    },
+    {
+      "path": "packages/contracts/src/baidu-device.ts",
+      "bytes": 1459,
+      "sha256": "8acce4b229546965467e272b05dfad0578e55d6018db03e8b7bcb4b2bb0fb564"
+    },
+    {
+      "path": "packages/contracts/src/cloud-connection-operations.ts",
+      "bytes": 4737,
+      "sha256": "bae65a460c03b68d17175727c286c133ebe7d2ac1a23f62e2638f9600c57b8cf"
+    },
+    {
+      "path": "packages/contracts/src/cloud-connections.ts",
+      "bytes": 12622,
+      "sha256": "98dbcdb15a9bde9d0c7b3af1b99abd63b54259caa9b54fb4884bffc72be9a066"
+    },
+    {
+      "path": "packages/contracts/src/download-diagnostics.ts",
+      "bytes": 3013,
+      "sha256": "eb9415bb2280a644b77187ba5f809e86125a86f273ce257dd1817936097a6947"
+    },
+    {
+      "path": "packages/contracts/src/events.ts",
+      "bytes": 1772,
+      "sha256": "303e899110c2988b2be73e7db559f46374705a051e7b36dd39b2a271fe40667b"
+    },
+    {
+      "path": "packages/contracts/src/group-imports.ts",
+      "bytes": 4772,
+      "sha256": "53ef26b57c57dc9612489087710e34ae3656a15056266361b4aa2bfe4ae56f80"
+    },
+    {
+      "path": "packages/contracts/src/group-settings.ts",
+      "bytes": 1833,
+      "sha256": "5ce3ebd02463fad9d326bde596d47d70ce95ea3d4bd8ba77c98088e7913df766"
+    },
+    {
+      "path": "packages/contracts/src/imports.ts",
+      "bytes": 39786,
+      "sha256": "b67a502a384e16f858eb8478d26cda5f6e872b39447563df3b6563a614a3cc4f"
+    },
+    {
+      "path": "packages/contracts/src/index.ts",
+      "bytes": 824,
+      "sha256": "25ed59f1fd0d2e27172ce2427d707bf2dbbcc79416d9cea413b5ab3fd03a8b01"
+    },
+    {
+      "path": "packages/contracts/src/jellyfin.ts",
+      "bytes": 2414,
+      "sha256": "dc2220db1c439cc507b52164691a24a2e933675b45412439db8347302998878d"
+    },
+    {
+      "path": "packages/contracts/src/jobs.ts",
+      "bytes": 430,
+      "sha256": "7297c18f4ea544a6d820e49835d6c664201adecb2b3d77c9c737c1f78e1ebac5"
+    },
+    {
+      "path": "packages/contracts/src/media.ts",
+      "bytes": 8865,
+      "sha256": "558f6727c62ac1a5e716502392ff4d9631f114528310358763bcd699ae36cfcb"
+    },
+    {
+      "path": "packages/contracts/src/netdisk-settings.ts",
+      "bytes": 4381,
+      "sha256": "20192f55654f9024b1fa9a0c3e52fb5d3e5bf5cda9befda4411d4f6d5ea1b007"
+    },
+    {
+      "path": "packages/contracts/src/offloads.ts",
+      "bytes": 24401,
+      "sha256": "acc7b23c6c492261b88df382955db95558dba2c0525a6bc2c0f2e2eb0b6ff121"
+    },
+    {
+      "path": "packages/contracts/src/onboarding.ts",
+      "bytes": 6030,
+      "sha256": "4db9512988481b1535aa8d04c7d1f5d46286e76c49031c6eaa9ed262cca60e6d"
+    },
+    {
+      "path": "packages/contracts/src/pipeline-observability.ts",
+      "bytes": 5675,
+      "sha256": "2bea6552aa405a452c42707e2e3fcfa1f25dfca98e4bbfa14fa59454ab16d4d2"
+    },
+    {
+      "path": "packages/contracts/src/rclone-import.ts",
+      "bytes": 1745,
+      "sha256": "cc4fbd68a895a5d979c3ee725c8d690ed5066d34ad2665d784b86b47b74c81f6"
+    },
+    {
+      "path": "packages/contracts/src/recovery.ts",
+      "bytes": 5871,
+      "sha256": "96436403e9cadbbaa4f7e9b2ece5a5259b70e65ab32bc998b38cc88523b5b6b2"
+    },
+    {
+      "path": "packages/contracts/src/storage.ts",
+      "bytes": 1334,
+      "sha256": "a3f44d6b2723e0f551404e6a0a3d072672b36e976e3c9a3d2ffb28573bf053be"
+    },
+    {
+      "path": "packages/contracts/src/system.ts",
+      "bytes": 6902,
+      "sha256": "c89ef6cc0cc61ab9243c472e12ee274ec44f0d4f5477024b84063724cdd53e3a"
+    },
+    {
+      "path": "packages/contracts/src/torrents.ts",
+      "bytes": 6855,
+      "sha256": "cc77e66be8d94b73988cf4207aff291b277cea8d88349b27f748871a2f17e7be"
+    },
+    {
+      "path": "packages/contracts/src/transfer-settings.ts",
+      "bytes": 4593,
+      "sha256": "640bf3b62f96c947a542a029d14c5bc8645b719e82056971dd695b12821f3326"
+    },
+    {
+      "path": "packages/contracts/tsconfig.json",
+      "bytes": 153,
+      "sha256": "770e5f7d09197b74835c647cc7f21d40603d60a572aec9d6b7770adfa607e902"
+    },
+    {
+      "path": "README.md",
+      "bytes": 11633,
+      "sha256": "a937abf8c3d55468f1255791afe20fbcaaa520b8f07c14cadea1540b96f9d689"
+    },
+    {
+      "path": "scripts/public-release/build_release.py",
+      "bytes": 14406,
+      "sha256": "13c7ce8134ac58ddd1bfa29f2ace03e02b02cc39747aa4548bd9e678520d4df8"
+    },
+    {
+      "path": "scripts/public-release/build_runtime.py",
+      "bytes": 12466,
+      "sha256": "264a81d62b209213633faf336a4637485465928d88a90abf2aad424986e9c1fe"
+    },
+    {
+      "path": "scripts/public-release/export_root.py",
+      "bytes": 2917,
+      "sha256": "836d54a4c7038c4eda1e6e4b5a1487d7bba34c23b17763324e4e44dbe83996f4"
+    },
+    {
+      "path": "scripts/public-release/export-source.mjs",
+      "bytes": 10930,
+      "sha256": "96dd00b02d808693ef17aa1a7c581a87d302e5edfb8af7aea3a8de998dfe9bc6"
+    },
+    {
+      "path": "scripts/public-release/export-source.test.mjs",
+      "bytes": 5616,
+      "sha256": "0ded9328f9aa329a1326d0a332530cf9bb1aa25322a8d30eac1bbb2fff8aff9f"
+    },
+    {
+      "path": "scripts/public-release/go_licenses.py",
+      "bytes": 4213,
+      "sha256": "dd4cc110597e584a42193c94015ff2d9b9dfd0403e331aca65e7895f4f755580"
+    },
+    {
+      "path": "scripts/public-release/install.py",
+      "bytes": 20494,
+      "sha256": "00263cc35cda339aa0609ecda111e44f52001450ebfa4b6bbaf0d68e88bd7725"
+    },
+    {
+      "path": "scripts/public-release/install.sh",
+      "bytes": 898,
+      "sha256": "938e096c2e88ac1b6ae4591c788132cbafa4114ec668389caaae341d490f82b4"
+    },
+    {
+      "path": "scripts/public-release/lifecycle_lib.py",
+      "bytes": 12950,
+      "sha256": "5647752be14bfbe7d9901afef4fc096f439e812fe56164675d5bb798d335aec5"
+    },
+    {
+      "path": "scripts/public-release/mount_sync.py",
+      "bytes": 8746,
+      "sha256": "740890bc5c06bc0ab05cf2069db298999b6aa4eae88ec74d9367041ff5700a47"
+    },
+    {
+      "path": "scripts/public-release/README.md",
+      "bytes": 7136,
+      "sha256": "6c823e587d739b5f497a8a26e2c31deff89116271357e31df9fff1426e1345c2"
+    },
+    {
+      "path": "scripts/public-release/release_lib.py",
+      "bytes": 8479,
+      "sha256": "a10a2166ff3e9e83ad5f4e3e4a28f40a5a72e2d451b3beae7e85e44e8e344dfe"
+    },
+    {
+      "path": "scripts/public-release/runtime-lock.json",
+      "bytes": 3172,
+      "sha256": "efb1fce00de198bb3e565e6851c44fb82323bccfa366ea7c75cb580b19b89dd1"
+    },
+    {
+      "path": "scripts/public-release/templates/npm-additional-notices.md",
+      "bytes": 3484,
+      "sha256": "2e752dd0f8e9d0b19328dacad8190cee486091337c62d169fd2b4b530c30fa0e"
+    },
+    {
+      "path": "scripts/public-release/templates/ptvault-public-export.service",
+      "bytes": 745,
+      "sha256": "b644adac1f4ca3ba93faccb5f992e527fbbd6b0830a1f490b006a855b2a9c5c2"
+    },
+    {
+      "path": "scripts/public-release/templates/ptvault-public-imports@.service",
+      "bytes": 1766,
+      "sha256": "d12499597fee2d1c60fb40a855f9291161043b1f1a38a9fd49593e58b57162c4"
+    },
+    {
+      "path": "scripts/public-release/templates/ptvault-public-media@.service",
+      "bytes": 2060,
+      "sha256": "ef191e7cef6500fb0e244bf0dfdd9b7908da183f74a4b0fb688251bde9c563c2"
+    },
+    {
+      "path": "scripts/public-release/templates/ptvault-public-mount-sync.service",
+      "bytes": 703,
+      "sha256": "28d8d371a97c879f016e9c1b702a34e56d3bdbfd0ee309cca1660e41732ee6e7"
+    },
+    {
+      "path": "scripts/public-release/templates/ptvault-public-mount-sync.timer",
+      "bytes": 218,
+      "sha256": "d43662344bc30e3a8efc59ebf305babbdcf7d8842d73d29b45e8d96440c0783f"
+    },
+    {
+      "path": "scripts/public-release/templates/ptvault-public.service",
+      "bytes": 1218,
+      "sha256": "9178e4219e66f49d73401ef49543576c08ef69fe25bda8b02b268add83132598"
+    },
+    {
+      "path": "scripts/public-release/templates/release-ci.yml",
+      "bytes": 3206,
+      "sha256": "7937f204bc224a6576773931a597f6718ce629ec28176c75053a810232515f2a"
+    },
+    {
+      "path": "scripts/public-release/templates/THIRD_PARTY_NOTICES.md",
+      "bytes": 2801,
+      "sha256": "868d5de36fa26abdd9022c00a94e5452d8f67a38216d13c220b44baaeb0cb92c"
+    },
+    {
+      "path": "scripts/public-release/templates/vite.config.ts",
+      "bytes": 331,
+      "sha256": "932c80b57d7a658b1e1c811253eaa0b144578ec319b04afdc4bd951b34b02ded"
+    },
+    {
+      "path": "scripts/public-release/test_build_release.py",
+      "bytes": 3987,
+      "sha256": "3ccaaf4b7ed684e1f60e2552c134f513f76fee33ba18472d51bc1ce74871a8f2"
+    },
+    {
+      "path": "scripts/public-release/test_install.py",
+      "bytes": 1325,
+      "sha256": "913cf127b50f9fb1b15bad64617b14edf93fcbaf412c47703de180aaa60ac77d"
+    },
+    {
+      "path": "scripts/public-release/test_lifecycle_lib.py",
+      "bytes": 1534,
+      "sha256": "b2e8253be18d119cf2ce271aff1911d42e25d415ea19a666540e722fb7dcf9b8"
+    },
+    {
+      "path": "scripts/public-release/test_mount_sync.py",
+      "bytes": 1810,
+      "sha256": "afae10e6fbe477d8b817981841739ead5758563198870cb3060195d05cd2e68c"
+    },
+    {
+      "path": "scripts/public-release/test_release_lib.py",
+      "bytes": 5298,
+      "sha256": "ddb7f12321c0ccadc5f4a9ec0f04cd253779375a3dd004c8f1abdeba86563508"
+    },
+    {
+      "path": "tsconfig.base.json",
+      "bytes": 410,
+      "sha256": "751a7037529265795175f058952500b71e4d66346f22ea570b74ef6b67fe08a5"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 170,
+      "sha256": "137e4e6175a6c3438984d647694f4eb57ac5441a30197b2b2bb9c65e85881b36"
+    }
+  ]
+}

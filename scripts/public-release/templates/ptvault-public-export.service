@@ -1,0 +1,24 @@
+[Unit]
+Description=PTVault public shared media export root
+Before=ptvault-public.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=root
+UMask=0077
+ExecStart=/usr/bin/python3 -B /opt/ptvault-public/current/scripts/public-release/export_root.py start
+ExecStop=/usr/bin/python3 -B /opt/ptvault-public/current/scripts/public-release/export_root.py stop
+TimeoutStartSec=30
+TimeoutStopSec=30
+# This bind is limited to /srv/ptvault-public, never the host / or /srv mount.
+# Do not create a private mount namespace here; propagation is the entire purpose.
+NoNewPrivileges=yes
+CapabilityBoundingSet=CAP_SYS_ADMIN
+RestrictAddressFamilies=AF_UNIX
+RestrictNamespaces=yes
+RestrictRealtime=yes
+LockPersonality=yes
+
+[Install]
+WantedBy=multi-user.target

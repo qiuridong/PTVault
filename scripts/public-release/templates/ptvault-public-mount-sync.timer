@@ -1,0 +1,11 @@
+[Unit]
+Description=Keep PTVault public mount instances in sync with configured accounts
+
+[Timer]
+OnBootSec=15
+OnUnitInactiveSec=15
+AccuracySec=2
+Unit=ptvault-public-mount-sync.service
+
+[Install]
+WantedBy=timers.target

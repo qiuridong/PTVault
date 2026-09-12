@@ -1,0 +1,293 @@
+/*
+ * PT Cloud Vault — design tokens and stylesheet entry.
+ *
+ * Everything visual resolves from the custom properties declared here. The
+ * layers are imported above the token block because @import must precede other
+ * rules; custom properties are resolved at computed-value time, so nothing
+ * depends on tokens being declared first.
+ *
+ * Tokens deliberately live in this file rather than in an imported layer: the
+ * contrast gate (`themeContrast.test.ts`) reads them off `:root`, and a palette
+ * that only exists behind an @import would make that gate depend on the bundler
+ * inlining imports rather than on the colours actually being right.
+ *
+ * Layers:
+ *   fonts       self-hosted variable faces
+ *   base        reset, document typography, focus, scrollbars, utilities
+ *   layout      shell, rail, page frame, atmosphere
+ *   components  panels, tables, buttons, fields, dialogs, meters, chips
+ *   pages       surfaces specific to one route
+ *   motion      keyframes, reveal utilities, the reduced-motion gate
+ */
+
+@import './fonts.css';
+@import './base.css';
+@import './layout.css';
+@import './components.css';
+@import './pages.css';
+@import './onboarding.css';
+@import './motion.css';
+
+:root {
+  color-scheme: light;
+
+  /* ---- Type ------------------------------------------------------------ */
+  /* Latin runs on the self-hosted faces; Chinese falls through to whatever the
+     platform ships. Both stacks end at a generic family so a machine with
+     neither still renders something reasonable. */
+  --font-ui:
+    'Inter Variable', Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'PingFang SC',
+    'HarmonyOS Sans SC', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  --font-display:
+    'Bricolage Grotesque', 'Inter Variable', ui-sans-serif, system-ui, 'PingFang SC',
+    'HarmonyOS Sans SC', 'Microsoft YaHei UI', 'Microsoft YaHei', sans-serif;
+  --font-mono:
+    'JetBrains Mono Variable', ui-monospace, SFMono-Regular, 'Cascadia Code', Menlo, Consolas,
+    monospace;
+
+  /* Fluid scale: a 1280px laptop and a 4K panel read with the same rhythm
+     rather than the same pixel sizes. */
+  --step-mono: 0.6875rem;
+  --step-xs: 0.75rem;
+  --step-sm: 0.8125rem;
+  --step-base: 0.9375rem;
+  --step-md: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --step-lg: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
+  --step-xl: clamp(1.5rem, 1.3rem + 0.9vw, 2rem);
+  --step-2xl: clamp(2rem, 1.6rem + 1.9vw, 3.25rem);
+  --step-3xl: clamp(2.75rem, 1.9rem + 4vw, 5.5rem);
+  --step-4xl: clamp(3.25rem, 1.6rem + 7.4vw, 9rem);
+  /* Display size for a line that is mostly Chinese. A CJK glyph is a full em
+     wide where a Latin lower-case is about half of one, so the same point size
+     that reads as a headline in English overruns its column in Chinese. */
+  --step-display: clamp(2.25rem, 1.2rem + 3.2vw, 3.75rem);
+
+  --tracking-micro: 0.22em;
+  --tracking-tight: -0.022em;
+  --tracking-display: -0.038em;
+
+  /* ---- Surfaces -------------------------------------------------------- */
+  --bg: #f2f0ec;
+  --bg-deep: #e8e6e0;
+  --surface: #ffffff;
+  --surface-2: #f7f6f2;
+  --surface-3: #edece6;
+  --surface-muted: #f0efe9;
+  --surface-hover: #e9e7e0;
+  --glass: rgb(255 255 255 / 72%);
+  --glass-strong: rgb(255 255 255 / 90%);
+  --scrim: rgb(24 26 24 / 46%);
+
+  /* ---- Ink ------------------------------------------------------------- */
+  --text: #14181a;
+  --text-muted: #58615d;
+  --text-faint: #868f8a;
+  --text-inverse: #ffffff;
+
+  /* ---- Lines ----------------------------------------------------------- */
+  --border: #dedbd3;
+  --border-strong: #b3afa5;
+  --hairline: rgb(20 24 26 / 9%);
+
+  /* ---- Signal ---------------------------------------------------------- */
+  /* `--accent` carries light, never white text. `--button-primary` is the one
+     that has to survive white on top of it, so it stays dark enough to. */
+  --accent: #0f9d8a;
+  --accent-2: #4f7fd6;
+  --accent-ink: #0a5f54;
+  --accent-soft: rgb(15 157 138 / 12%);
+  --accent-line: rgb(15 157 138 / 34%);
+  --accent-glow: rgb(15 157 138 / 22%);
+
+  --primary: #0c6f62;
+  --primary-hover: #095a4f;
+  --link: #0a6558;
+  --link-hover: #084d43;
+  --button-primary: #0c6f62;
+  --button-primary-hover: #095a4f;
+  --focus: #0f9d8a;
+
+  /* ---- Status ---------------------------------------------------------- */
+  --cyan: #0c7f8c;
+  --green: #16714a;
+  --amber: #9a5406;
+  --red: #ad2216;
+  --green-surface: rgb(22 113 74 / 10%);
+  --amber-surface: rgb(154 84 6 / 10%);
+  --danger-surface: rgb(173 34 22 / 9%);
+
+  /* ---- Elevation ------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgb(20 24 26 / 6%), 0 4px 12px rgb(20 24 26 / 5%);
+  --shadow-md: 0 2px 6px rgb(20 24 26 / 7%), 0 16px 40px rgb(20 24 26 / 8%);
+  --shadow-lg: 0 8px 24px rgb(20 24 26 / 10%), 0 40px 90px rgb(20 24 26 / 14%);
+  --shadow: var(--shadow-md);
+  --glow: 0 0 0 1px var(--accent-line), 0 18px 50px var(--accent-glow);
+
+  /* ---- Geometry -------------------------------------------------------- */
+  --r-xs: 6px;
+  --r-sm: 9px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 28px;
+  --rail-width: 262px;
+
+  /* ---- Motion ---------------------------------------------------------- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.5, 1);
+  --dur-fast: 140ms;
+  --dur-base: 260ms;
+  --dur-slow: 620ms;
+
+  /* ---- Atmosphere ------------------------------------------------------ */
+  --grain-opacity: 0.03;
+  --aurora-1: rgb(15 157 138 / 16%);
+  --aurora-2: rgb(79 127 214 / 11%);
+  --aurora-3: rgb(214 168 79 / 9%);
+
+  /* Shader uniforms, read by ShaderBackground through getComputedStyle. */
+  --showcase-a: #e7ece8;
+  --showcase-b: #b6d2cc;
+  --showcase-glow: #4fc6b4;
+
+  /* The rail keeps its own scale: it is dark in both themes so navigation reads
+     as chrome rather than as one more panel competing with the data. */
+  --sidebar-bg: #0c0f12;
+  --sidebar-surface: #171c21;
+  --sidebar-text: #f2f5f3;
+  --sidebar-muted: #93a09b;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #06080b;
+  --bg-deep: #030507;
+  --surface: #0e1218;
+  --surface-2: #131920;
+  --surface-3: #1a2129;
+  --surface-muted: #131920;
+  --surface-hover: #1c242d;
+  --glass: rgb(18 24 31 / 66%);
+  --glass-strong: rgb(13 17 22 / 90%);
+  --scrim: rgb(2 4 6 / 68%);
+
+  --text: #eef4f2;
+  --text-muted: #97a5a2;
+  --text-faint: #6b7b78;
+  --text-inverse: #04070a;
+
+  --border: #1e2830;
+  --border-strong: #33424c;
+  --hairline: rgb(255 255 255 / 8%);
+
+  --accent: #35e2c2;
+  --accent-2: #7aa2ff;
+  --accent-ink: #9ff5e2;
+  --accent-soft: rgb(53 226 194 / 10%);
+  --accent-line: rgb(53 226 194 / 30%);
+  --accent-glow: rgb(53 226 194 / 18%);
+
+  --primary: #0e7f70;
+  --primary-hover: #0b6a5e;
+  --link: #48e0c4;
+  --link-hover: #7bf0dc;
+  --button-primary: #0e7f70;
+  --button-primary-hover: #0b6a5e;
+  --focus: #35e2c2;
+
+  --cyan: #3ec7d8;
+  --green: #45d19a;
+  --amber: #e5a34a;
+  --red: #ff6f60;
+  --green-surface: rgb(69 209 154 / 10%);
+  --amber-surface: rgb(229 163 74 / 12%);
+  --danger-surface: rgb(255 111 96 / 12%);
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%), 0 4px 14px rgb(0 0 0 / 30%);
+  --shadow-md: 0 2px 8px rgb(0 0 0 / 45%), 0 18px 44px rgb(0 0 0 / 42%);
+  --shadow-lg: 0 10px 30px rgb(0 0 0 / 50%), 0 48px 110px rgb(0 0 0 / 60%);
+
+  --grain-opacity: 0.05;
+  --aurora-1: rgb(53 226 194 / 13%);
+  --aurora-2: rgb(122 162 255 / 10%);
+  --aurora-3: rgb(255 143 96 / 7%);
+
+  --showcase-a: #05090c;
+  --showcase-b: #0b2b2c;
+  --showcase-glow: #1ea996;
+
+  --sidebar-bg: #05070a;
+  --sidebar-surface: #10161c;
+  --sidebar-text: #eef4f2;
+  --sidebar-muted: #8b9a96;
+}
+
+/* No stored preference follows the system. Duplicated rather than folded into a
+   `:where()` selector so `data-theme` always wins without a specificity fight. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+
+    --bg: #06080b;
+    --bg-deep: #030507;
+    --surface: #0e1218;
+    --surface-2: #131920;
+    --surface-3: #1a2129;
+    --surface-muted: #131920;
+    --surface-hover: #1c242d;
+    --glass: rgb(18 24 31 / 66%);
+    --glass-strong: rgb(13 17 22 / 90%);
+    --scrim: rgb(2 4 6 / 68%);
+
+    --text: #eef4f2;
+    --text-muted: #97a5a2;
+    --text-faint: #6b7b78;
+    --text-inverse: #04070a;
+
+    --border: #1e2830;
+    --border-strong: #33424c;
+    --hairline: rgb(255 255 255 / 8%);
+
+    --accent: #35e2c2;
+    --accent-2: #7aa2ff;
+    --accent-ink: #9ff5e2;
+    --accent-soft: rgb(53 226 194 / 10%);
+    --accent-line: rgb(53 226 194 / 30%);
+    --accent-glow: rgb(53 226 194 / 18%);
+
+    --primary: #0e7f70;
+    --primary-hover: #0b6a5e;
+    --link: #48e0c4;
+    --link-hover: #7bf0dc;
+    --button-primary: #0e7f70;
+    --button-primary-hover: #0b6a5e;
+    --focus: #35e2c2;
+
+    --cyan: #3ec7d8;
+    --green: #45d19a;
+    --amber: #e5a34a;
+    --red: #ff6f60;
+    --green-surface: rgb(69 209 154 / 10%);
+    --amber-surface: rgb(229 163 74 / 12%);
+    --danger-surface: rgb(255 111 96 / 12%);
+
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%), 0 4px 14px rgb(0 0 0 / 30%);
+    --shadow-md: 0 2px 8px rgb(0 0 0 / 45%), 0 18px 44px rgb(0 0 0 / 42%);
+    --shadow-lg: 0 10px 30px rgb(0 0 0 / 50%), 0 48px 110px rgb(0 0 0 / 60%);
+
+    --grain-opacity: 0.05;
+    --aurora-1: rgb(53 226 194 / 13%);
+    --aurora-2: rgb(122 162 255 / 10%);
+    --aurora-3: rgb(255 143 96 / 7%);
+
+    --showcase-a: #05090c;
+    --showcase-b: #0b2b2c;
+    --showcase-glow: #1ea996;
+
+    --sidebar-bg: #05070a;
+    --sidebar-surface: #10161c;
+    --sidebar-text: #eef4f2;
+    --sidebar-muted: #8b9a96;
+  }
+}

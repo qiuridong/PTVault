@@ -1,0 +1,157 @@
+/* Keyframes, reveal utilities, and the reduced-motion gate. */
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes auth-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes atmosphere-drift {
+  from {
+    transform: translate3d(-2%, -1%, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(2%, 2%, 0) scale(1.08);
+  }
+}
+
+@keyframes ticker-slide {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    /* The track holds the list twice, so half a turn is a seamless loop. */
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 var(--accent-glow);
+  }
+
+  70% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+/* ---- Entrance ------------------------------------------------------------ */
+
+.auth-stage,
+.auth-showcase-copy,
+.auth-capabilities li {
+  animation: auth-rise 0.75s var(--ease-out-expo) both;
+}
+
+.auth-showcase-copy {
+  animation-delay: 0.06s;
+}
+
+.auth-capabilities li:nth-child(1) {
+  animation-delay: 0.16s;
+}
+
+.auth-capabilities li:nth-child(2) {
+  animation-delay: 0.24s;
+}
+
+.auth-capabilities li:nth-child(3) {
+  animation-delay: 0.32s;
+}
+
+/*
+ * Entrance stagger, applied only by JavaScript and only when motion is allowed.
+ *
+ * There is no "hidden" state to get stuck in: the hook writes `in` on mount and
+ * the animation fills backwards from `opacity: 0`, so an element either never
+ * carries the attribute (reduced motion, no script) and is simply visible, or
+ * carries it and is visible within a second. Nothing here can leave a reading
+ * off the page.
+ */
+[data-reveal='in'] {
+  animation: reveal-rise 0.7s var(--ease-out-expo) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+/* ---- The gate ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  /* Neutralised rather than merely shortened: a one-frame slide is still a
+     jump, and an element parked at opacity 0 by a cancelled animation would be
+     invisible. This says "just show it". */
+  [data-reveal='in'] {
+    opacity: 1;
+    animation: none !important;
+    transform: none;
+  }
+
+  .auth-ticker-track {
+    animation: none !important;
+    transform: none;
+  }
+
+  .app-atmosphere::before {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,8 @@
+node_modules/
+**/dist/
+.rt/
+.env
+*.db
+*.sqlite
+*.log
+coverage/

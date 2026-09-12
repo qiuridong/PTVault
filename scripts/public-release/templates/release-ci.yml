@@ -1,0 +1,60 @@
+name: Build and smoke-test public Linux release
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version, for example 0.1.0-rc.1
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: public-release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  linux-x64:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      RELEASE_VERSION: ${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install build dependencies only in this disposable runner
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends build-essential libc6-dev binutils pax-utils python3-pyelftools pkg-config fuse3
+          printf '%s\n' 'Types: deb-src' 'URIs: https://archive.ubuntu.com/ubuntu' 'Suites: noble noble-updates' 'Components: main universe' 'Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg' '' 'Types: deb-src' 'URIs: https://security.ubuntu.com/ubuntu' 'Suites: noble-security' 'Components: main universe' 'Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg' | sudo tee /etc/apt/sources.list.d/ptvault-build.sources >/dev/null
+          sudo apt-get update
+      - name: Build fixed private runtime and export reviewed source
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B scripts/public-release/build_runtime.py --cache "$RUNNER_TEMP/runtime-cache" --output "$RUNNER_TEMP/runtime-built" --jobs 2
+          "$RUNNER_TEMP/runtime-built/runtime/node/bin/node" --test scripts/public-release/export-source.test.mjs
+          sudo python3 -B -m unittest discover -s scripts/public-release -p 'test_*.py'
+          "$RUNNER_TEMP/runtime-built/runtime/node/bin/node" scripts/public-release/export-source.mjs "$RUNNER_TEMP/public-source" "$RELEASE_VERSION"
+      - name: Build independent production bundle and source/license assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -B "$RUNNER_TEMP/public-source/scripts/public-release/build_release.py" --source "$RUNNER_TEMP/public-source" --runtime "$RUNNER_TEMP/runtime-built" --output "$RUNNER_TEMP/public-release"
+      - name: Real systemd fresh install, repeat install, doctor and data-preserving uninstall
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo sh "$RUNNER_TEMP/public-release/release/scripts/public-release/install.sh"
+          sudo sh "$RUNNER_TEMP/public-release/release/scripts/public-release/install.sh"
+          sudo ptvault doctor
+          sudo ptvault uninstall
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ptvault-${{ inputs.version }}-linux-x64-and-sources
+          path: ${{ runner.temp }}/public-release/assets/*
+          if-no-files-found: error
+          retention-days: 7
+# This workflow creates downloadable build artifacts, not a GitHub Release or repository.
+# Publishing is a separate, explicit maintainer action after reviewing the artifacts.

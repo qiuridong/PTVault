@@ -1,0 +1,41 @@
+[Unit]
+Description=PTVault public installation
+After=network-online.target
+Wants=network-online.target
+Requires=ptvault-public-export.service
+After=ptvault-public-export.service
+StartLimitIntervalSec=120
+StartLimitBurst=3
+
+[Service]
+Type=simple
+User=ptvault-public
+Group=ptvault-public
+WorkingDirectory=/var/lib/ptvault-public
+LoadCredential=master.key:/etc/ptvault-public/master.key
+Environment=PATH=/usr/bin:/bin
+ExecStart=/opt/ptvault-public/current/runtime/node/bin/node /opt/ptvault-public/current/apps/api/dist/cli/public.js run --release-root /opt/ptvault-public/current
+UMask=0077
+KillMode=mixed
+KillSignal=SIGTERM
+SendSIGKILL=no
+TimeoutStopSec=600
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=yes
+ProtectSystem=full
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=yes
+RestrictRealtime=yes
+LockPersonality=yes
+TasksMax=512
+# No PrivateNetwork: the per-installation kernel lock must share the host namespace.
+# No strict ReadWritePaths list: approved setup paths may be on another data disk.
+# No MemoryDenyWriteExecute: Node/V8 requires JIT mappings.
+
+[Install]
+WantedBy=multi-user.target

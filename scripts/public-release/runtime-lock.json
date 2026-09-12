@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "platform": "linux-x64",
+  "nodeVersion": "24.21.0",
+  "minimumSystem": { "distribution": "Ubuntu", "version": "24.04", "landlockAbi": 4, "systemd": 255 },
+  "artifacts": {
+    "node": {
+      "file": "node-v24.21.0-linux-x64.tar.xz",
+      "url": "https://nodejs.org/download/release/v24.21.0/node-v24.21.0-linux-x64.tar.xz",
+      "sha256": "fd8e59d5a511510f6a298afb548f18c7d2b1be404d8b4a27d94fbe49f56cb2d6"
+    },
+    "rclone": {
+      "file": "rclone-v1.74.4-linux-amd64.zip",
+      "url": "https://downloads.rclone.org/v1.74.4/rclone-v1.74.4-linux-amd64.zip",
+      "sha256": "fe435e0c36228e7c2f116a8701f01127bb1f694005fc11d1f27186c8bca4115d"
+    },
+    "rcloneSource": {
+      "file": "rclone-v1.74.4.tar.gz",
+      "url": "https://downloads.rclone.org/v1.74.4/rclone-v1.74.4.tar.gz",
+      "sha256": "23fb09cd209ac6f4540f75cbcfc913fb1e2a35b90cf1a9d67292e2239b4f3a24"
+    },
+    "rcloneVendor": {
+      "file": "rclone-v1.74.4-vendor.tar.gz",
+      "url": "https://downloads.rclone.org/v1.74.4/rclone-v1.74.4-vendor.tar.gz",
+      "sha256": "bf845f67874101a1d3b1bbd4430e2119a6b0993e91dd260039e2497d05762403"
+    },
+    "age": {
+      "file": "age-v1.3.2-linux-amd64.tar.gz",
+      "url": "https://github.com/FiloSottile/age/releases/download/v1.3.2/age-v1.3.2-linux-amd64.tar.gz",
+      "sha256": "cbe24006683f8eb669266162894b9a522a1af52f2665fbc63a4bb032ed26ac10"
+    },
+    "ageSource": {
+      "file": "age-v1.3.2-source.tar.gz",
+      "url": "https://codeload.github.com/FiloSottile/age/tar.gz/refs/tags/v1.3.2",
+      "sha256": "b07c28c6c4bdafa272073a310b75bc22c49da8904585a89c30e5ca4233e63843"
+    },
+    "sevenzip": {
+      "file": "7z2603-linux-x64.tar.xz",
+      "url": "https://github.com/ip7z/7zip/releases/download/26.03/7z2603-linux-x64.tar.xz",
+      "sha256": "dc99eff5008f1ab79bd7084c68513701547a808a89502bf4133683535ab3c695"
+    },
+    "sevenzipSource": {
+      "file": "7z2603-src.tar.xz",
+      "url": "https://github.com/ip7z/7zip/releases/download/26.03/7z2603-src.tar.xz",
+      "sha256": "9cbde5099c6deb73691b0579063da5827522ccbbcba3f0020fd04e8c8c16c0d4"
+    },
+    "ffmpegSource": {
+      "file": "ffmpeg-8.0.3.tar.xz",
+      "url": "https://ffmpeg.org/releases/ffmpeg-8.0.3.tar.xz",
+      "sha256": "6136812ea6d4e68bdba27e33c2a94382711cdf4f8602ffef056ff792bd6f9818"
+    },
+    "baiduProfileLicense": {
+      "file": "alist-e5662efad3ef-LICENSE.txt",
+      "url": "https://raw.githubusercontent.com/AlistGo/alist/e5662efad3efb8fea8a6057e537af439d4c7997b/LICENSE",
+      "sha256": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef"
+    },
+    "baiduProfileSource": {
+      "file": "alist-baidu-profile-e5662efad3ef.go",
+      "url": "https://raw.githubusercontent.com/AlistGo/alist/e5662efad3efb8fea8a6057e537af439d4c7997b/drivers/baidu_netdisk/meta.go",
+      "sha256": "d190b639248ff452627329d7ba45a587ff5a9e930ee7d4b0b5b608848357e6f8"
+    }
+  },
+  "baiduProfile": {
+    "profileId": "alist-public-baidu-e5662efad3ef",
+    "sourceCommit": "e5662efad3efb8fea8a6057e537af439d4c7997b",
+    "clientFingerprint": "27d4d7f1a57d6491a4df24976ee8c26178090d38fcc81a8c08f38eea1503b5c9",
+    "appId": null
+  }
+}

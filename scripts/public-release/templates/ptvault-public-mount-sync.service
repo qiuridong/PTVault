@@ -1,0 +1,21 @@
+[Unit]
+Description=Synchronize only PTVault public read-only mount instances
+After=ptvault-public.service
+
+[Service]
+Type=oneshot
+User=root
+UMask=0077
+ExecStart=/usr/bin/python3 -B /opt/ptvault-public/current/scripts/public-release/mount_sync.py
+TimeoutStartSec=240
+# The helper only validates fixed UUIDs/configuration and manages its own templates.
+# It receives no shell commands, credentials or arbitrary paths from HTTP.
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=full
+ReadWritePaths=/etc/ptvault-public /etc/fuse.conf /var/lib/ptvault-public /srv/ptvault-public
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=yes
+RestrictRealtime=yes
+LockPersonality=yes

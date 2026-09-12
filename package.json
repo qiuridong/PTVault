@@ -1,0 +1,27 @@
+{
+  "name": "pt-cloud-vault",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/api",
+    "apps/web",
+    "packages/contracts"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=@ptvault/contracts && npm run build --workspace=@ptvault/api && npm run build --workspace=@ptvault/web",
+    "typecheck": "npm run typecheck --workspace=@ptvault/contracts && npm run typecheck --workspace=@ptvault/api && npm run typecheck --workspace=@ptvault/web",
+    "test:release": "node --test scripts/public-release/*.test.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@playwright/test": "^1.50.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.0.0",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

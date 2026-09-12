@@ -1,0 +1,41 @@
+[Unit]
+Description=PTVault public read-only import mount %i
+After=network-online.target
+Wants=network-online.target
+Requires=ptvault-public-export.service
+After=ptvault-public-export.service
+StartLimitIntervalSec=180
+StartLimitBurst=6
+
+[Service]
+Type=notify
+NotifyAccess=all
+User=ptvault-public
+Group=ptvault-public
+UMask=0077
+KillMode=control-group
+LoadCredential=master.key:/etc/ptvault-public/master.key
+LoadCredential=rc.htpasswd:/etc/ptvault-public/mount-rc.htpasswd
+Environment=PTVAULT_STATE_DIR=/var/lib/ptvault-public
+Environment=PTVAULT_RCLONE_CONFIG=/var/lib/ptvault-public/rclone/rclone.conf
+EnvironmentFile=/etc/ptvault-public/mounts/imports-%i.env
+ExecStart=/opt/ptvault-public/current/runtime/node/bin/node /opt/ptvault-public/current/apps/api/dist/cli/managed-rclone.js --rclone-bin /opt/ptvault-public/current/runtime/bin/rclone -- mount ${CRYPT_REMOTE}ptvault-imports /srv/ptvault-public/mounts/imports/%i --config /var/lib/ptvault-public/rclone/rclone.conf --read-only --allow-other --umask 0222 --vfs-cache-mode off --buffer-size 8M --vfs-read-chunk-size 16M --vfs-read-chunk-size-limit 128M --dir-cache-time 72h --poll-interval 0 --rc --rc-addr ${RC_ADDR} --rc-htpasswd %d/rc.htpasswd --log-level NOTICE --use-json-log --no-checksum --no-modtime
+ExecStop=/usr/bin/fusermount3 -uz /srv/ptvault-public/mounts/imports/%i
+ExecStopPost=-/usr/bin/fusermount3 -uz /srv/ptvault-public/mounts/imports/%i
+Restart=on-failure
+RestartSec=15
+TimeoutStartSec=90
+TimeoutStopSec=45
+CapabilityBoundingSet=CAP_SYS_ADMIN
+AmbientCapabilities=
+DeviceAllow=/dev/fuse rw
+DevicePolicy=closed
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=yes
+RestrictRealtime=yes
+LockPersonality=yes
+MemoryMax=512M
+TasksMax=128
+
+[Install]
+WantedBy=multi-user.target
