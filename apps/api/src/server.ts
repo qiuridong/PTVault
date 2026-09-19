@@ -1157,6 +1157,7 @@ async function createResources(
             });
       importDataPlaneLoop = new ImportDataPlaneLoop({
         processor: new ImportDataPlaneProcessor({
+          fileDownloadConnections: () => groupRuntime.settings.status().effective.fileDownloadConnections,
           ...(archiveProcessing === undefined
             ? {}
             : groupRuntime.attach({

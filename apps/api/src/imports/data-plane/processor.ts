@@ -32,6 +32,7 @@ export type ImportDataPlaneProcessorOptions = {
   sources: ImportDataPlaneSourceResolver;
   destinations: ImportDataPlaneDestinationResolver;
   downloader: RangeDownloader;
+  fileDownloadConnections?: () => number;
   spool: SpoolManager;
   backupWriter: ImportControlPlaneBackupWriter;
   pacer?: BytePacer;
@@ -69,6 +70,7 @@ export class ImportDataPlaneProcessor {
   private readonly sources: ImportDataPlaneProcessorOptions['sources'];
   private readonly destinations: ImportDataPlaneDestinationResolver;
   private readonly downloader: RangeDownloader;
+  private readonly fileDownloadConnections: (() => number) | undefined;
   private readonly spool: SpoolManager;
   private readonly backupWriter: ImportControlPlaneBackupWriter;
   private readonly pacer: BytePacer | undefined;
@@ -89,6 +91,7 @@ export class ImportDataPlaneProcessor {
     this.sources = options.sources;
     this.destinations = options.destinations;
     this.downloader = options.downloader;
+    this.fileDownloadConnections = options.fileDownloadConnections;
     this.spool = options.spool;
     this.backupWriter = options.backupWriter;
     this.pacer = options.pacer;
@@ -211,6 +214,7 @@ export class ImportDataPlaneProcessor {
         const worker = new SingleObjectImportWorker({
           source,
           downloader: this.downloader,
+          ...(this.fileDownloadConnections === undefined ? {} : { connections: this.fileDownloadConnections }),
           spool: this.spool,
           destination: resolved.adapter,
           journal: new BfImportWorkerJournal(this.repository),
@@ -227,13 +231,17 @@ export class ImportDataPlaneProcessor {
               resourceSignal: AbortSignal,
               body: () => Promise<T>,
             ) => {
-              await this.spoolCapacity?.reserve(
-                task.jobId,
-                archiveJob
-                  ? this.archiveProcessing!.requiredSpoolBytes(claimed)
-                  : claimed.jobBytesTotal,
-                resourceSignal,
-              );
+              if (archiveJob)
+                await this.archiveProcessing!.reserveReadyOutputPreparation(
+                  claimed,
+                  resourceSignal,
+                );
+              else
+                await this.spoolCapacity?.reserve(
+                  task.jobId,
+                  claimed.jobBytesTotal,
+                  resourceSignal,
+                );
               const admitted = () => {
                 this.checkControl(claimed);
                 this.destinationCapacity.reserve(claimed.jobId, claimed.attempt);

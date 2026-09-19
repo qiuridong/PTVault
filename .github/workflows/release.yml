@@ -42,6 +42,7 @@ jobs:
         run: |
           set -euo pipefail
           python3 -B "$RUNNER_TEMP/public-source/scripts/public-release/build_release.py" --source "$RUNNER_TEMP/public-source" --runtime "$RUNNER_TEMP/runtime-built" --output "$RUNNER_TEMP/public-release"
+          "$RUNNER_TEMP/runtime-built/runtime/node/bin/node" "$RUNNER_TEMP/public-source/scripts/public-release/check-data-plane.mjs" "$RUNNER_TEMP/public-release/release"
       - name: Real systemd fresh install, repeat install, doctor and data-preserving uninstall
         shell: bash
         run: |

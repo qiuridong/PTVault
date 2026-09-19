@@ -55,6 +55,8 @@ export type SingleObjectWorkerResult =
 export type SingleObjectImportWorkerOptions = {
   source: ImportDataPlaneSource;
   downloader: RangeDownloader;
+  /** Shared per-file policy; absent keeps legacy callers on one connection. */
+  connections?: () => number;
   spool: SpoolManager;
   destination: VerifiedDestinationAdapter;
   journal: ImportDataPlaneJournal;
@@ -84,6 +86,7 @@ function atLeast(state: ImportObjectState, expected: ImportObjectState): boolean
 export class SingleObjectImportWorker {
   private readonly source: ImportDataPlaneSource;
   private readonly downloader: RangeDownloader;
+  private readonly connections: (() => number) | undefined;
   private readonly spool: SpoolManager;
   private readonly destination: VerifiedDestinationAdapter;
   private readonly journal: ImportDataPlaneJournal;
@@ -98,6 +101,7 @@ export class SingleObjectImportWorker {
   constructor(options: SingleObjectImportWorkerOptions) {
     this.source = options.source;
     this.downloader = options.downloader;
+    this.connections = options.connections;
     this.spool = options.spool;
     this.destination = options.destination;
     this.journal = options.journal;
@@ -205,6 +209,7 @@ export class SingleObjectImportWorker {
           lease: preflight.lease,
           partPath: paths.partPath,
           completedBytes: task.completedBytes,
+          ...(this.connections === undefined ? {} : { connections: this.connections }),
           ...(signal === undefined ? {} : { signal }),
           ...(this.pacer === undefined ? {} : { pacer: this.pacer }),
           checkpointEveryBytes: this.checkpointEveryBytes,

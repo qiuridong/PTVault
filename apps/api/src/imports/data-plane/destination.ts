@@ -210,16 +210,6 @@ export class VerifiedDestinationAdapter {
       options.expectedSha256,
       options.signal,
     );
-    // Keep COMMITTED_READBACK retryable until the task-owned duplicate is gone.
-    const duplicate = await this.transport.stat(options.stagingKey, options.signal);
-    if (duplicate !== null) {
-      const observed = await this.observe(options.stagingKey, duplicate.size, options.signal);
-      if (observed.size !== options.expectedSize || observed.sha256 !== options.expectedSha256) {
-        await this.quarantine(options, observed);
-      } else {
-        await this.removeStaging(options);
-      }
-    }
     await options.onDurableReceipt?.({
       kind: 'STAGING_VERIFIED',
       key: stagingKey,
@@ -274,6 +264,16 @@ export class VerifiedDestinationAdapter {
       options.expectedSha256,
       options.signal,
     );
+    // Keep COMMITTED_READBACK retryable until the task-owned duplicate is gone.
+    const duplicate = await this.transport.stat(options.stagingKey, options.signal);
+    if (duplicate !== null) {
+      const observed = await this.observe(options.stagingKey, duplicate.size, options.signal);
+      if (observed.size !== options.expectedSize || observed.sha256 !== options.expectedSha256) {
+        await this.quarantine(options, observed);
+      } else {
+        await this.removeStaging(options);
+      }
+    }
     await options.onDurableReceipt?.({
       kind: 'COMMITTED_VERIFIED',
       key: committedKey,

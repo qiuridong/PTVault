@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "version": "0.1.0-rc.6",
-  "sourceDigest": "123176b497be8156236dabe8ac8f6788492b42453f6bd015ae485935a2d671b9",
+  "sourceDigest": "f56eb78cb60e67ba96df602e82f737b9b4a249e5010ffe56f768ad6ddfe2c395",
   "scope": "REVIEWED_BUILD_SOURCE_NOT_PRIVATE_HISTORY",
   "transformations": [
     "public workspace commands",
@@ -11,8 +11,8 @@
   "files": [
     {
       "path": ".github/workflows/release.yml",
-      "bytes": 7237,
-      "sha256": "e85bb528fa719d7faf50a0f6351089d9c992835896a0ec7f2dcaa8eb688e6005"
+      "bytes": 7409,
+      "sha256": "9f8d51130b792224a53d342ab4ee3dc2f38f14e200f4b8378f10bda17395d471"
     },
     {
       "path": ".gitignore",
@@ -306,8 +306,8 @@
     },
     {
       "path": "apps/api/src/imports/archive/processor.ts",
-      "bytes": 27445,
-      "sha256": "0a24fdcbd24b18b2ab857e15c88d8d54bf4bd7d6e8c9d899406a87c3b9c78e37"
+      "bytes": 28471,
+      "sha256": "f4dad90d0f4f6e3afe9a0140ab0e427f2a11549730c189989def2066e74b46dc"
     },
     {
       "path": "apps/api/src/imports/archive/repository.ts",
@@ -392,7 +392,7 @@
     {
       "path": "apps/api/src/imports/data-plane/destination.ts",
       "bytes": 15559,
-      "sha256": "59676fc0c8958c0f2282152574ea8b874cc4df6df70b1006e7e4ea531702c052"
+      "sha256": "5f6a1521741d130cfca038555213de9531b23b0ad353bcb3278ba461ace012b9"
     },
     {
       "path": "apps/api/src/imports/data-plane/download-continuity.ts",
@@ -426,8 +426,8 @@
     },
     {
       "path": "apps/api/src/imports/data-plane/processor.ts",
-      "bytes": 17250,
-      "sha256": "d8a465fa670e16312a66272e40d1eba40181230485b225205d718dfb68bed0e6"
+      "bytes": 17657,
+      "sha256": "2ae7c058ecf6e5f06a09673f16b998d55b979fcf6436f8a2c9b4b07b1a1dd549"
     },
     {
       "path": "apps/api/src/imports/data-plane/range-downloader.ts",
@@ -476,8 +476,8 @@
     },
     {
       "path": "apps/api/src/imports/data-plane/worker.ts",
-      "bytes": 13688,
-      "sha256": "62f2a41a930b35f47c389b45af629d09653537b6b99e277cf2b2ed74a2ee7e25"
+      "bytes": 13990,
+      "sha256": "ff8657981407f457c283a11c76b25ad2bc1e6ef74060242d9826d4281714e180"
     },
     {
       "path": "apps/api/src/imports/destinations.ts",
@@ -1031,8 +1031,8 @@
     },
     {
       "path": "apps/api/src/server.ts",
-      "bytes": 73880,
-      "sha256": "930a819d7dbd805c2b7aea3f675fbaa671dff8ffcda899e53289765e9f6e45fe"
+      "bytes": 73987,
+      "sha256": "db17e527a6478e9e2b3747466a14b4694ba7cc056e3fa011b5bb7d4d9474ddf6"
     },
     {
       "path": "apps/api/src/settings/netdisk-routes.ts",
@@ -2165,6 +2165,11 @@
       "sha256": "264a81d62b209213633faf336a4637485465928d88a90abf2aad424986e9c1fe"
     },
     {
+      "path": "scripts/public-release/check-data-plane.mjs",
+      "bytes": 3088,
+      "sha256": "6c56f0c77e4ccf4651a5ddea5aa7508d31825fb8912dffc300950f6ee2836343"
+    },
+    {
       "path": "scripts/public-release/export_root.py",
       "bytes": 2917,
       "sha256": "836d54a4c7038c4eda1e6e4b5a1487d7bba34c23b17763324e4e44dbe83996f4"
@@ -2261,8 +2266,8 @@
     },
     {
       "path": "scripts/public-release/templates/release-ci.yml",
-      "bytes": 7237,
-      "sha256": "e85bb528fa719d7faf50a0f6351089d9c992835896a0ec7f2dcaa8eb688e6005"
+      "bytes": 7409,
+      "sha256": "9f8d51130b792224a53d342ab4ee3dc2f38f14e200f4b8378f10bda17395d471"
     },
     {
       "path": "scripts/public-release/templates/THIRD_PARTY_NOTICES.md",

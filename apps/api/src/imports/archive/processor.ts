@@ -21,7 +21,7 @@ import {
   isArchiveSourceManifest,
 } from '../source-manifest.js';
 import type { ImportWorkerJob, ImportWorkerRepository } from '../worker-repository.js';
-import { ImportControlStop } from '../data-plane/errors.js';
+import { ImportControlStop, ImportDataPlaneError } from '../data-plane/errors.js';
 import type {
   ImportDataPlaneSource,
   ImportDataPlaneSourceResolver,
@@ -166,6 +166,23 @@ export class ArchiveImportProcessor {
   constructor(private readonly options: ArchiveProcessorOptions) {}
   requiredSpoolBytes(job: ImportWorkerJob): string {
     return this.options.repository.requiredSpoolBytes(job.jobId);
+  }
+
+  async reserveReadyOutputPreparation(job: ImportWorkerJob, signal: AbortSignal): Promise<void> {
+    signal.throwIfAborted();
+    const status = this.options.repository.status(job.jobId);
+    archiveAssert(status?.phase === 'READY', 'ARCHIVE_OUTPUTS_NOT_PREPARED');
+    let reserved = this.requiredSpoolBytes(job);
+    if (job.sourceManifest?.version === 4) {
+      // Group admission already measured and reserved the retained workspace.
+      // READY preparation only reopens/hashes existing outputs; it must not ask
+      // for the obsolete extraction peak again. Reuse the grant without resizing
+      // it, and fail closed if it is absent or cannot cover all retained videos.
+      reserved = this.options.spoolCapacity.reservationBytes(job.jobId);
+      if (BigInt(reserved) === 0n || BigInt(reserved) < BigInt(job.jobBytesTotal))
+        throw new ImportDataPlaneError('IMPORT_SPOOL_RESERVATION_CONFLICT');
+    }
+    await this.options.spoolCapacity.reserve(job.jobId, reserved, signal);
   }
 
   async workspace(jobId: string, create = true): Promise<ArchiveWorkspace> {
