@@ -46,15 +46,77 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sudo sh "$RUNNER_TEMP/public-release/release/scripts/public-release/install.sh"
-          sudo sh "$RUNNER_TEMP/public-release/release/scripts/public-release/install.sh"
+          test "$GITHUB_ACTIONS" = true
+          test "$RUNNER_ENVIRONMENT" = github-hosted
+          stat -c '%F %a %u:%g %n' / /etc /opt /var /var/lib /var/backups /srv /usr/local/bin
+          sudo python3 -c 'import os,pathlib,stat; p=pathlib.Path("/opt"); s=p.lstat(); assert stat.S_ISDIR(s.st_mode) and s.st_uid==0 and stat.S_IMODE(s.st_mode) in (0o755,0o777); p.chmod(0o755)'
+          stat -c '%F %a %u:%g %n' /opt
+          sudo sh "$RUNNER_TEMP/public-release/release/scripts/public-release/install.sh" > /dev/null
+          BEFORE_PID=$(systemctl show ptvault-public -p MainPID --value)
+          sudo sh "$RUNNER_TEMP/public-release/release/scripts/public-release/install.sh" > /dev/null
+          test "$BEFORE_PID" = "$(systemctl show ptvault-public -p MainPID --value)"
           sudo ptvault doctor
           sudo ptvault uninstall
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
         with:
           name: ptvault-${{ inputs.version }}-linux-x64-and-sources
           path: ${{ runner.temp }}/public-release/assets/*
           if-no-files-found: error
           retention-days: 7
+  upgrade-from-rc5:
+    needs: linux-x64
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: ptvault-${{ inputs.version }}-linux-x64-and-sources
+          path: ${{ runner.temp }}/assets
+      - name: RC5 to candidate upgrade preserves the original key and data
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_ACTIONS" = true
+          test "$RUNNER_ENVIRONMENT" = github-hosted
+          sudo python3 -c 'import pathlib,stat; p=pathlib.Path("/opt"); s=p.lstat(); assert stat.S_ISDIR(s.st_mode) and s.st_uid==0 and stat.S_IMODE(s.st_mode) in (0o755,0o777); p.chmod(0o755)'
+          cd "$RUNNER_TEMP/assets"
+          sha256sum -c SHA256SUMS
+          curl --fail --location --output old.tar.gz https://github.com/qiuridong/PTVault/releases/download/v0.1.0-rc.5/ptvault-0.1.0-rc.5-linux-x64.tar.gz
+          printf '%s\n' '777908f8c4e2051a84fa0e7208e86126747a91029869d545d16ed6fd17c90cf9  old.tar.gz' | sha256sum -c -
+          mkdir old new
+          tar -xzf old.tar.gz -C old --strip-components=1
+          tar -xzf "ptvault-$RELEASE_VERSION-linux-x64.tar.gz" -C new --strip-components=1
+          sudo sh old/scripts/public-release/install.sh > /dev/null
+          sudo python3 - <<'PY'
+          import hashlib,json,pathlib,sqlite3
+          state=pathlib.Path('/var/lib/ptvault-public')
+          marker=state/'ci-preservation-proof.txt'
+          marker.write_text('Synthetic CI data; never a user database.\n');marker.chmod(0o600)
+          key=pathlib.Path('/etc/ptvault-public/master.key')
+          db=sqlite3.connect('file:'+str(state/'ptvault.db')+'?mode=ro',uri=True)
+          tables=['admins','jobs','import_jobs','netdisk_settings','storage_accounts','cloud_connections','encrypted_secrets']
+          proof={'key':hashlib.sha256(key.read_bytes()).hexdigest(),'marker':hashlib.sha256(marker.read_bytes()).hexdigest(),
+            'tables':{t:hashlib.sha256(repr(db.execute('SELECT * FROM '+t+' ORDER BY rowid').fetchall()).encode()).hexdigest() for t in tables}}
+          pathlib.Path('/tmp/ptvault-ci-before.json').write_text(json.dumps(proof));db.close()
+          PY
+          sudo ptvault upgrade --release "$RUNNER_TEMP/assets/new"
+          sudo ptvault doctor
+          sudo python3 - <<'PY'
+          import hashlib,json,pathlib,sqlite3
+          before=json.loads(pathlib.Path('/tmp/ptvault-ci-before.json').read_text())
+          state=pathlib.Path('/var/lib/ptvault-public')
+          assert hashlib.sha256(pathlib.Path('/etc/ptvault-public/master.key').read_bytes()).hexdigest()==before['key']
+          assert hashlib.sha256((state/'ci-preservation-proof.txt').read_bytes()).hexdigest()==before['marker']
+          db=sqlite3.connect('file:'+str(state/'ptvault.db')+'?mode=ro',uri=True)
+          assert db.execute('PRAGMA quick_check').fetchone()==('ok',)
+          for t,h in before['tables'].items():assert hashlib.sha256(repr(db.execute('SELECT * FROM '+t+' ORDER BY rowid').fetchall()).encode()).hexdigest()==h
+          db.close();print('RC5_UPGRADE_KEY_AND_7_TABLES_PRESERVED')
+          PY
+          sudo ptvault uninstall
+          sudo test -f /etc/ptvault-public/master.key
+          sudo test -f /var/lib/ptvault-public/ptvault.db
 # This workflow creates downloadable build artifacts, not a GitHub Release or repository.
 # Publishing is a separate, explicit maintainer action after reviewing the artifacts.
