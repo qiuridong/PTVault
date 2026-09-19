@@ -4,6 +4,7 @@ import { ApiError } from '../../api/client.js';
 import {
   downloadRecoveryFile,
   getRecoveryExports,
+  getRecoveryCloudCopies,
   recoveryExportsQueryKey,
   type RecoveryFileKind,
 } from './recoveryApi.js';
@@ -170,6 +171,7 @@ export function RecoveryDownloads({ currentVersion }: { currentVersion: number |
               </section>
             );
           })}
+          <RecoveryCloudLocations key={selected.version} version={selected.version} />
         </>
       )}
       {error === null ? null : (
@@ -184,4 +186,25 @@ export function RecoveryDownloads({ currentVersion }: { currentVersion: number |
       )}
     </section>
   );
+}
+
+function RecoveryCloudLocations({ version }: { version: number }) {
+  const query = useQuery({
+    queryKey: ['recovery', 'cloud-copies', version],
+    queryFn: () => getRecoveryCloudCopies(version),
+  });
+  return <section aria-label={`v${version} 云端取回位置`}>
+    <h3>云端取回位置（请与离线备份一起保存）</h3>
+    <p className="field-hint">这是历史校验记录，不是当前在线探测。新 raw 副本可在正常授权云账户后直接下载；旧 crypt 副本仍需要原 crypt 密钥。本地下载失败不会自动改从云端取回。</p>
+    {query.isPending ? <p role="status">正在读取云副本记录…</p> : query.isError ?
+      <p role="alert">云副本位置暂不可用，未猜测路径。请重试。</p> :
+      query.data.length === 0 ? <p>此版本尚无已校验云副本记录。</p> :
+      query.data.map(copy => <div className="recovery-step" key={copy.accountId}>
+        <p>账户：{copy.accountId}</p>
+        <p>恢复包路径：<code style={{ overflowWrap: 'anywhere' }}>{copy.bundleRemotePath}</code></p>
+        <p>恢复包 SHA-256：<code style={{ overflowWrap: 'anywhere' }}>{copy.bundleSha256}</code></p>
+        <p>escrow 路径：<code style={{ overflowWrap: 'anywhere' }}>{copy.escrowRemotePath}</code></p>
+        <p>escrow SHA-256：<code style={{ overflowWrap: 'anywhere' }}>{copy.escrowSha256}</code></p>
+      </div>)}
+  </section>;
 }

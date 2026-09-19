@@ -228,7 +228,7 @@ function RecipientStep({
       index={1}
       title="登记恢复收件人"
       done={configured}
-      hint="恢复包用这把 age 公钥加密。对应的私钥请离线保存，服务器永远不接触它。"
+      hint="恢复包用这把 age 公钥加密。对应的私钥请离线保存，服务器不接触明文私钥。"
     >
       <form
         className="instance-form"
@@ -348,12 +348,13 @@ function EscrowStep({
       index={2}
       title="上传 escrow.age"
       done={done}
-      hint="在你自己的电脑上，用口令短语（不是公钥）加密 crypt 口令，再把生成的 escrow.age 传上来。"
+      hint="新材料：在自己的电脑上，用恢复口令加密与已登记 recipient 对应的 age 私钥，再上传 escrow.age。"
     >
       <p className="inline-message" role="note">
         <ShieldAlert size={14} strokeWidth={1.8} aria-hidden="true" /> 本机执行：
-        <code>age --passphrase --output escrow.age crypt-passphrase.txt</code>
-        。crypt 口令<strong>不会</strong>以明文形式到达服务器。
+        <code>age --passphrase --output escrow.age identity.key</code>
+        。age 会在终端提示输入口令。私钥和恢复口令不要上传；恢复包内保留各 crypt profile 的密码和 salt，才能恢复数据。
+        历史 escrow 的明文类型服务器无法识别：先在本机解密核对，勿删除旧密钥或用新材料覆盖唯一备份。
       </p>
       <form
         className="instance-form"

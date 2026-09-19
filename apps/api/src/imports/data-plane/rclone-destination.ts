@@ -183,9 +183,10 @@ export class RcloneDestinationTransport implements DestinationTransport {
     sourceKey: string,
     destinationKey: string,
     signal?: AbortSignal,
+    options?: { immutable?: boolean },
   ): Promise<DestinationMoveReceipt> {
     const result = await this.executor.run(
-      ['moveto', this.remotePath(sourceKey), this.remotePath(destinationKey), ...this.commonArgs()],
+      ['moveto', this.remotePath(sourceKey), this.remotePath(destinationKey), ...this.commonArgs(), ...(options?.immutable ? ['--ignore-existing'] : [])],
       signal,
     );
     if (result.exitCode !== 0) {
@@ -196,6 +197,15 @@ export class RcloneDestinationTransport implements DestinationTransport {
 
   private remotePath(key: string): string {
     return `${this.remote}${this.allowedRoot}/${safeRelativePath(key)}`;
+  }
+
+  async deleteFile(key: string, signal?: AbortSignal): Promise<void> {
+    dataPlaneInvariant(/^staging\/[^/]+\/[^/]+$/.test(key), 'STAGING_CLEANUP_KEY_INVALID');
+    const result = await this.executor.run(
+      ['deletefile', this.remotePath(key), ...this.commonArgs()], signal,
+    );
+    if (result.exitCode !== 0 && await this.stat(key, signal) !== null)
+      throw new DestinationError('DESTINATION_STAGING_DELETE_FAILED', 'Staging cleanup failed');
   }
 
   private commonArgs(): string[] {
@@ -218,6 +228,13 @@ class AuthorityCheckedDestinationTransport implements DestinationTransport {
     return result;
   }
 
+  async deleteFile(key: string, signal?: AbortSignal): Promise<void> {
+    this.assertEligible();
+    dataPlaneInvariant(this.transport.deleteFile !== undefined, 'STAGING_CLEANUP_UNSUPPORTED');
+    await this.transport.deleteFile(key, signal);
+    this.assertEligible();
+  }
+
   async upload(localPath: string, key: string, signal?: AbortSignal): Promise<void> {
     this.assertEligible();
     await this.transport.upload(localPath, key, signal);
@@ -236,9 +253,10 @@ class AuthorityCheckedDestinationTransport implements DestinationTransport {
     sourceKey: string,
     destinationKey: string,
     signal?: AbortSignal,
+    options?: { immutable?: boolean },
   ): Promise<DestinationMoveReceipt> {
     this.assertEligible();
-    const result = await this.transport.move(sourceKey, destinationKey, signal);
+    const result = await this.transport.move(sourceKey, destinationKey, signal, options);
     this.assertEligible();
     return result;
   }

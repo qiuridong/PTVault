@@ -199,7 +199,8 @@ export class SpoolManager {
     };
   }
 
-  async hashReady(evidence: ReadyEvidence): Promise<ReadyHash> {
+  async hashReady(evidence: ReadyEvidence, signal?: AbortSignal): Promise<ReadyHash> {
+    signal?.throwIfAborted();
     this.validateId(evidence.objectId);
     const readyPath = this.inside(path.resolve(evidence.readyPath));
     dataPlaneInvariant(readyPath === evidence.readyPath, 'SPOOL_EVIDENCE_PATH_INVALID');
@@ -211,13 +212,16 @@ export class SpoolManager {
       const buffer = Buffer.allocUnsafe(1024 * 1024);
       let position = 0n;
       while (position < before.size) {
+        signal?.throwIfAborted();
         const length = Math.min(buffer.byteLength, safeNumber(before.size - position));
         const read = await handle.read(buffer, 0, length, safeNumber(position));
+        signal?.throwIfAborted();
         if (read.bytesRead === 0) throw new ImportDataPlaneError('SPOOL_HASH_SHORT_READ');
         hash.update(buffer.subarray(0, read.bytesRead));
         position += BigInt(read.bytesRead);
       }
       const after = await handle.stat({ bigint: true });
+      signal?.throwIfAborted();
       this.assertEvidence(evidence, after);
       return {
         sha256: hash.digest('hex'),

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "version": "0.1.0-rc.5",
-  "sourceDigest": "a0d066cf7a3b7582bcdcaa80d5d5ea197fdddc3c9407db277ea9837d9a30fc93",
+  "version": "0.1.0-rc.6",
+  "sourceDigest": "c115cba0c0c677b1abebfe44cfa280b809cfef7f8feaf2b4ddf13fb2f7e35144",
   "scope": "REVIEWED_BUILD_SOURCE_NOT_PRIVATE_HISTORY",
   "transformations": [
     "public workspace commands",
@@ -21,13 +21,13 @@
     },
     {
       "path": "apps/api/package.json",
-      "bytes": 838,
-      "sha256": "42a387d65c3d1ca783d218a0f1fb4053ff4361dfd577d9d00a73f7918f23bdee"
+      "bytes": 841,
+      "sha256": "6be4dca5c8605d3bde9f978e6965150759e5ed1dd3806a3b69ee9c298a3b79b9"
     },
     {
       "path": "apps/api/src/app.ts",
-      "bytes": 21063,
-      "sha256": "6366228177dde31ddb3cfad021294b076a5392f7066a88a7eb2ffe680e6c8f8a"
+      "bytes": 22060,
+      "sha256": "f8aa1193bed07cfd245d6295d561a07a5f8c8529f46cdf3aba06bb1b058bc515"
     },
     {
       "path": "apps/api/src/audit/repository.ts",
@@ -56,8 +56,8 @@
     },
     {
       "path": "apps/api/src/auth/service.ts",
-      "bytes": 9264,
-      "sha256": "5f35c39da536760f9fa0ac1cbd13f7756205cf3115247bb179cf9b61c1d4bf31"
+      "bytes": 10440,
+      "sha256": "f8c47bb356085e56b91d625c95bfa512057d9c1f326266ddce5b57bee30ee88e"
     },
     {
       "path": "apps/api/src/cli/create-admin.ts",
@@ -281,8 +281,8 @@
     },
     {
       "path": "apps/api/src/events/routes.ts",
-      "bytes": 3374,
-      "sha256": "2417a91daa4cc467a7cca32969206c04e0db9986269154c71279ed1a340b70d3"
+      "bytes": 3693,
+      "sha256": "810f34184c6c9df97a57d74b1bf3a79a7e319632a88e6a81d4c062b928d0be30"
     },
     {
       "path": "apps/api/src/imports/archive/engine.ts",
@@ -391,8 +391,8 @@
     },
     {
       "path": "apps/api/src/imports/data-plane/destination.ts",
-      "bytes": 9601,
-      "sha256": "879aaa13d06b80eeb06556b6313b54ac5b6fc71e5edceffc2b16aa53b549c545"
+      "bytes": 15559,
+      "sha256": "59676fc0c8958c0f2282152574ea8b874cc4df6df70b1006e7e4ea531702c052"
     },
     {
       "path": "apps/api/src/imports/data-plane/download-continuity.ts",
@@ -426,8 +426,8 @@
     },
     {
       "path": "apps/api/src/imports/data-plane/processor.ts",
-      "bytes": 17168,
-      "sha256": "9cd44d5a762b930ad7d6d4c022a957e67c133d0f8443a1179eb63cfbb917ec7c"
+      "bytes": 17250,
+      "sha256": "d8a465fa670e16312a66272e40d1eba40181230485b225205d718dfb68bed0e6"
     },
     {
       "path": "apps/api/src/imports/data-plane/range-downloader.ts",
@@ -441,13 +441,13 @@
     },
     {
       "path": "apps/api/src/imports/data-plane/rclone-destination.ts",
-      "bytes": 11457,
-      "sha256": "dfd64bbcefda09c1b53f5f0f5d87162accec74fbec24a5fb8c1fc882f978626f"
+      "bytes": 12336,
+      "sha256": "58415f35219a87917c8f0e206b6209d9844e1f4968a723f779f69603206c024a"
     },
     {
       "path": "apps/api/src/imports/data-plane/repository-journal.ts",
-      "bytes": 7510,
-      "sha256": "74a1fa1d42a129ae133a67e68cc954efc1a2c21b146fe43f2ae60a96ad84d5de"
+      "bytes": 7939,
+      "sha256": "dac81209c6f8808b97b2b96538af56ff8fffa91a7386f6c6bc0f81d9de7ed081"
     },
     {
       "path": "apps/api/src/imports/data-plane/resource-scheduler.ts",
@@ -461,13 +461,13 @@
     },
     {
       "path": "apps/api/src/imports/data-plane/spool-capacity.ts",
-      "bytes": 8920,
-      "sha256": "aad6f970c591662c32fe82f79f82f2a5c18b2a9687b170b3ff5d786b04462898"
+      "bytes": 9117,
+      "sha256": "2d100acae83ea44a402b5e076b1aad78310710056dc97f90cb3212ac32d3624c"
     },
     {
       "path": "apps/api/src/imports/data-plane/spool.ts",
-      "bytes": 9259,
-      "sha256": "606f826dda26d7fbd66aa69028237fdc191b0c174c7d370d087517fba61071c8"
+      "bytes": 9411,
+      "sha256": "9cd1c1d1cdba897c7aa1678f299b77a4d8bcd414d01cb196ab163e3a0209b6a0"
     },
     {
       "path": "apps/api/src/imports/data-plane/types.ts",
@@ -476,8 +476,8 @@
     },
     {
       "path": "apps/api/src/imports/data-plane/worker.ts",
-      "bytes": 12997,
-      "sha256": "19a41e4259d26cca2bfc1365e614aa57219cbb1af51d670947e210fd33cfdb81"
+      "bytes": 13688,
+      "sha256": "62f2a41a930b35f47c389b45af629d09653537b6b99e277cf2b2ed74a2ee7e25"
     },
     {
       "path": "apps/api/src/imports/destinations.ts",
@@ -626,8 +626,8 @@
     },
     {
       "path": "apps/api/src/imports/worker-repository.ts",
-      "bytes": 82895,
-      "sha256": "69b4c5ecf1fdf48000a73e1f34bfd1c4e01295bcd5c45c4ddee5b2528f640825"
+      "bytes": 87936,
+      "sha256": "583a2d1ebafda07a0a2938c3729810084740cf09f542d0928e134c71090be20f"
     },
     {
       "path": "apps/api/src/jellyfin/import-libraries.ts",
@@ -771,8 +771,8 @@
     },
     {
       "path": "apps/api/src/onboarding/admission.ts",
-      "bytes": 2511,
-      "sha256": "80e3b9a6fef11480ebcbb643b84df52a7e976dc5dde469e12fe8321d4b8bce75"
+      "bytes": 2551,
+      "sha256": "5229f47e35be2e2455ad8942dc6cef53b5cfc6d3fea485185eebc10c30fee838"
     },
     {
       "path": "apps/api/src/onboarding/bootstrap-routes.ts",
@@ -816,8 +816,8 @@
     },
     {
       "path": "apps/api/src/onboarding/managed-server.ts",
-      "bytes": 4877,
-      "sha256": "4eef6f198eb78e4c872a855878abdb9b45476aba2f508e0bec22e749b8e7b89b"
+      "bytes": 4901,
+      "sha256": "9e2642983b636dc6006d4e3bf531d8e3561f899adfe46749c2808a639f5f2385"
     },
     {
       "path": "apps/api/src/onboarding/mount-registry.ts",
@@ -831,8 +831,8 @@
     },
     {
       "path": "apps/api/src/onboarding/path-check.ts",
-      "bytes": 6423,
-      "sha256": "03fc020a0923ab6c557801df3ed5cedfc99a924d4ab20308ed48b18ced3cf8ed"
+      "bytes": 6472,
+      "sha256": "74182acb68ae51471df43a672cca70163af805b179a26a9535274d49c63d1833"
     },
     {
       "path": "apps/api/src/onboarding/private-files.ts",
@@ -916,8 +916,8 @@
     },
     {
       "path": "apps/api/src/qb/routes.ts",
-      "bytes": 17579,
-      "sha256": "5ffd48bc59ea4e347996fb8338f25a487b50d77b109c0f8fcf60e4da29cb12d2"
+      "bytes": 18035,
+      "sha256": "ce6d57ce9316b52fa25153ff39709634a8d37b6048c1da3f689caa020770be87"
     },
     {
       "path": "apps/api/src/qb/scheduler.ts",
@@ -941,8 +941,8 @@
     },
     {
       "path": "apps/api/src/recovery/bundle.ts",
-      "bytes": 10728,
-      "sha256": "ccc6443308d7dbf94ffddd9ed43d1d0d8b8b509b4582caefa5d54876dcbac8e3"
+      "bytes": 12191,
+      "sha256": "d9c548687e2ffc4fcbc96411178a5dc763c152b6e54b9e4aa8a858e7814b596c"
     },
     {
       "path": "apps/api/src/recovery/download-routes.ts",
@@ -1026,8 +1026,8 @@
     },
     {
       "path": "apps/api/src/recovery/workflow.ts",
-      "bytes": 9171,
-      "sha256": "415f7adb30bfc5c53aa834d8d48dedb8d613ac74c4a37cb5aac93dbb32d2e5cb"
+      "bytes": 10012,
+      "sha256": "b2672383478432a3e384ff9e7f031a20dfd91d2751cf190f997a2a718b527422"
     },
     {
       "path": "apps/api/src/server.ts",
@@ -1141,8 +1141,8 @@
     },
     {
       "path": "apps/api/src/storage/rclone.ts",
-      "bytes": 9809,
-      "sha256": "03fdde2c7ff59ed3bfb0ed00aa188bcc4a03420168dec2b872b06684f9980be8"
+      "bytes": 9890,
+      "sha256": "a860c722664d7af298d055f26a5f353938272a674d4b0faf60c370e9f46acb74"
     },
     {
       "path": "apps/api/src/storage/reconcile.ts",
@@ -1251,8 +1251,8 @@
     },
     {
       "path": "apps/web/package.json",
-      "bytes": 915,
-      "sha256": "fed2458f08d4ba8857ea3291af0999febc3075c9b3108b5bd8f202a94f34180a"
+      "bytes": 919,
+      "sha256": "54c5b8bd87ad9d501b6cfec4ec25d810037881bc7205e2528173121463eaa2f1"
     },
     {
       "path": "apps/web/public/fonts/bricolage-latin-ext.woff2",
@@ -1316,8 +1316,8 @@
     },
     {
       "path": "apps/web/src/api/useServerEvents.ts",
-      "bytes": 7925,
-      "sha256": "d1a538078e7cbaec5eaad4d1926f5da62119ea21880d704c3bf5b280c5de5265"
+      "bytes": 8357,
+      "sha256": "14e39db8b540288259a7eca099e7e62de694ddc8814f2c1d2cbda2c3a1f8d383"
     },
     {
       "path": "apps/web/src/app/App.tsx",
@@ -1511,8 +1511,8 @@
     },
     {
       "path": "apps/web/src/features/imports/ImportActions.tsx",
-      "bytes": 13192,
-      "sha256": "d89cc9b5a628f5e9adaf8f3987b717a444bb02319c0e80ed743f3023bac405c5"
+      "bytes": 13346,
+      "sha256": "dbab67ec569a57217bc08a73db879aa4e3435443810262a7a88a7b757acf8e96"
     },
     {
       "path": "apps/web/src/features/imports/importApi.ts",
@@ -1526,8 +1526,13 @@
     },
     {
       "path": "apps/web/src/features/imports/ImportCreatePanel.tsx",
-      "bytes": 82472,
-      "sha256": "b681c0e2111724ac7a96fc513e7c94816a7acb88c2e4c2c5cc28ac6cff9b2c0e"
+      "bytes": 83404,
+      "sha256": "6b4a5f108334f281145cc4b06977e78e9fc7d1cf22e7e8f05703961c54e55be7"
+    },
+    {
+      "path": "apps/web/src/features/imports/ImportCreateWithDefaults.tsx",
+      "bytes": 1017,
+      "sha256": "780005b5f85c61f5313c1ed37dfe1f1549c62797452c4ac3b109b361266d8f70"
     },
     {
       "path": "apps/web/src/features/imports/ImportEventTimeline.tsx",
@@ -1541,8 +1546,8 @@
     },
     {
       "path": "apps/web/src/features/imports/ImportJobDetail.tsx",
-      "bytes": 17224,
-      "sha256": "dfd59402d5f73a9576d15149eb4b7a53ca6de230532a7e8ed4d55e41c0d2bbc7"
+      "bytes": 17247,
+      "sha256": "01d4c21bca64fca86af133333a62a1eca598feb187a45f6511227a11fd48a1c4"
     },
     {
       "path": "apps/web/src/features/imports/ImportJobsTable.tsx",
@@ -1571,8 +1576,8 @@
     },
     {
       "path": "apps/web/src/features/imports/ImportsPage.tsx",
-      "bytes": 22845,
-      "sha256": "127edfd5e11b99e9b37917121fc5e640159287221fa6b8915f628f8792258aae"
+      "bytes": 22975,
+      "sha256": "d74c5b523d96a281e5019df0481a630bc57838631a28ec23cf67e6599761a891"
     },
     {
       "path": "apps/web/src/features/imports/importTelemetry.ts",
@@ -1711,13 +1716,13 @@
     },
     {
       "path": "apps/web/src/features/recovery/RecoveryDownloads.tsx",
-      "bytes": 7965,
-      "sha256": "2cfcce1c6ebbbb431efc410bff97658abbfbfb827d165d680db06f15ffa01e84"
+      "bytes": 9500,
+      "sha256": "61cff8812beed1e14b06afa8804abf2529a58daad8c9e602d8df38ec7d0ba4a6"
     },
     {
       "path": "apps/web/src/features/recovery/RecoveryPage.tsx",
-      "bytes": 8326,
-      "sha256": "8227940d6c671d8394b9de86877d75fe741d3d22bdfab18b243f59bba389e284"
+      "bytes": 8379,
+      "sha256": "9fef07e912f08c5935492193be72496a98cc0a30c61bf5787431dc56e0e0a9f3"
     },
     {
       "path": "apps/web/src/features/recovery/RecoveryPreparation.tsx",
@@ -1726,8 +1731,8 @@
     },
     {
       "path": "apps/web/src/features/recovery/RecoverySetup.tsx",
-      "bytes": 23009,
-      "sha256": "16d3413acbece11bdab52831b0060618ff15cf845abb6dbcedd5dc96b42209a6"
+      "bytes": 23234,
+      "sha256": "38cb457818d46a935b38877c9d427a8736a094143b6eb166778cd32e19f701fe"
     },
     {
       "path": "apps/web/src/features/settings/CapabilitySlot.tsx",
@@ -1736,8 +1741,8 @@
     },
     {
       "path": "apps/web/src/features/settings/InstanceEditor.tsx",
-      "bytes": 17938,
-      "sha256": "8343b0397f28b02fde7d1ffcee5517b839e83465b000846d4b28d985ea56b67f"
+      "bytes": 18516,
+      "sha256": "80eb5536a0d3813cfedcec15faa6614043ff9702b2729c3eab9f47278b3d1fa8"
     },
     {
       "path": "apps/web/src/features/settings/JellyfinSection.tsx",
@@ -1985,14 +1990,24 @@
       "sha256": "5ff938a96fff7b92722e6d179e47dd170bbdbc1871307d0a8a1c1aae2ea13762"
     },
     {
+      "path": "deploy/recovery/prepare-recovery.ps1",
+      "bytes": 6175,
+      "sha256": "f1119825820793aa12c0179a787889701d6e3d1b1c2c2a60eef40a9000068836"
+    },
+    {
+      "path": "deploy/recovery/prepare-recovery.sh",
+      "bytes": 4579,
+      "sha256": "33727d5c49d7de2ab9a2a9fc55d35930cdb397aa8c17c31103fce96ecb1b3873"
+    },
+    {
       "path": "LICENSE",
       "bytes": 1077,
       "sha256": "6dddc1f35e5419afaa9af7faa51d4d436654861fb6928dc934178492d820c3c5"
     },
     {
       "path": "package-lock.json",
-      "bytes": 218946,
-      "sha256": "6176c7d96a510acbbfd345ef699885c8aeb68c8f1c3a0e41f31c3302179178c7"
+      "bytes": 188632,
+      "sha256": "90d6c134f5d07f73849463939643ed448ac39e7b88733c8cc7b200ae8786d352"
     },
     {
       "path": "package.json",
@@ -2137,7 +2152,7 @@
     {
       "path": "README.md",
       "bytes": 11633,
-      "sha256": "a937abf8c3d55468f1255791afe20fbcaaa520b8f07c14cadea1540b96f9d689"
+      "sha256": "28d0f6df630ececd28a57ecd805f2fe1a3a00c5ea357d63f360e5390864dc49d"
     },
     {
       "path": "scripts/public-release/build_release.py",
@@ -2156,8 +2171,8 @@
     },
     {
       "path": "scripts/public-release/export-source.mjs",
-      "bytes": 10930,
-      "sha256": "96dd00b02d808693ef17aa1a7c581a87d302e5edfb8af7aea3a8de998dfe9bc6"
+      "bytes": 11011,
+      "sha256": "03556ba5896670f0838295881b3e45eb9cc015bdd0fe4614fb0496347e8f0f53"
     },
     {
       "path": "scripts/public-release/export-source.test.mjs",
@@ -2193,6 +2208,11 @@
       "path": "scripts/public-release/README.md",
       "bytes": 7136,
       "sha256": "6c823e587d739b5f497a8a26e2c31deff89116271357e31df9fff1426e1345c2"
+    },
+    {
+      "path": "scripts/public-release/RECOVERY.md",
+      "bytes": 2103,
+      "sha256": "ff9f33a24e9e197e39eb584907115d36dfda57a450c4a700566dc2eb1da70182"
     },
     {
       "path": "scripts/public-release/release_lib.py",

@@ -413,7 +413,7 @@ export function ImportJobDetail({
             )}
           </section>
 
-          <SourceCleanupPanel detail={probe.data} readOnlyReason={readOnlyReason} />
+          <SourceCleanupPanel key={probe.data.jobId} detail={probe.data} readOnlyReason={readOnlyReason} />
 
           <ImportActions
             detail={probe.data}

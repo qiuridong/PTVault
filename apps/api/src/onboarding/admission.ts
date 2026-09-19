@@ -15,8 +15,8 @@ export class ManagedMutationAdmission {
       if (this.closed()) return reply.code(503).header('retry-after', '2').send({ code: 'SETUP_APPLYING', error: '正在应用配置，请稍后再试。现有任务和凭据不会被重置。' });
       requests.set(request.id, 'RECEIVING');
     });
-    app.addHook('onRequestAbort', async (request) => { receivingDone(request.id); });
-    app.addHook('onResponse', async (request) => { receivingDone(request.id); });
+    app.addHook('onRequestAbort', (request) => { receivingDone(request.id); return Promise.resolve(); });
+    app.addHook('onResponse', (request) => { receivingDone(request.id); return Promise.resolve(); });
     app.addHook('onSend', async (request, _reply, payload) => { receivingDone(request.id); return payload; });
     // Must run before routes are registered. No Fastify private contexts are modified.
     app.addHook('onRoute', (route) => {

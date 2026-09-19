@@ -29,7 +29,7 @@
 从本项目发行资产取得同版本的 `linux-x64.tar.gz`、`sources.tar.gz` 和 `SHA256SUMS`。确认来源后，先校验再解包；将下面 VERSION 改为实际下载的版本：
 
 ```sh
-VERSION=0.1.0-rc.5
+VERSION=0.1.0-rc.6
 sha256sum --ignore-missing -c SHA256SUMS
 tar -xzf "ptvault-${VERSION}-linux-x64.tar.gz"
 cd "ptvault-${VERSION}-linux-x64"

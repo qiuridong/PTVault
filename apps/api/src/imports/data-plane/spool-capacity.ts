@@ -83,11 +83,7 @@ export class ImportSpoolCapacityGate {
         resolve,
         reject,
         abort: () => {
-          const index = this.queue.indexOf(waiter);
-          if (index >= 0) this.queue.splice(index, 1);
-          this.sink.released(jobId);
-          this.publishQueue();
-          reject(abortError());
+          if (this.removeAbortedWaiter(waiter)) this.drain();
         },
       };
       this.queue.push(waiter);
@@ -163,12 +159,22 @@ export class ImportSpoolCapacityGate {
     return (this.reservation(jobId) ?? 0n).toString();
   }
 
+  private removeAbortedWaiter(waiter: Waiter): boolean {
+    const index = this.queue.indexOf(waiter);
+    if (index < 0) return false;
+    this.queue.splice(index, 1);
+    waiter.signal.removeEventListener('abort', waiter.abort);
+    this.sink.released(waiter.jobId);
+    waiter.reject(abortError());
+    return true;
+  }
+
   private drain(): void {
     for (;;) {
       const waiter = this.queue[0];
       if (waiter === undefined) break;
       if (waiter.signal.aborted) {
-        waiter.abort();
+        this.removeAbortedWaiter(waiter);
         continue;
       }
       try {

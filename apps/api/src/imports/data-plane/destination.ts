@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 
 import { dataPlaneInvariant, ImportDataPlaneError } from './errors.js';
 
@@ -9,7 +9,19 @@ export type DestinationObjectStat = {
 
 export type DestinationMoveReceipt = { providerRequestId?: string };
 
+export type StagingQuarantineProof = {
+  operationId: string;
+  stagingKey: string;
+  quarantineKey: string;
+  observedSize: string;
+  observedSha256: string;
+  expectedSize: string;
+  expectedSha256: string;
+};
+export type StagingQuarantineEvent = StagingQuarantineProof & { phase: 'INTENT' | 'DONE' };
+
 export interface DestinationTransport {
+  deleteFile?(key: string, signal?: AbortSignal): Promise<void>;
   stat(key: string, signal?: AbortSignal): Promise<DestinationObjectStat | null>;
   upload(localPath: string, key: string, signal?: AbortSignal): Promise<void>;
   read(key: string, signal?: AbortSignal): AsyncIterable<Uint8Array>;
@@ -17,6 +29,7 @@ export interface DestinationTransport {
     sourceKey: string,
     destinationKey: string,
     signal?: AbortSignal,
+    options?: { immutable?: boolean },
   ): Promise<DestinationMoveReceipt>;
 }
 
@@ -56,6 +69,8 @@ export type VerifiedCommitOptions = {
   signal?: AbortSignal;
   onStage?: (stage: DestinationStage) => void | Promise<void>;
   onDurableReceipt?: (receipt: DestinationReceipt) => void | Promise<void>;
+  loadPendingStagingQuarantine?: () => StagingQuarantineProof | null | Promise<StagingQuarantineProof | null>;
+  onStagingQuarantine?: (event: StagingQuarantineEvent) => void | Promise<void>;
   /** Permit boundary around the upload body only; probes/readbacks/move stay outside. */
   withStagingUpload?: <T>(body: () => Promise<T>) => Promise<T>;
 };
@@ -99,12 +114,17 @@ export class VerifiedDestinationAdapter {
   constructor(private readonly transport: DestinationTransport) {}
 
   async commit(options: VerifiedCommitOptions): Promise<VerifiedCommitResult> {
+    let canReconcileCommitted = options.reconcileCommittedFirst;
     for (let handoff = 0; ; handoff++) {
       options.signal?.throwIfAborted();
       try {
         return await this.commitOnce({
           ...options,
-          reconcileCommittedFirst: handoff > 0 || options.reconcileCommittedFirst,
+          reconcileCommittedFirst: canReconcileCommitted,
+          onDurableReceipt: async (receipt) => {
+            await options.onDurableReceipt?.(receipt);
+            if (receipt.kind === 'STAGING_VERIFIED') canReconcileCommitted = true;
+          },
         });
       } catch (error) {
         options.signal?.throwIfAborted();
@@ -131,6 +151,9 @@ export class VerifiedDestinationAdapter {
     const committedKey = validateKey(options.committedKey);
     dataPlaneInvariant(stagingKey !== committedKey, 'DESTINATION_KEY_COLLISION');
 
+    const pending = await options.loadPendingStagingQuarantine?.();
+    if (pending) await this.reconcileQuarantine(options, pending);
+
     if (options.reconcileCommittedFirst) {
       const existing = await this.transport.stat(committedKey, options.signal);
       if (existing !== null) {
@@ -151,6 +174,15 @@ export class VerifiedDestinationAdapter {
 
     await options.onStage?.('UPLOADING_STAGING');
     let stagingStat = await this.transport.stat(stagingKey, options.signal);
+    // Prove the complete existing bytes before moving an invalid partial upload.
+    // Never mistake a transport failure or a changing object for proven corruption.
+    if (stagingStat !== null && options.onStagingQuarantine !== undefined) {
+      const observed = await this.observe(stagingKey, stagingStat.size, options.signal);
+      if (observed.size !== options.expectedSize || observed.sha256 !== options.expectedSha256) {
+        await this.quarantine(options, observed);
+        stagingStat = null;
+      }
+    }
     if (stagingStat === null) {
       const upload = () =>
         this.transport.upload(options.localReadyPath, stagingKey, options.signal);
@@ -178,6 +210,16 @@ export class VerifiedDestinationAdapter {
       options.expectedSha256,
       options.signal,
     );
+    // Keep COMMITTED_READBACK retryable until the task-owned duplicate is gone.
+    const duplicate = await this.transport.stat(options.stagingKey, options.signal);
+    if (duplicate !== null) {
+      const observed = await this.observe(options.stagingKey, duplicate.size, options.signal);
+      if (observed.size !== options.expectedSize || observed.sha256 !== options.expectedSha256) {
+        await this.quarantine(options, observed);
+      } else {
+        await this.removeStaging(options);
+      }
+    }
     await options.onDurableReceipt?.({
       kind: 'STAGING_VERIFIED',
       key: stagingKey,
@@ -251,6 +293,73 @@ export class VerifiedDestinationAdapter {
     if (decimal(stat.size) !== expected) throw new DestinationError(code, 'Object size mismatch');
   }
 
+  private async observe(key: string, size: string, signal?: AbortSignal): Promise<{ size: string; sha256: string }> {
+    const expected = decimal(size);
+    const hash = createHash('sha256');
+    let bytes = 0n;
+    for await (const chunk of this.transport.read(key, signal)) {
+      signal?.throwIfAborted();
+      bytes += BigInt(chunk.byteLength);
+      dataPlaneInvariant(bytes <= expected, 'STAGING_QUARANTINE_OBJECT_CHANGED');
+      hash.update(chunk);
+    }
+    signal?.throwIfAborted();
+    const after = await this.transport.stat(key, signal);
+    dataPlaneInvariant(bytes === expected && after?.size === size, 'STAGING_QUARANTINE_OBJECT_CHANGED');
+    return { size, sha256: hash.digest('hex') };
+  }
+
+  private async quarantine(options: VerifiedCommitOptions, observed: { size: string; sha256: string }): Promise<void> {
+    dataPlaneInvariant(options.onStagingQuarantine !== undefined && options.loadPendingStagingQuarantine !== undefined,
+      'STAGING_QUARANTINE_JOURNAL_REQUIRED');
+    const proof: StagingQuarantineProof = {
+      operationId: randomUUID(),
+      stagingKey: options.stagingKey,
+      quarantineKey: validateKey(`quarantine/${options.stagingKey}/${observed.size}-${observed.sha256}`),
+      observedSize: observed.size, observedSha256: observed.sha256,
+      expectedSize: options.expectedSize, expectedSha256: options.expectedSha256,
+    };
+    await options.onStagingQuarantine({ ...proof, phase: 'INTENT' });
+    await this.reconcileQuarantine(options, proof);
+  }
+
+  private async reconcileQuarantine(options: VerifiedCommitOptions, proof: StagingQuarantineProof): Promise<void> {
+    dataPlaneInvariant(options.onStagingQuarantine !== undefined &&
+      proof.stagingKey === options.stagingKey && proof.expectedSize === options.expectedSize &&
+      proof.expectedSha256 === options.expectedSha256 && /^[a-f0-9]{64}$/.test(proof.observedSha256) &&
+      proof.quarantineKey === `quarantine/${options.stagingKey}/${proof.observedSize}-${proof.observedSha256}` &&
+      proof.quarantineKey !== options.committedKey, 'STAGING_QUARANTINE_PROOF_INVALID');
+    validateKey(proof.quarantineKey);
+    const verify = async (key: string): Promise<boolean> => {
+      const stat = await this.transport.stat(key, options.signal);
+      if (stat === null) return false;
+      dataPlaneInvariant(stat.size === proof.observedSize, 'STAGING_QUARANTINE_CONFLICT');
+      const actual = await this.observe(key, stat.size, options.signal);
+      dataPlaneInvariant(actual.sha256 === proof.observedSha256, 'STAGING_QUARANTINE_CONFLICT');
+      return true;
+    };
+    const quarantined = await verify(proof.quarantineKey);
+    const original = await verify(proof.stagingKey);
+    dataPlaneInvariant(original || quarantined, 'STAGING_QUARANTINE_EVIDENCE_MISSING');
+    if (original) {
+      options.signal?.throwIfAborted();
+      if (quarantined) await this.removeStaging(options);
+      else await this.transport.move(proof.stagingKey, proof.quarantineKey, options.signal, { immutable: true });
+    }
+    dataPlaneInvariant(await verify(proof.quarantineKey), 'STAGING_QUARANTINE_EVIDENCE_MISSING');
+    dataPlaneInvariant(await this.transport.stat(proof.stagingKey, options.signal) === null,
+      'STAGING_QUARANTINE_SOURCE_REMAINS');
+    await options.onStagingQuarantine({ ...proof, phase: 'DONE' });
+  }
+
+  private async removeStaging(options: VerifiedCommitOptions): Promise<void> {
+    dataPlaneInvariant(this.transport.deleteFile !== undefined, 'STAGING_CLEANUP_UNSUPPORTED');
+    dataPlaneInvariant(/^(?:imports\/)?staging\/[^/]+\/[^/]+$/.test(options.stagingKey), 'STAGING_CLEANUP_KEY_INVALID');
+    options.signal?.throwIfAborted();
+    await this.transport.deleteFile(options.stagingKey, options.signal);
+    dataPlaneInvariant(await this.transport.stat(options.stagingKey, options.signal) === null, 'STAGING_CLEANUP_NOT_REMOVED');
+  }
+
   private async readback(
     key: string,
     expectedSize: bigint,
@@ -261,6 +370,7 @@ export class VerifiedDestinationAdapter {
     let bytes = 0n;
     try {
       for await (const chunk of this.transport.read(key, signal)) {
+        signal?.throwIfAborted();
         dataPlaneInvariant(chunk.byteLength > 0, 'DESTINATION_READ_EMPTY');
         bytes += BigInt(chunk.byteLength);
         if (bytes > expectedSize) {
@@ -269,6 +379,7 @@ export class VerifiedDestinationAdapter {
         hash.update(chunk);
       }
     } catch (error) {
+      signal?.throwIfAborted();
       if (error instanceof ImportDataPlaneError) throw error;
       throw new DestinationError('DESTINATION_READ_FAILED', 'Destination readback failed');
     }

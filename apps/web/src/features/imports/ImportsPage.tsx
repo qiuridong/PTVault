@@ -26,7 +26,8 @@ import {
   importErrorMessage,
   importsQueryKey,
 } from './importApi.js';
-import { ImportCreatePanel, type ReadOnlyReason } from './ImportCreatePanel.js';
+import type { ReadOnlyReason } from './ImportCreatePanel.js';
+import { ImportCreateWithDefaults } from './ImportCreateWithDefaults.js';
 import { ImportJobDetail } from './ImportJobDetail.js';
 import { ImportJobsTable } from './ImportJobsTable.js';
 import { PUBLICATION_POLICY_SHORT } from './importLabels.js';
@@ -195,9 +196,9 @@ export function ImportsPage() {
       ? 'FEATURE_DISABLED'
       : capabilities.mode === 'SHADOW'
         ? 'SHADOW'
-        : capabilities.createEnabled
-          ? null
-          : 'FEATURE_DISABLED';
+        : null;
+  const creationReadOnlyReason: ReadOnlyReason = readOnlyReason ??
+    (capabilities?.createEnabled ? null : 'FEATURE_DISABLED');
 
   const normalizedQuery = query.trim().toLocaleLowerCase();
   const baseFiltered = jobs.filter((job) => {
@@ -374,10 +375,10 @@ export function ImportsPage() {
           ) : null}
 
           {view === 'create' ? (
-            <ImportCreatePanel
+            <ImportCreateWithDefaults
               capabilities={capabilities}
               destinations={destinations}
-              readOnlyReason={readOnlyReason}
+              readOnlyReason={creationReadOnlyReason}
               {...(initialSourceKind === undefined ? {} : { initialSourceKind })}
               {...(initialSourceConnectionId === undefined ? {} : { initialSourceConnectionId })}
               onCreated={(job) => updateParams({ view: null, job: job.jobId })}

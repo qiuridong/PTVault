@@ -42,7 +42,7 @@ function checklist(status: RecoveryStatus): Array<{ label: string; met: boolean;
       met: status.escrowVerifiedAt !== null,
       detail:
         status.escrowVerifiedAt !== null
-          ? '已用口令短语解密 escrow 中的 crypt 口令并完成演练。'
+          ? '已登记此版本的本机口令演练确认；服务器未读取 escrow 明文，历史材料类型需由本机核对。'
           : '等待用恢复口令解密 escrow 演练。',
     },
     {

@@ -14,12 +14,14 @@ const TOTP_PERIOD_SECONDS = 30;
 /** How long a spent step-up code is remembered: its own window plus the ±1 skew. */
 const STEP_UP_RETENTION_MS = 4 * TOTP_PERIOD_SECONDS * 1000;
 export const MAX_MFA_FAILURES = 5;
+const STEP_UP_FAILURE_WINDOW_MS = 5 * 60 * 1000;
 
 export type AuthErrorCode =
   | 'INVALID_CREDENTIALS'
   | 'MFA_CHALLENGE_INVALID'
   | 'MFA_CHALLENGE_EXPIRED'
   | 'MFA_CODE_INVALID'
+  | 'MFA_RATE_LIMITED'
   | 'MFA_CHALLENGE_LOCKED'
   | 'MFA_CODE_ALREADY_USED';
 
@@ -28,6 +30,7 @@ const AUTH_ERROR_MESSAGES: Record<AuthErrorCode, string> = {
   MFA_CHALLENGE_INVALID: 'MFA challenge is invalid or already consumed',
   MFA_CHALLENGE_EXPIRED: 'MFA challenge expired',
   MFA_CODE_INVALID: 'Invalid TOTP code',
+  MFA_RATE_LIMITED: 'Too many verification attempts; wait before trying again',
   MFA_CHALLENGE_LOCKED: 'MFA challenge locked',
   MFA_CODE_ALREADY_USED: 'TOTP code was already used',
 };
@@ -69,6 +72,9 @@ export class AuthService {
   private readonly repository: AuthRepository;
   private readonly secretBox: SecretBox;
   private readonly now: Clock;
+  // Shared across routes, deliberately outside business DB transactions. The
+  // single-process budget resets on restart, like the HTTP login limiter.
+  private readonly stepUpFailures = new Map<string, { count: number; expiresAt: number }>();
 
   constructor(input: { repository: AuthRepository; secretBox: SecretBox; now: Clock }) {
     this.repository = input.repository;
@@ -244,12 +250,20 @@ export class AuthService {
   verifyStepUp(adminId: string, code: string): void {
     const admin = this.repository.findAdminById(adminId);
     if (!admin) throw new AuthError('MFA_CHALLENGE_INVALID');
+    if (this.stepUpRetryAfter(adminId) > 0) throw new AuthError('MFA_RATE_LIMITED');
 
     const timestamp = this.now().getTime();
     const secret = OTPAuth.Secret.fromBase32(this.secretBox.open(admin.totpSecret));
     const totp = this.createTotp(admin.username, secret);
     const delta = totp.validate({ token: code, timestamp, window: 1 });
-    if (delta === null) throw new AuthError('MFA_CODE_INVALID');
+    if (delta === null) {
+      const previous = this.stepUpFailures.get(adminId);
+      this.stepUpFailures.set(adminId, {
+        count: (previous?.count ?? 0) + 1,
+        expiresAt: previous?.expiresAt ?? timestamp + STEP_UP_FAILURE_WINDOW_MS,
+      });
+      throw new AuthError('MFA_CODE_INVALID');
+    }
 
     // Bind the claim to the period the code actually belongs to, not to "now":
     // within the ±1 window the same code is accepted across three periods, and
@@ -263,8 +277,19 @@ export class AuthService {
       createdAt: timestamp,
     });
     if (!claimed) throw new AuthError('MFA_CODE_ALREADY_USED');
+    this.stepUpFailures.delete(adminId);
 
     this.repository.pruneStepUpCodes(timestamp - STEP_UP_RETENTION_MS);
+  }
+
+  stepUpRetryAfter(adminId: string): number {
+    const now = this.now().getTime();
+    for (const [id, budget] of this.stepUpFailures) {
+      if (budget.expiresAt <= now) this.stepUpFailures.delete(id);
+    }
+    const budget = this.stepUpFailures.get(adminId);
+    return budget !== undefined && budget.count >= MAX_MFA_FAILURES
+      ? Math.max(1, Math.ceil((budget.expiresAt - now) / 1000)) : 0;
   }
 
   private createTotp(username: string, secret: OTPAuth.Secret): OTPAuth.TOTP {

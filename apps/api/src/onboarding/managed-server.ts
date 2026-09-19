@@ -25,8 +25,8 @@ export async function startManagedServer(options: {
   const marker = readManagedInstallation(options);
   const store = new SetupConfigStore(options);
   store.view(); // No implicit initialization or adoption on normal service start.
-  let activation: SetupActivation<ServerRuntime> | undefined;
-  let maintenance: ManagedMaintenance | undefined;
+  let activation: SetupActivation<ServerRuntime> | undefined = undefined;
+  let maintenance: ManagedMaintenance | undefined = undefined;
   const admission = new ManagedMutationAdmission(() => (activation?.quiescing ?? false) || (maintenance?.closed ?? false));
   const environmentOptions = { ...options, port: marker.port, credentialRoot: path.join(options.stateDir, 'setup', 'runtime-credentials') };
   const initialProbe = await new SetupPathProbe({ allowedRoots: [], spoolRoot: store.active().values.spoolRoot, protectedRoots: [] }).spool();

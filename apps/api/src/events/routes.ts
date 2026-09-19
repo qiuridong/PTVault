@@ -82,7 +82,13 @@ export function registerEventRoutes(app: FastifyInstance, deps: EventRouteDepend
       subscription.close();
       response.off('close', close);
       request.raw.off('aborted', close);
-      if (!response.destroyed && !response.writableEnded) response.end();
+      if (!response.destroyed && !response.writableEnded) {
+        // A hijacked SSE response can become an idle keep-alive connection after
+        // the server's closeIdleConnections pass. Finish this one response, then
+        // end only its socket gracefully; do not reset other active requests.
+        const socket = response.socket;
+        response.end(() => socket?.end());
+      }
     }
   });
 }

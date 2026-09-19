@@ -249,6 +249,14 @@ export function registerQbRoutes(app: FastifyInstance, deps: QbRouteDependencies
       return reply.code(400).send({ error: 'Password is required for a new instance' });
     }
 
+    if (config.password === undefined && storedCredential && (
+      new URL(config.baseUrl).href.replace(/\/+$/, '') !== new URL(storedCredential.baseUrl).href.replace(/\/+$/, '') ||
+      config.username !== storedCredential.username
+    )) {
+      return reply.code(400).send({ code: 'QB_CREDENTIAL_TARGET_CHANGED',
+        error: '连接目标或用户名已更改，请重新输入该目标的密码；不会向新目标发送原密码。' });
+    }
+
     const password = config.password ?? deps.credentials.open(storedCredential!.encryptedPassword);
 
     deps.credentials.upsert({

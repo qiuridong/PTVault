@@ -54,7 +54,15 @@ export function useServerEvents(): LiveStatus {
     // `withCredentials` sends the session cookie; the endpoint refuses without it.
     const source = new EventSource('/api/events', { withCredentials: true });
 
-    source.onopen = () => setStatus('live');
+    source.onopen = () => {
+      // SSE has no replay cursor. A terminal event can be missed between two
+      // connections, so re-read snapshots before relying on the live stream.
+      for (const queryKey of [
+        ['imports'], ['offloads'], ['jobs'], ['qb', 'torrents'], ['media'],
+        ['storage'], ['settings'], ['recovery'], ['cloud-connections'], ['offload-scheduler'],
+      ]) void queryClient.invalidateQueries({ queryKey });
+      setStatus('live');
+    };
 
     /*
      * Merge state for job frames.

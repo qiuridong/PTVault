@@ -12,6 +12,12 @@ import { readSourceManifest, type ImportSourceManifest } from './source-manifest
 import { ImportDestinationCapacityGate } from './data-plane/destination-capacity.js';
 import { SOURCE_NETWORK_RETRY_CODES } from './data-plane/network-retry.js';
 import { encodeDownloadDiagnostic } from './data-plane/download-diagnostics.js';
+import type { StagingQuarantineEvent, StagingQuarantineProof } from './data-plane/destination.js';
+
+type QuarantineOwner = {
+  jobId: string; jobAttempt: number; objectId: string; objectAttempt: number;
+  destinationAccountId: string;
+};
 
 const REQUIRED_SCHEMA_VERSION = 17;
 
@@ -482,6 +488,78 @@ export class ImportWorkerRepository {
         createdAt: now,
       });
     });
+  }
+
+  pendingStagingQuarantine(owner: QuarantineOwner): StagingQuarantineProof | null {
+    this.requireQuarantineOwner(owner);
+    const rows = this.db.prepare(`SELECT evidence_json_sanitized AS evidenceJson FROM import_receipts i
+      WHERE i.job_id = ? AND i.object_id = ? AND i.kind = 'STAGING_QUARANTINE_INTENT'
+      AND NOT EXISTS (SELECT 1 FROM import_receipts d WHERE d.job_id = i.job_id AND d.object_id = i.object_id
+        AND d.kind = 'STAGING_QUARANTINED' AND d.evidence_json_sanitized = i.evidence_json_sanitized)`)
+      .all(owner.jobId, owner.objectId) as { evidenceJson: string }[];
+    importInvariant(rows.length <= 1, 'STAGING_QUARANTINE_MULTIPLE_PENDING', 409);
+    if (rows.length === 0) return null;
+    const proof = JSON.parse(rows[0]!.evidenceJson) as StagingQuarantineProof;
+    this.validateQuarantine(owner, proof);
+    return proof;
+  }
+
+  recordStagingQuarantine(owner: QuarantineOwner, event: StagingQuarantineEvent): void {
+    this.immediate(() => {
+      this.validateQuarantine(owner, event);
+      // A fixed order makes INTENT and DONE comparable across process/attempt handoff.
+      const proof: StagingQuarantineProof = {
+        operationId: event.operationId, stagingKey: event.stagingKey, quarantineKey: event.quarantineKey,
+        observedSize: event.observedSize, observedSha256: event.observedSha256,
+        expectedSize: event.expectedSize, expectedSha256: event.expectedSha256,
+      };
+      const evidence = sanitizedJson(proof, 'stagingQuarantine.evidence');
+      const base = `staging-quarantine:${owner.objectId}:${proof.operationId}`;
+      const kind = event.phase === 'INTENT' ? 'STAGING_QUARANTINE_INTENT' : 'STAGING_QUARANTINED';
+      if (event.phase === 'DONE') {
+        const intent = this.db.prepare(`SELECT evidence_json_sanitized AS evidenceJson FROM import_receipts
+          WHERE job_id = ? AND object_id = ? AND idempotency_key = ? AND kind = 'STAGING_QUARANTINE_INTENT'`)
+          .get(owner.jobId, owner.objectId, `${base}:INTENT`) as { evidenceJson: string } | undefined;
+        importInvariant(intent?.evidenceJson === evidence, 'STAGING_QUARANTINE_INTENT_MISSING', 409);
+      } else {
+        const pending = this.pendingStagingQuarantine(owner);
+        importInvariant(pending === null || pending.operationId === proof.operationId, 'STAGING_QUARANTINE_PENDING', 409);
+      }
+      const existing = this.db.prepare(`SELECT evidence_json_sanitized AS evidenceJson FROM import_receipts
+        WHERE idempotency_key = ?`).get(`${base}:${event.phase}`) as { evidenceJson: string } | undefined;
+      if (existing) {
+        importInvariant(existing.evidenceJson === evidence, 'STAGING_QUARANTINE_CONFLICT', 409);
+        return;
+      }
+      this.db.prepare(`INSERT INTO import_receipts(id, job_id, object_id, kind, idempotency_key,
+        size, sha256, provider_request_id, evidence_json_sanitized, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NULL, ?, ?)`)
+        .run(randomUUID(), owner.jobId, owner.objectId, kind, `${base}:${event.phase}`,
+          proof.observedSize, proof.observedSha256, evidence, this.now().getTime());
+    });
+  }
+
+  private requireQuarantineOwner(owner: QuarantineOwner): ImportWorkerObject {
+    const job = this.requireRunningJob(owner.jobId);
+    importInvariant(job.attempt === owner.jobAttempt, 'IMPORT_WORKER_ATTEMPT_STALE', 409);
+    const object = this.requireObjectForAttempt(owner.jobId, owner.objectId, owner.objectAttempt);
+    importInvariant(job.destinationId === `onedrive-raw:${owner.destinationAccountId}` ||
+      job.destinationId === `onedrive-crypt:${owner.destinationAccountId}`, 'STAGING_QUARANTINE_ACCOUNT_MISMATCH', 409);
+    importInvariant(object.destinationAccountId === null || object.destinationAccountId === owner.destinationAccountId,
+      'STAGING_QUARANTINE_ACCOUNT_MISMATCH', 409);
+    return object;
+  }
+
+  private validateQuarantine(owner: QuarantineOwner, proof: StagingQuarantineProof): void {
+    const object = this.requireQuarantineOwner(owner);
+    importInvariant(typeof proof.operationId === 'string' && /^[a-f0-9-]{36}$/.test(proof.operationId) &&
+      /^(?:0|[1-9]\d*)$/.test(proof.observedSize) && /^[a-f0-9]{64}$/.test(proof.observedSha256) &&
+      proof.expectedSize === object.sourceSize && proof.expectedSha256 === object.localSha256 &&
+      (proof.observedSize !== proof.expectedSize || proof.observedSha256 !== proof.expectedSha256) &&
+      (proof.stagingKey === `staging/${owner.jobId}/${owner.objectId}` ||
+        proof.stagingKey === `imports/staging/${owner.jobId}/${owner.objectId}`) &&
+      (object.stagingKey === null || object.stagingKey === proof.stagingKey) &&
+      proof.quarantineKey === `quarantine/${proof.stagingKey}/${proof.observedSize}-${proof.observedSha256}`,
+      'STAGING_QUARANTINE_PROOF_INVALID', 409);
   }
 
   beginDownloadRetry(input: {

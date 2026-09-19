@@ -16,6 +16,7 @@ export interface RcloneControl {
     destination: string,
     signal: AbortSignal,
     onProgress?: RcloneProgressCallback,
+    options?: { immutable?: boolean },
   ): Promise<void>;
   move(source: string, destination: string, signal: AbortSignal): Promise<void>;
   deleteFile(remotePath: string, signal: AbortSignal): Promise<void>;
@@ -193,20 +194,16 @@ export class RcloneClient implements RcloneControl {
       args: [...this.baseArgs(), 'lsjson', '--stat', remotePath],
       ...(signal ? { signal } : {}),
     });
-    if (result.exitCode !== 0) {
-      // A missing object is not an error condition for stat; the caller
-      // interprets null as absence. Genuine failures still surface through the
-      // verifier, which requires a present object before trusting a replica.
-      return null;
-    }
+    if (result.exitCode === 3) return null;
+    this.assertOk(result, 'lsjson --stat');
     const parsed = JSON.parse(result.stdout.toString('utf8')) as {
       Name?: string;
       Size?: number;
       IsDir?: boolean;
-    };
-    if (typeof parsed.Size !== 'number' || typeof parsed.Name !== 'string') {
-      return null;
-    }
+    } | null;
+    if (parsed === null) return null;
+    if (typeof parsed.Size !== 'number' || !Number.isSafeInteger(parsed.Size) || parsed.Size < 0 ||
+      typeof parsed.Name !== 'string' || parsed.IsDir === true) throw new RcloneError('invalid rclone stat', -1);
     return { size: parsed.Size, name: parsed.Name };
   }
 
@@ -215,6 +212,7 @@ export class RcloneClient implements RcloneControl {
     destination: string,
     signal: AbortSignal,
     onProgress?: RcloneProgressCallback,
+    options?: { immutable?: boolean },
   ): Promise<void> {
     if (path.isAbsolute(source)) {
       if (source.includes('\0')) throw new RcloneError('invalid local source path', -1);
@@ -231,7 +229,7 @@ export class RcloneClient implements RcloneControl {
       : [];
     const result = await this.runner.run({
       executable: this.executable,
-      args: [...this.baseArgs(), ...progressArgs, 'copyto', source, destination],
+      args: [...this.baseArgs(), ...progressArgs, ...(options?.immutable ? ['--immutable'] : []), 'copyto', source, destination],
       signal,
       ...(onProgress
         ? { onStderrLine: (line: string) => this.parseProgressLine(line, onProgress) }

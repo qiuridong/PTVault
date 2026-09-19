@@ -8,6 +8,8 @@ import {
   DestinationError,
   type DestinationReceipt,
   type DestinationStage,
+  type StagingQuarantineProof,
+  type StagingQuarantineEvent,
   type VerifiedDestinationAdapter,
 } from './destination.js';
 import { dataPlaneInvariant, ImportControlStop, ImportDataPlaneError } from './errors.js';
@@ -21,6 +23,8 @@ export type DataPlaneWorkerStage =
   'SOURCE_PREFLIGHT' | 'DOWNLOADING' | 'LOCAL_LANDING' | 'HASHING' | DestinationStage;
 
 export interface ImportDataPlaneJournal {
+  pendingStagingQuarantine?(task: ImportObjectTask): StagingQuarantineProof | null;
+  stagingQuarantine?(task: ImportObjectTask, event: StagingQuarantineEvent): void | Promise<void>;
   stage(
     task: ImportObjectTask,
     stage: DataPlaneWorkerStage,
@@ -127,6 +131,10 @@ export class SingleObjectImportWorker {
           ...(signal === undefined ? {} : { signal }),
           onStage: (stage) => this.journal.stage(task, stage),
           onDurableReceipt: (receipt) => this.journal.destinationReceipt(task, receipt),
+          ...(this.journal.pendingStagingQuarantine === undefined || this.journal.stagingQuarantine === undefined ? {} : {
+            loadPendingStagingQuarantine: () => this.journal.pendingStagingQuarantine!(task),
+            onStagingQuarantine: (event: StagingQuarantineEvent) => this.journal.stagingQuarantine!(task, event),
+          }),
           ...(this.withStagingUpload === undefined
             ? {}
             : {
@@ -214,10 +222,10 @@ export class SingleObjectImportWorker {
     let hash: ReadyHash;
     if (!atLeast(task.state, 'HASHED')) {
       await this.journal.stage(task, 'HASHING');
-      hash = await this.spool.hashReady(ready);
+      hash = await this.spool.hashReady(ready, signal);
       await this.journal.hashed(task, ready, hash);
     } else {
-      hash = await this.spool.hashReady(ready);
+      hash = await this.spool.hashReady(ready, signal);
       dataPlaneInvariant(
         task.localSha256 !== null && task.localSha256 === hash.sha256,
         'SPOOL_HASH_MISMATCH',
@@ -299,6 +307,7 @@ function classifyFailureCondition(
   }
   if (
     code.startsWith('SPOOL_') ||
+    code.startsWith('STAGING_QUARANTINE_') || code.startsWith('STAGING_CLEANUP_') ||
     code === 'DESTINATION_HASH_MISMATCH' ||
     code.includes('SIZE_MISMATCH')
   ) {

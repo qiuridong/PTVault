@@ -8,7 +8,7 @@ import {
   type ImportWorkerRepository,
   type ImportWorkerStage,
 } from '../worker-repository.js';
-import type { DestinationReceipt } from './destination.js';
+import type { DestinationReceipt, StagingQuarantineProof, StagingQuarantineEvent } from './destination.js';
 import { dataPlaneInvariant, ImportControlStop } from './errors.js';
 import type { DurableDownloadCheckpoint } from './range-downloader.js';
 import type { ReadyEvidence, ReadyHash } from './spool.js';
@@ -39,6 +39,17 @@ const STATE_RANK = new Map(IMPORT_OBJECT_STATES.map((state, index) => [state, in
 
 export class BfImportWorkerJournal implements ImportDataPlaneJournal {
   constructor(private readonly repository: ImportWorkerRepository) {}
+
+  pendingStagingQuarantine(task: ImportObjectTask): StagingQuarantineProof | null {
+    this.checkControl(task);
+    return this.repository.pendingStagingQuarantine(task);
+  }
+
+  stagingQuarantine(task: ImportObjectTask, event: StagingQuarantineEvent): void {
+    this.checkControl(task);
+    this.repository.recordStagingQuarantine(task, event);
+    this.checkControl(task);
+  }
 
   stage(task: ImportObjectTask, stage: DataPlaneWorkerStage, evidence?: unknown): void {
     this.repository.recordStage({

@@ -31,6 +31,7 @@ import type {
   ImportSourceCleanupPolicy,
   ImportSourceKind,
   PublicationPolicy,
+  NetdiskSettingsValues,
 } from '@ptvault/contracts';
 
 import { isDemoSessionActive } from '../../demo/demoSession.js';
@@ -173,6 +174,7 @@ export function ImportCreatePanel({
   readOnlyReason,
   initialSourceConnectionId,
   initialSourceKind,
+  defaults: requestedDefaults,
   onCreated,
   onPipelineCreated,
 }: {
@@ -181,10 +183,14 @@ export function ImportCreatePanel({
   readOnlyReason: ReadOnlyReason;
   initialSourceConnectionId?: string;
   initialSourceKind?: ImportSourceKind;
+  defaults?: Pick<NetdiskSettingsValues, 'defaultDestinationAccountId' | 'defaultPublicationPolicy'> | null;
   onCreated?: (job: ImportJobSummary) => void;
   onPipelineCreated?: (pipeline: ImportPipelineSummary) => void;
 }) {
   const fieldId = useId();
+  // A form's initial defaults are not a live binding. Background refreshes must
+  // never replace the operator's choice or relabel an existing draft.
+  const [defaults] = useState(requestedDefaults);
   const queryClient = useQueryClient();
   const revealRef = useReveal<HTMLDivElement>(60);
   const [formInteracted, setFormInteracted] = useState(false);
@@ -224,9 +230,13 @@ export function ImportCreatePanel({
   const [archiveDepth, setArchiveDepth] = useState(8);
   const [archiveGiB, setArchiveGiB] = useState(256);
   const [destinationId, setDestinationId] = useState(
-    () => destinations.find((destination) => destination.available)?.destinationId ?? '',
+    () => defaults === undefined
+      ? destinations.find((destination) => destination.available)?.destinationId ?? ''
+      : defaults?.defaultDestinationAccountId
+        ? destinations.find((destination) => destination.destinationId === `onedrive-crypt:${defaults.defaultDestinationAccountId}`)?.destinationId ?? ''
+        : '',
   );
-  const [policy, setPolicy] = useState<PublicationPolicy>('ARCHIVE_ONLY');
+  const [policy, setPolicy] = useState<PublicationPolicy>(defaults?.defaultPublicationPolicy ?? 'ARCHIVE_ONLY');
   const [sourceCleanupPolicy, setSourceCleanupPolicy] = useState<ImportSourceCleanupPolicy>('KEEP');
   const [sourceCleanupRequiresPublication, setSourceCleanupRequiresPublication] = useState(false);
   const [mediaType, setMediaType] = useState<ImportMediaType>('MOVIE');
@@ -1346,7 +1356,8 @@ export function ImportCreatePanel({
               <span className="import-radio-body">
                 <span className="import-radio-title">
                   {PUBLICATION_POLICY_LABELS.ARCHIVE_ONLY}
-                  <span className="import-default-tag">默认</span>
+                  {(defaults?.defaultPublicationPolicy ?? 'ARCHIVE_ONLY') === 'ARCHIVE_ONLY'
+                    ? <span className="import-default-tag">默认</span> : null}
                 </span>
                 <span className="import-radio-note">
                   完成校验迁移与恢复材料；不建媒体目录、不建 symlink、不通知
@@ -1369,7 +1380,10 @@ export function ImportCreatePanel({
                 onChange={() => setPolicy('PUBLISH_TO_JELLYFIN')}
               />
               <span className="import-radio-body">
-                <span className="import-radio-title">发布到 Jellyfin</span>
+                <span className="import-radio-title">发布到 Jellyfin
+                  {defaults?.defaultPublicationPolicy === 'PUBLISH_TO_JELLYFIN'
+                    ? <span className="import-default-tag">默认</span> : null}
+                </span>
                 <span className="import-radio-note">
                   {publishAllowed
                     ? '备份闭环完成后，另派一个发布任务把它放进指定媒体库。'

@@ -74,7 +74,11 @@ const READ_ONLY_LABELS: Record<Exclude<ReadOnlyReason, null>, string> = {
  * None of these live in the command palette. A fuzzy list one keystroke from
  * Enter is the wrong home for anything that moves or removes data.
  */
-export function ImportActions({
+export function ImportActions(props: Parameters<typeof ImportActionsForJob>[0]) {
+  return <ImportActionsForJob key={props.detail.jobId} {...props} />;
+}
+
+function ImportActionsForJob({
   detail,
   supportedActions,
   readOnlyReason,

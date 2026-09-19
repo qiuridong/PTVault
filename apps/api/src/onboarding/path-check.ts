@@ -97,6 +97,7 @@ export class SetupPathProbe {
     if (directory === null) return { ...checked, outcome: 'NOT_CONFIGURED' };
     let probePath: string | undefined;
     let probeIdentity: { ino: bigint; dev: bigint } | undefined;
+    let outcome: SetupPathCheckResult;
     try {
       const entry = await lstat(directory);
       if (entry.isSymbolicLink()) return { ...checked, outcome: 'SYMLINK_ESCAPE' };
@@ -117,10 +118,10 @@ export class SetupPathProbe {
       } finally { await file.close(); }
       const capacity = await statfs(hostPath, { bigint: true });
       const available = capacity.bavail * capacity.bsize;
-      return { ...checked, outcome: 'WRITABLE', availableBytes: available.toString(), suggestedBudget: recommendSpoolBudget(available) };
+      outcome = { ...checked, outcome: 'WRITABLE', availableBytes: available.toString(), suggestedBudget: recommendSpoolBudget(available) };
     } catch (error) {
-      return { ...checked, outcome: outcomeFor(error) };
-    } finally {
+      outcome = { ...checked, outcome: outcomeFor(error) };
+    }
       if (probePath !== undefined && probeIdentity !== undefined) {
         try {
           const current = await lstat(probePath, { bigint: true });
@@ -129,6 +130,6 @@ export class SetupPathProbe {
           if ((error as NodeJS.ErrnoException).code !== 'ENOENT') throw error;
         }
       }
-    }
+    return outcome;
   }
 }

@@ -28,6 +28,7 @@ type PathMapRow = { from: string; to: string };
 
 function errorMessage(error: unknown): string {
   if (error instanceof ApiError) {
+    if (error.code === 'QB_CREDENTIAL_TARGET_CHANGED') return error.message;
     if (error.status === 401) return '会话已过期，请重新登录后再保存。';
     if (error.status === 400) return `${error.message}（路径映射需写成 /容器内路径=/宿主机路径）`;
     return error.message;
@@ -122,7 +123,14 @@ export function InstanceEditor({ instance, supportsPathMaps, onClose }: Instance
     setRows(next);
   };
 
-  const requiresPassword = isNew || instance.hasCredential !== true;
+  const credentialTargetChanged = (() => {
+    if (instance === null || instance.baseUrl == null) return false;
+    try {
+      return new URL(baseUrl.trim()).href.replace(/\/+$/, '') !== new URL(instance.baseUrl).href.replace(/\/+$/, '') ||
+        username.trim() !== instance.username;
+    } catch { return true; }
+  })();
+  const requiresPassword = isNew || instance.hasCredential !== true || credentialTargetChanged;
   const rowProblems = rows.map(rowProblem);
   const hasRowProblem = rowProblems.some((problem) => problem !== null);
   const canSubmit =
@@ -240,6 +248,7 @@ export function InstanceEditor({ instance, supportsPathMaps, onClose }: Instance
               placeholder={requiresPassword ? '' : '留空则沿用已保存的密码'}
             />
             <small className="field-hint">
+              {credentialTargetChanged ? '连接目标或用户名已更改，请重新输入密码；原密码不会发送给新目标。' : null}
               密码以主密钥加密后落库，绝不明文存储，也不会通过接口返回。
               {requiresPassword ? '' : '留空表示沿用已保存的密码；测试连接则必须重新输入。'}
             </small>

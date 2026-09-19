@@ -6,7 +6,7 @@ import Fastify, { LogController, type FastifyInstance, type onRequestHookHandler
 
 import { registerAuditRoutes } from './audit/routes.js';
 import type { AuditRepository } from './audit/repository.js';
-import { createSessionGuard, createRecentMfaGuard } from './auth/guards.js';
+import { createSessionGuard, createRecentMfaGuard, SESSION_COOKIE_NAME } from './auth/guards.js';
 import { registerAuthRoutes } from './auth/routes.js';
 import { registerBootstrapRoutes } from './onboarding/bootstrap-routes.js';
 import type { BootstrapService } from './onboarding/bootstrap.js';
@@ -316,6 +316,22 @@ export async function buildApp(deps: AppDependencies): Promise<FastifyInstance> 
     },
   });
   await app.register(rateLimit, { global: false });
+
+  app.addHook('onSend', (request, reply, payload) => {
+    // Keep successful idempotent replays available. Only translate a refused
+    // step-up response; verifyStepUp owns the shared attempt budget itself.
+    if (reply.statusCode !== 403 || !request.body || typeof request.body !== 'object' ||
+      (!Object.hasOwn(request.body, 'mfaCode') && !Object.hasOwn(request.body, 'stepUpCode'))) return Promise.resolve(payload);
+    const raw = request.cookies[SESSION_COOKIE_NAME];
+    const principal = raw ? deps.auth.requireSession(raw) : null;
+    const retryAfter = principal ? deps.auth.stepUpRetryAfter(principal.adminId) : 0;
+    if (retryAfter > 0) {
+      void reply.code(429).header('retry-after', String(retryAfter));
+      return Promise.resolve(JSON.stringify({ code: 'MFA_RATE_LIMITED',
+        error: `验证码错误次数过多，请在 ${retryAfter} 秒后重试；当前草稿与登录会话保留。` }));
+    }
+    return Promise.resolve(payload);
+  });
 
   app.decorateRequest('authenticatedAdmin', null);
   const requireSession = createSessionGuard(deps.auth);

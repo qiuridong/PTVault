@@ -128,12 +128,14 @@ export class RecoveryBundleService {
 
       for (const account of accounts) {
         this.accounts.getEligible(account.id, 'NEW_WORK');
-        const prefix = `${account.cryptRemote}recovery/v${version}`;
+        // Bootstrap must not require the crypt keys contained inside this bundle.
+        // Recipient/content namespaces keep independent installations and versions apart.
+        const prefix = `${account.rawRemote}ptvault-recovery/${sha256(Buffer.from(recipient)).slice(0, 32)}/v${version}/${bundleSha256}`;
         const bundleRemotePath = `${prefix}/bundle.tar.age`;
         const escrowRemotePath = `${prefix}/escrow.age`;
-        await this.rclone.copy(bundlePath, bundleRemotePath, input.signal);
+        await this.copyNewOrVerify(bundlePath, bundleRemotePath, bundleBytes, input.signal);
         this.accounts.getEligible(account.id, 'NEW_WORK');
-        await this.rclone.copy(escrowTemporaryPath, escrowRemotePath, input.signal);
+        await this.copyNewOrVerify(escrowTemporaryPath, escrowRemotePath, escrowBytes, input.signal);
         this.accounts.getEligible(account.id, 'NEW_WORK');
         const assertEligible = (): void => {
           this.accounts.getEligible(account.id, 'NEW_WORK');
@@ -180,6 +182,15 @@ export class RecoveryBundleService {
     }
     return account;
   }
+
+  private async copyNewOrVerify(local: string, remote: string, expected: Buffer, signal: AbortSignal): Promise<void> {
+    const existing = await this.rclone.stat(remote, signal);
+    if (existing !== null) {
+      await verifyRemote(this.rclone, remote, expected, signal, () => signal.throwIfAborted());
+      return;
+    }
+    await this.rclone.copy(local, remote, signal, undefined, { immutable: true });
+  }
 }
 
 async function verifyRemote(
@@ -190,16 +201,35 @@ async function verifyRemote(
   assertEligible: () => void,
 ): Promise<void> {
   assertEligible();
-  const stat = await rclone.stat(remotePath);
+  const stat = await rclone.stat(remotePath, signal);
   assertEligible();
   if (!stat || stat.size !== expected.length) throw new Error('RECOVERY_COPY_SIZE_MISMATCH');
-  const { stream, completed } = rclone.cat(remotePath, signal);
-  const hash = createHash('sha256');
-  for await (const chunk of stream) hash.update(chunk as Buffer);
-  const result = await completed;
-  assertEligible();
-  if (result.exitCode !== 0 || hash.digest('hex') !== sha256(expected)) {
-    throw new Error('RECOVERY_COPY_CHECKSUM_MISMATCH');
+  const controller = new AbortController();
+  const abort = () => controller.abort(signal.reason);
+  signal.addEventListener('abort', abort, { once: true });
+  if (signal.aborted) abort();
+  let child: ReturnType<RcloneControl['cat']> | undefined;
+  try {
+    child = rclone.cat(remotePath, controller.signal);
+    // Attach rejection handling immediately, even while consuming stdout.
+    void child.completed.catch(() => undefined);
+    const hash = createHash('sha256');
+    let bytes = 0;
+    for await (const chunk of child.stream) {
+      signal.throwIfAborted();
+      bytes += (chunk as Buffer).length;
+      if (bytes > expected.length) throw new Error('RECOVERY_COPY_SIZE_MISMATCH');
+      hash.update(chunk as Buffer);
+    }
+    const result = await child.completed;
+    assertEligible();
+    if (result.exitCode !== 0 || bytes !== expected.length || hash.digest('hex') !== sha256(expected)) {
+      throw new Error('RECOVERY_COPY_CHECKSUM_MISMATCH');
+    }
+  } finally {
+    controller.abort();
+    if (child) await child.completed.catch(() => undefined);
+    signal.removeEventListener('abort', abort);
   }
 }
 

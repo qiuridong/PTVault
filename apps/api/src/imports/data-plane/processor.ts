@@ -332,10 +332,12 @@ export class ImportDataPlaneProcessor {
         }
         let alreadyAbsent = true;
         if (ready !== null) {
-          const hash = await this.spool.hashReady(ready);
+          const hash = await this.spool.hashReady(ready, signal);
           if (object.localSha256 === null || hash.sha256 !== object.localSha256) {
             throw new ImportDataPlaneError('SPOOL_HASH_MISMATCH');
           }
+          signal?.throwIfAborted();
+          this.checkControl(claimed);
           ({ alreadyAbsent } = await this.spool.cleanup({
             objectId: object.objectId,
             ready,

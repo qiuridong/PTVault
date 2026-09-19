@@ -10,6 +10,7 @@ export const PUBLIC_FILES = Object.freeze([
   'apps/web/package.json', 'apps/web/tsconfig.json', 'apps/web/index.html',
   'packages/contracts/package.json', 'packages/contracts/tsconfig.json',
   'deploy/archive-sandbox.py',
+  'deploy/recovery/prepare-recovery.sh', 'deploy/recovery/prepare-recovery.ps1',
   'apps/web/public/fonts/LICENSE.md',
   'apps/web/public/fonts/inter-OFL.txt', 'apps/web/public/fonts/jetbrains-OFL.txt', 'apps/web/public/fonts/bricolage-OFL.txt',
 ]);
